@@ -50,8 +50,6 @@ stages:          # List of stages for jobs, and their order of execution
 #  script:
 #    - echo "Deploying application..."
 #    - echo "Application successfully deployed."
-before_script:
-  - pip install -r requirements/dev.txt
 
 flake8:
     stage: linting
