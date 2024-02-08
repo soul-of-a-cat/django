@@ -65,7 +65,7 @@ black:
 
 mypy:
   stage: mypying
-  image: Python 3.12
+  image: python 3.12
   script:
     - pip install mypy
     - mypy --check-untyped-defs .
