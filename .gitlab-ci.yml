@@ -70,4 +70,4 @@ mypy:
     - pip install django-stubs
     - pip install python-dotenv
     - pip install mypy
-    - mypy .
+    - mypy --verbose .
