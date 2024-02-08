@@ -67,5 +67,6 @@ mypy:
   stage: mypying
   image: python:3.12
   script:
+    - pip install mypy
     - mypy .
   allow_failure: true
