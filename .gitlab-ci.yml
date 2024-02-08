@@ -66,4 +66,5 @@ black:
 mypy:
   stage: mypying
   script:
+    - pip install mypy
     - mypy --check-untyped-defs .
