@@ -65,6 +65,5 @@ black:
 
 mypy:
   stage: mypying
-  image: registry.gitlab.com/pipeline-components/mypy:latest
   script:
     - mypy --check-untyped-defs .
