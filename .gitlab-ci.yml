@@ -67,7 +67,6 @@ mypy:
   stage: linting
   image: python:3.12
   script:
-    - pip install django-stubs
     - pip install python-dotenv
-    - pip install mypy
+    - pip install mypy django-stubs[compatible-mypy]
     - mypy --verbose .
