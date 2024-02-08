@@ -67,5 +67,7 @@ mypy:
   stage: mypying
   image: python:3.12
   script:
+    - pip install django-stubs
+    - pip install python-dotenv
     - pip install mypy
     - mypy .
