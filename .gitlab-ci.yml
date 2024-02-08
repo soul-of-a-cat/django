@@ -64,7 +64,7 @@ black:
         - black --check .
 
 mypy:
-  stage: mypying
+  stage: linting
   image: python:3.12
   script:
     - pip install django-stubs
