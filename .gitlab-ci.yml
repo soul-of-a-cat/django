@@ -69,4 +69,3 @@ mypy:
   script:
     - pip install mypy
     - mypy .
-  allow_failure: true
