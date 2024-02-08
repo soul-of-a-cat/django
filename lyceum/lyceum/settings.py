@@ -77,12 +77,10 @@ WSGI_APPLICATION = "lyceum.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-db_name = f"{BASE_DIR}/{os.getenv("DB_NAME")}"
-
 DATABASES = {
     "default": {
         "ENGINE": os.getenv("DB_ENGINE"),
-        "NAME": db_name,
+        "NAME": os.getenv("DB_NAME"),
     }
 }
 
