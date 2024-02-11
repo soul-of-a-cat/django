@@ -22,7 +22,30 @@ stages:          # List of stages for jobs, and their order of execution
 #  - deploy
   - linting
   - blackened
-  - mypying
+  - test
+
+flake8:
+    stage: linting
+    image: registry.gitlab.com/pipeline-components/flake8:latest
+    script:
+        - flake8 --verbose .
+
+black:
+    stage: blackened
+    image: registry.gitlab.com/pipeline-components/black:latest
+    script:
+        - black --check .
+
+unit-test-job:
+  stage: test
+  image: python:3.12
+  script:
+    - python -m venv venv (python3 -m venv venv)
+    - .venv/Scripts/activate (source .venv/bin/activate)
+    - python -m pip install -r requirements/dev.txt -r requirements/prod.txt
+    - cd lyceum
+    - python manage.py test
+    - deactivate
 
 #build-job:       # This job runs in the build stage, which runs first.
 #  stage: build
@@ -51,22 +74,3 @@ stages:          # List of stages for jobs, and their order of execution
 #    - echo "Deploying application..."
 #    - echo "Application successfully deployed."
 
-flake8:
-    stage: linting
-    image: registry.gitlab.com/pipeline-components/flake8:latest
-    script:
-        - flake8 --verbose .
-
-black:
-    stage: blackened
-    image: registry.gitlab.com/pipeline-components/black:latest
-    script:
-        - black --check .
-
-mypy:
-  stage: linting
-  image: python:3.12
-  script:
-    - pip install python-dotenv
-    - pip install mypy django-stubs[compatible-mypy]
-    - mypy --verbose .

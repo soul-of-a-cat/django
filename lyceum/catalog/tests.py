@@ -1,3 +1,9 @@
-# from django.test import TestCase
+from django.test import TestCase, Client
 
 # Create your tests here.
+
+
+class StaticUrlTests(TestCase):
+    def test_catalog_endpoint(self):
+        response = Client().get("/catalog/")
+        self.assertEqual(response.status_code, 200)
