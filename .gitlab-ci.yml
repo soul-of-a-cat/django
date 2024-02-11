@@ -40,12 +40,12 @@ unit-test-job:
   stage: test
   image: python:3.12
   script:
-    - python -m venv venv
-    - venv/Scripts/activate
-    - python -m pip install -r requirements/dev.txt -r requirements/prod.txt
-    - cd lyceum
+#    - python -m venv venv
+#    - venv/Scripts/activate
+#    - python -m pip install -r requirements/dev.txt -r requirements/prod.txt
+#    - cd lyceum
     - python manage.py test
-    - deactivate
+#    - deactivate
 
 #build-job:       # This job runs in the build stage, which runs first.
 #  stage: build
