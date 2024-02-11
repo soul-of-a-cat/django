@@ -43,7 +43,7 @@ unit-test-job:
 #    - python -m venv venv
 #    - venv/Scripts/activate
 #    - python -m pip install -r requirements/dev.txt -r requirements/prod.txt
-#    - cd lyceum
+    - cd lyceum
     - python manage.py test
 #    - deactivate
 
