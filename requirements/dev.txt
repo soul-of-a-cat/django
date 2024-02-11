@@ -6,3 +6,4 @@ flake8-quotes==3.3.2
 django-stubs==4.2.7
 django-debug-toolbar==4.3.0
 python-dotenv==1.0.1
+django_stubs_ext==4.2.7
