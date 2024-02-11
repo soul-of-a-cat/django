@@ -17,12 +17,13 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import include, path
+import debug_toolbar
 
 urlpatterns = [
     path("homepage/", include("homepage.urls")),
     path("about/", include("about.urls")),
     path("catalog/", include("catalog.urls")),
     path("admin/", admin.site.urls),
-    path("debug/", include("debug_toolbar.urls")),
+    path("__debug__/", include(debug_toolbar.urls)),
     path("", include("homepage.urls")),
 ]

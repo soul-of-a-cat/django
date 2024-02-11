@@ -6,4 +6,4 @@ from django.http import HttpResponse
 
 
 def home(request):
-    return HttpResponse("Главная")
+    return HttpResponse("Главная", status=200)
