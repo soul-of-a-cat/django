@@ -1,7 +1,9 @@
 #!/usr/bin/env python
 """Django's command-line utility for administrative tasks."""
 import os
-import sys
+# import sys
+
+import django.core.management.commands.runserver as runserver
 
 
 def main():
@@ -15,7 +17,10 @@ def main():
             "available on your PYTHONPATH environment variable? Did you "
             "forget to activate a virtual environment?"
         ) from exc
-    execute_from_command_line(sys.argv)
+    cmd = runserver.Command()
+    execute_from_command_line(
+        ["manage.py", "runserver", str(cmd.default_port)]
+    )
 
 
 if __name__ == "__main__":
