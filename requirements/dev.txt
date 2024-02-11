@@ -4,3 +4,4 @@ pep8-naming==0.13.3
 flake8-import-order==0.18.2
 flake8-quotes==3.3.2
 django-stubs==4.2.7
+django-debug-toolbar==4.3.0
