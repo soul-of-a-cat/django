@@ -23,5 +23,5 @@ urlpatterns = [
     path("about/", include("about.urls")),
     path("catalog/", include("catalog.urls")),
     path("admin/", admin.site.urls),
-    path("debug/", include("debug_toolbar.urls"))
+    path("debug/", include("debug_toolbar.urls")),
 ]
