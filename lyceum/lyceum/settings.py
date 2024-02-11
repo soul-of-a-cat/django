@@ -13,12 +13,12 @@ load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = os.getenv("DJANGO_SECRET_KEY",
-                            default=get_random_secret_key())
+SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", 
+                default=get_random_secret_key())
 DEBUG = os.environ.get("DJANGO_DEBUG", "False").lower()
 
 ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS",
-                               default="localhost").split(",")
+                default="localhost").split(",")
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
