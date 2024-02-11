@@ -1,9 +1,9 @@
 import os
 from pathlib import Path
 
-import django_stubs_ext
-
 from django.core.management.utils import get_random_secret_key
+
+import django_stubs_ext
 from dotenv import load_dotenv
 
 django_stubs_ext.monkeypatch()
@@ -13,12 +13,12 @@ load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY",
+SECRET_KEY = os.getenv("DJANGO_SECRET_KEY",
                             default=get_random_secret_key())
 
 DEBUG = os.environ.get("DJANGO_DEBUG", "False").lower()
 
-ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS",
+ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS",
                                default="localhost").split(",")
 
 INSTALLED_APPS = [
