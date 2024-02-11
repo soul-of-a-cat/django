@@ -40,7 +40,7 @@ unit-test-job:
   stage: test
   image: python:3.12
   script:
-    - python -m venv venv
+    - python -m venv .venv
     - .venv/Scripts/activate
     - python -m pip install -r requirements/dev.txt -r requirements/prod.txt
     - cd lyceum
