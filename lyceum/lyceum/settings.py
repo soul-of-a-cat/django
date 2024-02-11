@@ -32,7 +32,7 @@ SECRET_KEY = env("DJANGO_SECRET_KEY", default="key")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env("DJANGO_DEBUG")
 
-ALLOWED_HOSTS = env("DJANGO_ALLOWED_HOSTS")
+ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS")
 
 # Application definition
 
@@ -61,7 +61,8 @@ MIDDLEWARE = [
 ]
 
 INTERNAL_IPS = [
-    "127.0.0.1",
+    "127.0.0.1:8000",
+    "localhost"
 ]
 
 ROOT_URLCONF = "lyceum.urls"
