@@ -14,11 +14,11 @@ load_dotenv()
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", 
-                       default=get_random_secret_key())
+default=get_random_secret_key())
 DEBUG = os.environ.get("DJANGO_DEBUG", "False").lower()
 
-ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS",
-                          default="localhost").split(",")
+ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", 
+default="localhost").split(",")
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
