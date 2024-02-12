@@ -3,10 +3,7 @@ from pathlib import Path
 
 from django.core.management.utils import get_random_secret_key
 
-import django_stubs_ext
 from dotenv import load_dotenv
-
-django_stubs_ext.monkeypatch()
 
 load_dotenv()
 
