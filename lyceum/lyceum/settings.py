@@ -3,13 +3,13 @@ from pathlib import Path
 
 import dotenv
 
-dotenv.load_dotenv(".env")
+dotenv.load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", default="FAKE")
+SECRET_KEY = os.getenv("DJANGO_SECRET", "not_so_secret")
 
-DEBUG_ENV = os.getenv("DJANGO_DEBUG", default="False").lower()
+DEBUG_ENV = os.getenv("DJANGO_DEBUG", "true").lower()
 DEBUG = DEBUG_ENV in ("yes", "true", "y", "1", "t")
 
 ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "*").split(",")
