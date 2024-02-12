@@ -21,7 +21,6 @@ stages:          # List of stages for jobs, and their order of execution
 #  - test
 #  - deploy
   - linting
-  - blackened
   - test
 
 flake8:
@@ -31,7 +30,7 @@ flake8:
         - flake8 --verbose .
 
 black:
-    stage: blackened
+    stage: linting
     image: registry.gitlab.com/pipeline-components/black:latest
     script:
         - black --check .
