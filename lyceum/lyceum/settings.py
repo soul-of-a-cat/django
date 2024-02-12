@@ -72,16 +72,15 @@ if DEBUG:
 else:
     INSTALLED_APPS = []
 
-
-def show_toolbar(request):
-    return True
-
-
-DEBUG_TOOLBAR_CONFIG = {
-    "SHOW_TOOLBAR_CALLBACK": show_toolbar,
-}
-
 if DEBUG:
+
+    def show_toolbar(request):
+        return True
+
+    DEBUG_TOOLBAR_CONFIG = {
+        "SHOW_TOOLBAR_CALLBACK": show_toolbar,
+    }
+
     import mimetypes
 
     mimetypes.add_type("application/javascript", ".js", True)
