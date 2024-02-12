@@ -1,89 +1,59 @@
 import os
 from pathlib import Path
 
-from dotenv import load_dotenv
+import dotenv
 
-load_dotenv()
+dotenv.load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", default="FAKE")
 
-DEBUG_ENV = os.getenv("DJANGO_DEBUG", default=False).lower()
+DEBUG_ENV = os.getenv("DJANGO_DEBUG", default="False").lower()
 DEBUG = DEBUG_ENV in ("yes", "true", "y", "1", "t")
 
-ALLOWED_HOSTS = list(
-    os.getenv("DJANGO_ALLOWED_HOSTS", "127.0.0.1,localhost").split(",")
-)
+ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "*").split(",")
 
+INSTALLED_APPS = [
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.messages",
+    "django.contrib.staticfiles",
+    "homepage.apps.HomepageConfig",
+    "catalog.apps.CatalogConfig",
+    "about.apps.AboutConfig",
+]
+
+MIDDLEWARE = [
+    "django.middleware.security.SecurityMiddleware",
+    "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.common.CommonMiddleware",
+    "django.middleware.csrf.CsrfViewMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.contrib.messages.middleware.MessageMiddleware",
+    "django.middleware.clickjacking.XFrameOptionsMiddleware",
+]
+
+# debug_toolbar moved here.
 if DEBUG:
-    INSTALLED_APPS = [
-        "django.contrib.admin",
-        "django.contrib.auth",
-        "django.contrib.contenttypes",
-        "django.contrib.sessions",
-        "django.contrib.messages",
-        "django.contrib.staticfiles",
-        "homepage.apps.HomepageConfig",
-        "catalog.apps.CatalogConfig",
-        "about.apps.AboutConfig",
-        "debug_toolbar",
+    MIDDLEWARE += [
+        'debug_toolbar.middleware.DebugToolbarMiddleware',
     ]
-else:
-    INSTALLED_APPS = [
-        "django.contrib.admin",
-        "django.contrib.auth",
-        "django.contrib.contenttypes",
-        "django.contrib.sessions",
-        "django.contrib.messages",
-        "django.contrib.staticfiles",
-        "homepage.apps.HomepageConfig",
-        "catalog.apps.CatalogConfig",
-        "about.apps.AboutConfig",
+    INSTALLED_APPS += [
+        'debug_toolbar',
     ]
+    INTERNAL_IPS = ['127.0.0.1', ]
 
-if DEBUG:
-    MIDDLEWARE = [
-        "django.middleware.security.SecurityMiddleware",
-        "django.contrib.sessions.middleware.SessionMiddleware",
-        "django.middleware.common.CommonMiddleware",
-        "django.middleware.csrf.CsrfViewMiddleware",
-        "django.contrib.auth.middleware.AuthenticationMiddleware",
-        "django.contrib.messages.middleware.MessageMiddleware",
-        "django.middleware.clickjacking.XFrameOptionsMiddleware",
-        "debug_toolbar.middleware.DebugToolbarMiddleware",
-    ]
-else:
-    MIDDLEWARE = [
-        "django.middleware.security.SecurityMiddleware",
-        "django.contrib.sessions.middleware.SessionMiddleware",
-        "django.middleware.common.CommonMiddleware",
-        "django.middleware.csrf.CsrfViewMiddleware",
-        "django.contrib.auth.middleware.AuthenticationMiddleware",
-        "django.contrib.messages.middleware.MessageMiddleware",
-        "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    ]
-
-if DEBUG:
-    INTERNAL_IPS = [
-        "127.0.0.1",
-        "localhost",
-    ]
-else:
-    INSTALLED_APPS = []
-
-if DEBUG:
-
-    def show_toolbar(request):
-        return True
+    # this is the main reason for not showing up the toolbar
+    import mimetypes
+    mimetypes.add_type("application/javascript", ".js", True)
 
     DEBUG_TOOLBAR_CONFIG = {
-        "SHOW_TOOLBAR_CALLBACK": show_toolbar,
+        'INTERCEPT_REDIRECTS': False,
     }
 
-    import mimetypes
-
-    mimetypes.add_type("application/javascript", ".js", True)
 
 ROOT_URLCONF = "lyceum.urls"
 
