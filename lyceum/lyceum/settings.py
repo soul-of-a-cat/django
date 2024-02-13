@@ -9,7 +9,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", default="not_so_secret")
 
-DEBUG_ENV = os.getenv("DJANGO_DEBUG", "false").lower()
+DEBUG_ENV = os.getenv("DJANGO_DEBUG", default="false").lower()
 DEBUG = DEBUG_ENV in ("yes", "true", "y", "1", "t")
 
 ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "*").split(",")
@@ -38,25 +38,25 @@ MIDDLEWARE = [
 
 # debug_toolbar moved here.
 if DEBUG:
-    MIDDLEWARE += [
-        "debug_toolbar.middleware.DebugToolbarMiddleware",
-    ]
-    INSTALLED_APPS += [
-        "debug_toolbar",
-    ]
     INTERNAL_IPS = [
         "127.0.0.1",
         "localhost",
     ]
+    INSTALLED_APPS += [
+        "debug_toolbar",
+    ]
+    MIDDLEWARE += [
+        "debug_toolbar.middleware.DebugToolbarMiddleware",
+    ]
 
     # this is the main reason for not showing up the toolbar
-    import mimetypes
-
-    mimetypes.add_type("application/javascript", ".js", True)
-
-    DEBUG_TOOLBAR_CONFIG = {
-        "INTERCEPT_REDIRECTS": False,
-    }
+    # import mimetypes
+    #
+    # mimetypes.add_type("application/javascript", ".js", True)
+    #
+    # DEBUG_TOOLBAR_CONFIG = {
+    #     "INTERCEPT_REDIRECTS": False,
+    # }
 
 
 ROOT_URLCONF = "lyceum.urls"
