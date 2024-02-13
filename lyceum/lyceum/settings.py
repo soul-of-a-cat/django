@@ -75,10 +75,13 @@ if DEBUG:
     DEBUG_TOOLBAR_CONFIG = {
         "INTERCEPT_REDIRECTS": False,
     }
+    # print(TEMPLATES[0]["OPTIONS"]["context_processors"])
 
     TEMPLATES[0]["OPTIONS"]["context_processors"] += [
         "django.template.context_processors.debug",
     ]
+
+# print(TEMPLATES[0]["OPTIONS"]["context_processors"])
 
 WSGI_APPLICATION = "lyceum.wsgi.application"
 
