@@ -1,4 +1,4 @@
--r prod.txt
+-r prod.txt -r dev.txt
 flake8==7.0.0
 pep8-naming==0.13.3
 flake8-import-order==0.18.2
