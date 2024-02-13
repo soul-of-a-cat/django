@@ -11,3 +11,7 @@ class StaticUrlTests(APITestCase):
     def test_catalog_endpoint(self):
         response = self.client.get("/catalog/")
         self.assertEqual(response.status_code, 200)
+
+    def test_converter_endpoint(self):
+        response = self.client.get("/catalog/converter/5/")
+        self.assertEqual(response.content.decode(), "5")

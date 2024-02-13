@@ -11,3 +11,7 @@ def item_detail(request, item_id):
 
 def number(request, num):
     return HttpResponse(content=num, status=200)
+
+
+def converter(request, num):
+    return HttpResponse(content=num, status=200)
