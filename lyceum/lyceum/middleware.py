@@ -10,7 +10,7 @@ class ReverseResponseMiddleware:
 
     def __call__(self, request):
         response = self.get_response(request)
-        if self.count == 10:
+        if self.count == 9:
             if settings.ALLOW_REVERSE:
                 content = response.content.decode("utf-8")
                 russian_words = re.findall("[а-яА-ЯёЁ]+", content)

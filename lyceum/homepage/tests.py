@@ -1,5 +1,6 @@
 from rest_framework.test import APITestCase
-from rest_framework import status
+
+from http import HTTPStatus
 
 
 class StaticUrlTests(APITestCase):
@@ -9,5 +10,5 @@ class StaticUrlTests(APITestCase):
 
     def test_coffee_endpoint(self):
         response = self.client.get("/homepage/coffee/")
-        self.assertEqual(response.status_code, status.HTTP_418_IM_A_TEAPOT)
+        self.assertEqual(response.status_code, HTTPStatus.IM_A_TEAPOT)
         self.assertEqual(response.content.decode("utf-8"), "Я чайник")
