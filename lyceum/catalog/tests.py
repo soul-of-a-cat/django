@@ -1,7 +1,5 @@
 from rest_framework.test import APITestCase
 
-# Create your tests here.
-
 
 class StaticUrlTests(APITestCase):
     def test_renumber_endpoint(self):

@@ -1,6 +1,6 @@
-from rest_framework.test import APITestCase
-
 from http import HTTPStatus
+
+from rest_framework.test import APITestCase
 
 
 class StaticUrlTests(APITestCase):
