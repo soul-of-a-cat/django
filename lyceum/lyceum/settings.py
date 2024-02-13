@@ -50,13 +50,13 @@ if DEBUG:
     ]
 
     # this is the main reason for not showing up the toolbar
-    # import mimetypes
-    #
-    # mimetypes.add_type("application/javascript", ".js", True)
-    #
-    # DEBUG_TOOLBAR_CONFIG = {
-    #     "INTERCEPT_REDIRECTS": False,
-    # }
+    import mimetypes
+
+    mimetypes.add_type("application/javascript", ".js", True)
+
+    DEBUG_TOOLBAR_CONFIG = {
+        "INTERCEPT_REDIRECTS": False,
+    }
 
 
 ROOT_URLCONF = "lyceum.urls"
