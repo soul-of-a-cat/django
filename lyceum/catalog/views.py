@@ -17,6 +17,6 @@ def number(request, num):
 
 
 def converter(request, num):
-    if num <= 0:
+    if int(num) <= 0:
         return HttpResponse(status=404)
     return HttpResponse(content=num, status=200)
