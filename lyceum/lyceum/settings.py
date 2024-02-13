@@ -37,6 +37,23 @@ MIDDLEWARE = [
     # "middleware.ReverseResponseMiddleware",
 ]
 
+ROOT_URLCONF = "lyceum.urls"
+
+TEMPLATES = [
+    {
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "DIRS": [],
+        "APP_DIRS": True,
+        "OPTIONS": {
+            "context_processors": [
+                "django.template.context_processors.request",
+                "django.contrib.auth.context_processors.auth",
+                "django.contrib.messages.context_processors.messages",
+            ],
+        },
+    },
+]
+
 # debug_toolbar moved here.
 if DEBUG:
     INTERNAL_IPS = [
@@ -59,24 +76,9 @@ if DEBUG:
         "INTERCEPT_REDIRECTS": False,
     }
 
-
-ROOT_URLCONF = "lyceum.urls"
-
-TEMPLATES = [
-    {
-        "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
-        "APP_DIRS": True,
-        "OPTIONS": {
-            "context_processors": [
-                "django.template.context_processors.debug",
-                "django.template.context_processors.request",
-                "django.contrib.auth.context_processors.auth",
-                "django.contrib.messages.context_processors.messages",
-            ],
-        },
-    },
-]
+    TEMPLATES[0]["OPTIONS"]["context_processors"] += [
+        "django.template.context_processors.debug",
+    ]
 
 WSGI_APPLICATION = "lyceum.wsgi.application"
 
