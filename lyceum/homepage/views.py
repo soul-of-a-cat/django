@@ -10,5 +10,7 @@ def home(request):
 
 
 def coffee(request):
-    content = {"header": "I am a teapot"}
-    return HttpResponse(headers=content, status=status.HTTP_418_IM_A_TEAPOT)
+    content = "Я чайник"
+    return HttpResponse(
+        content=content, status=status.HTTP_418_IM_A_TEAPOT, charset="utf-8"
+    )

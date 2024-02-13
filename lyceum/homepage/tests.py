@@ -9,4 +9,4 @@ class StaticUrlTests(APITestCase):
     def test_coffee_endpoint(self):
         response = self.client.get("/homepage/coffee/")
         self.assertEqual(response.status_code, 418)
-        self.assertEqual(response.headers["header"], "I am a teapot")
+        self.assertEqual(response.content.decode(), "Я чайник")
