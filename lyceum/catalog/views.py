@@ -1,4 +1,5 @@
 from django.http import HttpResponse
+from rest_framework import status
 
 
 def item_list(request):
@@ -10,8 +11,12 @@ def item_detail(request, item_id):
 
 
 def number(request, num):
-    return HttpResponse(content=num, status=200)
+    if int(num) <= 0:
+        return HttpResponse(status=404)
+    return HttpResponse(content=num, status=status.HTTP_200_OK)
 
 
 def converter(request, num):
+    if num <= 0:
+        return HttpResponse(status=404)
     return HttpResponse(content=num, status=200)
