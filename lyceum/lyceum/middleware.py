@@ -2,11 +2,14 @@ import re
 
 from django.conf import settings
 
+count = 0
+
 
 class ReverseResponseMiddleware:
     def __init__(self, get_response):
+        global count
         self.get_response = get_response
-        self.count = 0
+        self.count = count
 
     def __call__(self, request):
         response = self.get_response(request)
