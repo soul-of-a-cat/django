@@ -6,7 +6,7 @@ class MiddleWareTests(APITestCase):
     @override_settings(
         MIDDLEWARE=("lyceum.middleware.ReverseResponseMiddleware",)
     )
-    def test_reverse_middleware(self):
+    def test_reverse_russian_words_enabled(self):
         for i in range(10):
             response = self.client.get("/homepage/coffee/")
             if i == 9:
@@ -18,3 +18,12 @@ class MiddleWareTests(APITestCase):
             response = self.client.get("/homepage/coffee/")
             if i == 9:
                 self.assertIn("Я чайник".encode(), response.content)
+
+    @override_settings(
+        MIDDLEWARE=("lyceum.middleware.ReverseResponseMiddleware",)
+    )
+    def test_reverse_russian_words_enabled_default(self):
+        for i in range(10):
+            response = self.client.get("/homepage/coffee/")
+            if i == 9:
+                self.assertIn("Я кинйач".encode(), response.content)
