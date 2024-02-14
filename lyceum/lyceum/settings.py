@@ -125,6 +125,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 ALLOW_REVERSE_ENV = os.getenv("DJANGO_ALLOW_REVERSE", "true")
 ALLOW_REVERSE = ALLOW_REVERSE_ENV in (
+    True,
     "",
     "true",
     "True",
