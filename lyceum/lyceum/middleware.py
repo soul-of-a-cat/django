@@ -11,6 +11,7 @@ class ReverseResponseMiddleware:
         self.get_response = get_response
 
     def __call__(self, request):
+        global count
         response = self.get_response(request)
         if count == 9:
             if settings.ALLOW_REVERSE:
