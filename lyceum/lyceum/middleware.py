@@ -13,8 +13,8 @@ class ReverseResponseMiddleware:
     def __call__(self, request):
         global count
         response = self.get_response(request)
-        if count == 9:
-            if settings.ALLOW_REVERSE:
+        if settings.ALLOW_REVERSE:
+            if count == 9:
                 content = response.content.decode("utf-8")
                 russian_words = re.findall("[а-яА-ЯёЁ]+", content)
                 for word in russian_words:
@@ -22,5 +22,5 @@ class ReverseResponseMiddleware:
                 response.content = content.encode("utf-8")
                 count = 0
                 return response
-        count += 1
+            count += 1
         return response
