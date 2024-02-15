@@ -16,4 +16,3 @@ class ReverseResponseMiddlewareTests(TestCase):
             Client().get("/coffee/").content.decode() for _ in range(10)
         ]
         self.assertNotIn("Я кинйач", contents)
-        
