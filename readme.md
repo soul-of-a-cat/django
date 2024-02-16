@@ -5,6 +5,7 @@
 5. python manage.py runserver
 
 Некоторые переменные сохранены в .env
+
 Если хотите протестировать нужно:
 1. Убедиться, что в файле .env значение DJANGO_DEBUG установлено True 
 2. python -m venv .venv 
