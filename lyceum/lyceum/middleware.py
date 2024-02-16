@@ -2,6 +2,7 @@ import re
 
 from django.conf import settings
 
+
 class ReverseResponseMiddleware:
 
     def __init__(self, get_response):
