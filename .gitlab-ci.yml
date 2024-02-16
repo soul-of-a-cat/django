@@ -12,7 +12,7 @@ black:
     stage: linting
     image: registry.gitlab.com/pipeline-components/black:latest
     script:
-        - black --check .
+        - black --verbose .
 
 unit-test-job:
   stage: test
