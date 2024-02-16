@@ -3,7 +3,7 @@ from rest_framework import status
 
 
 def home(request):
-    return HttpResponse("Главная", status=200)
+    return HttpResponse("Главная", status=status.HTTP_200_OK)
 
 
 def coffee(request):

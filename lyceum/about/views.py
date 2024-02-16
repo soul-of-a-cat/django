@@ -1,9 +1,6 @@
-# from django.shortcuts import render
-
-# Create your views here.
-
 from django.http import HttpResponse
+from rest_framework import status
 
 
 def description(request):
-    return HttpResponse("О проекте", status=200)
+    return HttpResponse("О проекте", status=status.HTTP_200_OK)

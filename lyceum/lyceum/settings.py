@@ -4,7 +4,7 @@ from pathlib import Path
 import dotenv
 
 dotenv.load_dotenv()
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", default="not_so_secret")
@@ -54,7 +54,6 @@ TEMPLATES = [
     },
 ]
 
-# debug_toolbar moved here.
 if DEBUG:
     INTERNAL_IPS = [
         "127.0.0.1",
@@ -67,7 +66,6 @@ if DEBUG:
         "debug_toolbar.middleware.DebugToolbarMiddleware",
     ]
 
-    # this is the main reason for not showing up the toolbar
     import mimetypes
 
     mimetypes.add_type("application/javascript", ".js", True)
@@ -75,13 +73,10 @@ if DEBUG:
     DEBUG_TOOLBAR_CONFIG = {
         "INTERCEPT_REDIRECTS": False,
     }
-    # print(TEMPLATES[0]["OPTIONS"]["context_processors"])
 
     TEMPLATES[0]["OPTIONS"]["context_processors"] += [
         "django.template.context_processors.debug",
     ]
-
-# print(TEMPLATES[0]["OPTIONS"]["context_processors"])
 
 WSGI_APPLICATION = "lyceum.wsgi.application"
 
