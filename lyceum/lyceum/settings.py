@@ -24,6 +24,7 @@ INSTALLED_APPS = [
     "homepage.apps.HomepageConfig",
     "catalog.apps.CatalogConfig",
     "about.apps.AboutConfig",
+    "Core.apps.CoreConfig",
 ]
 
 MIDDLEWARE = [
@@ -69,7 +70,7 @@ DATABASES = {
     "default": {
         "ENGINE": os.environ.get("DB_ENGINE"),
         "NAME": os.environ.get("DB_NAME"),
-    }
+    },
 }
 
 AUTH_PASSWORD_VALIDATORS = [
@@ -91,7 +92,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-LANGUAGE_CODE = "en-us"
+LANGUAGE_CODE = "ru"
 
 TIME_ZONE = "UTC"
 
