@@ -13,12 +13,9 @@ def perfect_in_text_validator(value):
 
 
 class Tag(AbstractModel):
-    slug = django.db.models.CharField(
+    slug = django.db.models.SlugField(
         max_length=200,
         unique=True,
-        validators=[
-            django.core.validators.RegexValidator("^[a-zA-Z0-9+_-]*$"),
-        ],
         verbose_name="Слаг",
     )
 
@@ -32,12 +29,9 @@ class Tag(AbstractModel):
 
 
 class Category(AbstractModel):
-    slug = django.db.models.CharField(
+    slug = django.db.models.SlugField(
         max_length=200,
         unique=True,
-        validators=[
-            django.core.validators.RegexValidator("^[a-zA-Z0-9+_-]*$"),
-        ],
         verbose_name="Слаг",
     )
     weight = django.db.models.IntegerField(
