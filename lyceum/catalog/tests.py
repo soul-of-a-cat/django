@@ -229,3 +229,32 @@ class DBCategoryTests(APITestCase):
                 item_count + 1,
                 msg="no add validate item",
             )
+
+
+class DBNormalizeNameTests(APITestCase):
+    @parameterized.parameterized.expand(
+        (
+            (x[0], x[1][:-1], x[1][0])
+            for x in itertools.product(
+                [
+                    ("test", "1"),
+                ],
+                [
+                    ("test test", "2", True),
+                    ("itfaketest", "2", True),
+                    ("test, test", "2", True),
+                    ("test!test", "2", True),
+                    ("test!", "2", False),
+                    ("!test", "2", False),
+                    ("!test!", "2", False),
+                    (" test ", "2", False),
+                    ("test,", "2", False),
+                    (".test", "2", False),
+                    ("testt", "2", False),
+                    ("te st", "2", False),
+                ],
+            )
+        ),
+    )
+    def test_add_item(self, data1, data2, is_validate):
+        pass
