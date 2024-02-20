@@ -38,7 +38,7 @@ class Category(AbstractModel):
         default=100,
         validators=[
             django.core.validators.MaxValueValidator(32767),
-            django.core.validators.MinValueValidator(0),
+            django.core.validators.MinValueValidator(1),
         ],
         verbose_name="Вес",
     )
