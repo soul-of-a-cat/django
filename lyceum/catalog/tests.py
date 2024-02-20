@@ -49,7 +49,7 @@ class StaticUrlTests(APITestCase):
                     ("$%^", status.HTTP_404_NOT_FOUND),
                     ("1e5", status.HTTP_404_NOT_FOUND),
                 ],
-            ),
+            )
         ),
     )
     def test_catalog_item_pint_endpoint(
