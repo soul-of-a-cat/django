@@ -10,7 +10,7 @@
 1. Убедиться, что в файле .env значение DJANGO_DEBUG установлено True 
 2. python -m venv .venv 
 3. source .venv/bin/activate 
-4. python -m pip install -r requirements/dev.txt requirements/prod.txt 
+4. python -m pip install -r requirements/dev.txt -r requirements/prod.txt
 5. cd lyceum 
 6. python manage.py test 
 7. deactivate
