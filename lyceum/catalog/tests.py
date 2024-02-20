@@ -107,29 +107,30 @@ class DBItemTests(APITestCase):
             text=text,
             category=self.category,
         )
-        if not is_validate:
-            with self.assertRaises(ValidationError):
+        with self.subTest(name=name, text=text, is_validate=is_validate):
+            if not is_validate:
+                with self.assertRaises(ValidationError):
+                    self.item.full_clean()
+                    self.item.save()
+                    self.item.tags.add(self.tag)
+                    self.item.full_clean()
+                    self.item.save()
+                self.assertEqual(
+                    catalog.models.Item.objects.count(),
+                    item_count,
+                    msg="add no validate item",
+                )
+            else:
                 self.item.full_clean()
                 self.item.save()
                 self.item.tags.add(self.tag)
                 self.item.full_clean()
                 self.item.save()
-            self.assertEqual(
-                catalog.models.Item.objects.count(),
-                item_count,
-                msg="add no validate item",
-            )
-        else:
-            self.item.full_clean()
-            self.item.save()
-            self.item.tags.add(self.tag)
-            self.item.full_clean()
-            self.item.save()
-            self.assertEqual(
-                catalog.models.Item.objects.count(),
-                item_count + 1,
-                msg="no add validate item",
-            )
+                self.assertEqual(
+                    catalog.models.Item.objects.count(),
+                    item_count + 1,
+                    msg="no add validate item",
+                )
 
 
 class DBTagTests(APITestCase):

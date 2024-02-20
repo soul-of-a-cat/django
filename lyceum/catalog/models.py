@@ -1,3 +1,4 @@
+import catalog.validators
 from Core.models import AbstractModel
 import django.core.exceptions
 import django.core.validators
@@ -55,7 +56,7 @@ class Category(AbstractModel):
 class Item(AbstractModel):
     text = django.db.models.TextField(
         validators=[
-            perfect_in_text_validator,
+            catalog.validators.ValidateMustContain("превосходно", "роскошно"),
             django.core.validators.MinLengthValidator(2),
         ],
         verbose_name="Текст",
