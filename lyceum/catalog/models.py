@@ -1,8 +1,9 @@
-import catalog.validators
-from Core.models import AbstractModel
 import django.core.exceptions
 import django.core.validators
 import django.db.models
+
+import catalog.validators
+from core.models import AbstractModel
 
 
 def perfect_in_text_validator(value):

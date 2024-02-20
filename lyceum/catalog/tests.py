@@ -1,10 +1,11 @@
 import itertools
 
-import catalog.models
 from django.core.exceptions import ValidationError
 import parameterized
 from rest_framework import status
 from rest_framework.test import APITestCase
+
+import catalog.models
 
 
 class StaticUrlTests(APITestCase):

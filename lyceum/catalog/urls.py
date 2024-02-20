@@ -1,6 +1,7 @@
+from django.urls import path, re_path, register_converter
+
 import catalog.converters
 import catalog.views
-from django.urls import path, re_path, register_converter
 
 register_converter(catalog.converters.IntConverter, "pint")
 
