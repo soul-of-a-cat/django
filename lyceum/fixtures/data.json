@@ -70,7 +70,7 @@
     "fields": {
         "is_published": true,
         "name": "item1",
-        "text": "превосходно",
+        "text": "РїСЂРµРІРѕСЃС…РѕРґРЅРѕ",
         "category": 2,
         "tags": [
             4,
@@ -87,7 +87,7 @@
     "fields": {
         "is_published": true,
         "name": "item2",
-        "text": "роскошно",
+        "text": "СЂРѕСЃРєРѕС€РЅРѕ",
         "category": 3,
         "tags": [
             6,
@@ -102,7 +102,7 @@
     "fields": {
         "is_published": true,
         "name": "item3",
-        "text": "превосходно и роскошно",
+        "text": "РїСЂРµРІРѕСЃС…РѕРґРЅРѕ Рё СЂРѕСЃРєРѕС€РЅРѕ",
         "category": 2,
         "tags": [
             4,
@@ -116,7 +116,7 @@
     "fields": {
         "is_published": true,
         "name": "item4",
-        "text": "не превосходно и не роскошно",
+        "text": "РЅРµ РїСЂРµРІРѕСЃС…РѕРґРЅРѕ Рё РЅРµ СЂРѕСЃРєРѕС€РЅРѕ",
         "category": 3,
         "tags": [
             8
@@ -129,7 +129,7 @@
     "fields": {
         "is_published": true,
         "name": "item5",
-        "text": "возможно превосходно",
+        "text": "РІРѕР·РјРѕР¶РЅРѕ РїСЂРµРІРѕСЃС…РѕРґРЅРѕ",
         "category": 2,
         "tags": [
             4,
