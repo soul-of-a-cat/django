@@ -33,8 +33,8 @@ class StaticUrlTests(APITestCase):
 
     @parameterized.parameterized.expand(
         (
-            lambda x: (x[0], x[1][0], x[1][1]),
-            itertools.product(
+            (x[0], x[1][0], x[1][1])
+            for x in itertools.product(
                 ["converter", "re"],
                 [
                     ("1", status.HTTP_200_OK),
