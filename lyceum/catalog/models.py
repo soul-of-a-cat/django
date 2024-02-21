@@ -1,14 +1,12 @@
-import re
-
 import django.core.exceptions
 import django.core.validators
 import django.db.models
 
 import catalog.validators
-from core.models import AbstractModel
+from core.models import AbstractModel, BaseModel
 
 
-class Tag(AbstractModel):
+class Tag(AbstractModel, BaseModel):
     slug = django.db.models.SlugField(
         max_length=200,
         unique=True,
@@ -24,7 +22,7 @@ class Tag(AbstractModel):
         return self.name[:15]
 
 
-class Category(AbstractModel):
+class Category(AbstractModel, BaseModel):
     slug = django.db.models.SlugField(
         max_length=200,
         unique=True,
@@ -56,7 +54,7 @@ class Item(AbstractModel):
         ],
         verbose_name="текст",
         help_text="Описание должно быть больше, чем из 2х слов "
-                  "и содержать слова 'превосходно, роскошно'",
+        "и содержать слова 'превосходно, роскошно'",
     )
     category = django.db.models.ForeignKey(
         Category,
@@ -71,7 +69,7 @@ class Item(AbstractModel):
         related_name="tags",
         verbose_name="тег",
         help_text="Удерживайте 'Control' (или 'Command' "
-                  "на Mac), чтобы выбрать несколько значений",
+        "на Mac), чтобы выбрать несколько значений",
     )
 
     class Meta:

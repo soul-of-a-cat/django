@@ -155,27 +155,27 @@ class DBTagTests(APITestCase):
             ("test", "abs" * 67, False),
         ],
     )
-    def test_add_item(self, name, slug, is_validate):
-        item_count = catalog.models.Tag.objects.count()
-        self.item = catalog.models.Tag(
+    def test_add_tag(self, name, slug, is_validate):
+        tag_count = catalog.models.Tag.objects.count()
+        self.tag = catalog.models.Tag(
             name=name,
             slug=slug,
         )
         if not is_validate:
             with self.assertRaises(ValidationError):
-                self.item.full_clean()
-                self.item.save()
+                self.tag.full_clean()
+                self.tag.save()
             self.assertEqual(
-                catalog.models.Item.objects.count(),
-                item_count,
+                catalog.models.Tag.objects.count(),
+                tag_count,
                 msg="add no validate item",
             )
         else:
-            self.item.full_clean()
-            self.item.save()
+            self.tag.full_clean()
+            self.tag.save()
             self.assertEqual(
                 catalog.models.Tag.objects.count(),
-                item_count + 1,
+                tag_count + 1,
                 msg="no add validate item",
             )
 
@@ -205,28 +205,28 @@ class DBCategoryTests(APITestCase):
             ("test", "abs", -1, False),
         ],
     )
-    def test_add_item(self, name, slug, weight, is_validate):
-        item_count = catalog.models.Category.objects.count()
-        self.item = catalog.models.Category(
+    def test_add_category(self, name, slug, weight, is_validate):
+        category_count = catalog.models.Category.objects.count()
+        self.category = catalog.models.Category(
             name=name,
             slug=slug,
             weight=weight,
         )
         if not is_validate:
             with self.assertRaises(ValidationError):
-                self.item.full_clean()
-                self.item.save()
+                self.category.full_clean()
+                self.category.save()
             self.assertEqual(
-                catalog.models.Item.objects.count(),
-                item_count,
+                catalog.models.Category.objects.count(),
+                category_count,
                 msg="add no validate item",
             )
         else:
-            self.item.full_clean()
-            self.item.save()
+            self.category.full_clean()
+            self.category.save()
             self.assertEqual(
                 catalog.models.Category.objects.count(),
-                item_count + 1,
+                category_count + 1,
                 msg="no add validate item",
             )
 
@@ -234,7 +234,7 @@ class DBCategoryTests(APITestCase):
 class DBNormalizeNameTests(APITestCase):
     @parameterized.parameterized.expand(
         (
-            (x[0], x[1][:-1], x[1][0])
+            (x[0], x[1][:-1], x[1][2])
             for x in itertools.product(
                 [
                     ("test", "1"),
@@ -257,4 +257,31 @@ class DBNormalizeNameTests(APITestCase):
         ),
     )
     def test_add_item(self, data1, data2, is_validate):
-        pass
+        self.tag = catalog.models.Tag(
+            name=data1[0],
+            slug=data1[1],
+        )
+        self.tag.full_clean()
+        self.tag.save()
+        tag_count = catalog.models.Tag.objects.count()
+        self.tag = catalog.models.Tag(
+            name=data2[0],
+            slug=data2[1],
+        )
+        if not is_validate:
+            with self.assertRaises(ValidationError):
+                self.tag.full_clean()
+                self.tag.save()
+            self.assertEqual(
+                catalog.models.Tag.objects.count(),
+                tag_count,
+                msg="add no validate item",
+            )
+        else:
+            self.tag.full_clean()
+            self.tag.save()
+            self.assertEqual(
+                catalog.models.Tag.objects.count(),
+                tag_count + 1,
+                msg="no add validate item",
+            )

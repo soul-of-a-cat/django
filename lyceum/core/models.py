@@ -1,8 +1,17 @@
+import re
+
 import django.db.models
 
 
 def normalize_name(name):
-    name = name.lower()
+    name = "".join(name.split())
+    lower_string = name.lower()
+    no_number_string = re.sub(r"\d+", "", lower_string)
+    no_punc_string = re.sub(r"[^\w\s]", "", no_number_string)
+    no_wspace_string = no_punc_string.strip()
+    pattern = r"(.)\1+"
+    repl = r"\1"
+    name = re.sub(pattern, repl, no_wspace_string)
     similar_chars = {
         "а": "a",
         "о": "o",
@@ -31,6 +40,7 @@ class BaseModel(django.db.models.Model):
         validators=[
             django.core.validators.MaxLengthValidator(150),
         ],
+        null=True,
     )
 
     def clean(self) -> None:
@@ -39,13 +49,18 @@ class BaseModel(django.db.models.Model):
             normalized_name=normalized,
         )
         if existing:
-            raise django.core.exceptions.ValidationError({
-                self.__class__.name.field.name: "Такое имя уже имеется",
-            })
+            raise django.core.exceptions.ValidationError(
+                {
+                    self.__class__.name.field.name: "Такое имя уже имеется",
+                },
+            )
         self.normalized_name = normalized
 
+    class Meta:
+        abstract = True
 
-class AbstractModel(BaseModel):
+
+class AbstractModel(django.db.models.Model):
     is_published = django.db.models.BooleanField(
         default=True,
         verbose_name="опубликовано",
