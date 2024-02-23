@@ -72,15 +72,15 @@ if DEBUG:
         "127.0.0.1",
         "localhost",
     ]
-    INSTALLED_APPS.insert(6, "debug_toolbar",)
+    INSTALLED_APPS.insert(6, "debug_toolbar")
     MIDDLEWARE.insert(0, "debug_toolbar.middleware.DebugToolbarMiddleware")
 
 WSGI_APPLICATION = "lyceum.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": os.environ.get("DB_ENGINE", default="django.db.backends.sqlite3"),
-        "NAME": os.environ.get("DB_NAME", default="db.sqlite3"),
+        "ENGINE": os.environ.get("DB_ENGINE", "django.db.backends.sqlite3"),
+        "NAME": os.environ.get("DB_NAME", "db.sqlite3"),
     },
 }
 

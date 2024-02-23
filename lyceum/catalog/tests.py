@@ -1,9 +1,9 @@
+from http import HTTPStatus
 import itertools
 
 from django.core.exceptions import ValidationError
+from django.test import Client, TestCase
 import parameterized
-from django.test import TestCase, Client
-from http import HTTPStatus
 
 import catalog.models
 
@@ -130,7 +130,7 @@ class DBItemTests(TestCase):
                 catalog.models.Item.objects.count(),
                 item_count + 1,
                 msg="no add validate item",
-                )
+            )
 
 
 class DBTagTests(TestCase):

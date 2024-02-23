@@ -1,6 +1,7 @@
-from django.test import Client, TestCase, override_settings
-from lyceum.middleware import reverse_words
+from django.test import Client, override_settings, TestCase
 import parameterized
+
+from lyceum.middleware import reverse_words
 
 
 class ReverseResponseMiddlewareTests(TestCase):
@@ -28,7 +29,6 @@ class ReverseResponseMiddlewareTests(TestCase):
             contents[content] = contents.get(content, 0) + 1
         self.assertEqual(contents["Я чайник"], 9)
         self.assertEqual(contents["Я кинйач"], 1)
-
 
     @parameterized.parameterized.expand(
         [
