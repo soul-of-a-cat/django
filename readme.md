@@ -1,4 +1,5 @@
 Для Windows используем **python (pip)**, для Linux - **python3 (pip3)**
+***
 
 # Запуск сервера
 1. Создать виртуальное окружение\
@@ -13,7 +14,7 @@ cd lyceum
 python manage.py runserver *(если нужно указываем нужный порт)*
 
 ***
-<u>Некоторые переменные сохранены в .env</u>
+Некоторые переменные сохранены в .env
 ***
 
 # Запуск тестирования
@@ -31,6 +32,6 @@ python manage.py test
 deactivate
 
 ***
-<u>Структура базы данных описана в файле ER.jpg</u>
+Структура базы данных описана в файле ER.jpg
 
 ### Статус проверки в GitLab: [![pipeline status](https://gitlab.crja72.ru/django/2024/spring/course/students/145442-timiniljuha-course-1112/badges/main/pipeline.svg)](https://gitlab.crja72.ru/django/2024/spring/course/students/145442-timiniljuha-course-1112/-/commits/main) 
