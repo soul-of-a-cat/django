@@ -1,5 +1,5 @@
 from django.test import Client, TestCase, override_settings
-from lyceum.middleware import ReverseResponseMiddleware
+from lyceum.middleware import reverse_words
 import parameterized
 
 
@@ -39,12 +39,7 @@ class ReverseResponseMiddlewareTests(TestCase):
             ("Я чайн!ик", "Я чайн!ик"),
         ],
     )
-    def test_reverse_worlds(self, request, response):
-        middleware = ReverseResponseMiddleware(request)
-        # print(middleware)
-        contents = {}
-        for _ in range(10):
-            content = middleware.content.decode()
-            contents[content] = contents.get(content, 0) + 1
-        self.assertEqual(contents[request], 9)
-        self.assertEqual(contents[response], 1)
+    def test_reverse_worlds(self, word, rev_word):
+        rev_words = reverse_words(word)
+        self.assertEqual(rev_words.decode(), rev_word)
+        self.assertEqual(rev_words.decode(), rev_word)
