@@ -19,6 +19,3 @@ exclude = '''
                      # the root of the project
 )
 '''
-
-[mypy-environ]
-ignore_missing_imports = true
