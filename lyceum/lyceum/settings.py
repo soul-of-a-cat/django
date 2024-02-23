@@ -7,6 +7,17 @@ dotenv.load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+ALLOW_REVERSE_ENV = os.getenv("DJANGO_ALLOW_REVERSE", "true")
+ALLOW_REVERSE = ALLOW_REVERSE_ENV in (
+    "",
+    "true",
+    "True",
+    "yes",
+    "YES",
+    "1",
+    "y",
+)
+
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", default="not_so_secret")
 
 DEBUG_ENV = os.getenv("DJANGO_DEBUG", "false").lower()
@@ -21,10 +32,10 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "homepage.apps.HomepageConfig",
-    "catalog.apps.CatalogConfig",
-    "about.apps.AboutConfig",
     "core.apps.CoreConfig",
+    "about.apps.AboutConfig",
+    "catalog.apps.CatalogConfig",
+    "homepage.apps.HomepageConfig",
 ]
 
 MIDDLEWARE = [
@@ -61,34 +72,34 @@ if DEBUG:
         "127.0.0.1",
         "localhost",
     ]
-    INSTALLED_APPS.append("debug_toolbar")
-    MIDDLEWARE.append("debug_toolbar.middleware.DebugToolbarMiddleware")
+    INSTALLED_APPS.insert(6, "debug_toolbar",)
+    MIDDLEWARE.insert(0, "debug_toolbar.middleware.DebugToolbarMiddleware")
 
 WSGI_APPLICATION = "lyceum.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": os.environ.get("DB_ENGINE"),
-        "NAME": os.environ.get("DB_NAME"),
+        "ENGINE": os.environ.get("DB_ENGINE", default="django.db.backends.sqlite3"),
+        "NAME": os.environ.get("DB_NAME", default="db.sqlite3"),
     },
 }
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        "NAME": "django.contrib.auth.password_validation."
-        "UserAttributeSimilarityValidator",
+        "NAME": "django.contrib.auth.password_validation"
+        ".UserAttributeSimilarityValidator",
     },
     {
-        "NAME": "django.contrib.auth.password_validation."
-        "MinimumLengthValidator",
+        "NAME": "django.contrib.auth.password_validation"
+        ".MinimumLengthValidator",
     },
     {
-        "NAME": "django.contrib.auth.password_validation."
-        "CommonPasswordValidator",
+        "NAME": "django.contrib.auth.password_validation"
+        ".CommonPasswordValidator",
     },
     {
-        "NAME": "django.contrib.auth.password_validation."
-        "NumericPasswordValidator",
+        "NAME": "django.contrib.auth.password_validation"
+        ".NumericPasswordValidator",
     },
 ]
 
@@ -103,15 +114,3 @@ USE_TZ = True
 STATIC_URL = "static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-
-ALLOW_REVERSE_ENV = os.getenv("DJANGO_ALLOW_REVERSE", "true")
-ALLOW_REVERSE = ALLOW_REVERSE_ENV in (
-    True,
-    "",
-    "true",
-    "True",
-    "yes",
-    "YES",
-    "1",
-    "y",
-)

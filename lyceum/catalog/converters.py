@@ -1,5 +1,5 @@
 class IntConverter:
-    regex = r"[0-9]+"
+    regex = r"[0-9]|[1-9]+[0-9]*"
 
     def to_python(self, num):
         return int(num)

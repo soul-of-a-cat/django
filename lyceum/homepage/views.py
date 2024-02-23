@@ -4,7 +4,10 @@ from django.http import HttpResponse
 
 
 def home(request):
-    return HttpResponse("Главная страница", status=HTTPStatus.OK)
+    return HttpResponse(
+        "Главная страница",
+        status=HTTPStatus.OK,
+    )
 
 
 def coffee(request):

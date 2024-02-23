@@ -1,6 +1,9 @@
 from django.http import HttpResponse
-from rest_framework import status
+from http import HTTPStatus
 
 
 def description(request):
-    return HttpResponse("О проекте", status=status.HTTP_200_OK)
+    return HttpResponse(
+        "О проекте",
+        status=HTTPStatus.OK,
+    )

@@ -1,8 +1,8 @@
-from rest_framework import status
-from rest_framework.test import APITestCase
+from http import HTTPStatus
+from django.test import TestCase, Client
 
 
-class StaticUrlTests(APITestCase):
+class StaticUrlTests(TestCase):
     def test_about_endpoint(self):
-        response = self.client.get("/about/")
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        response = Client().get("/about/")
+        self.assertEqual(response.status_code, HTTPStatus.OK)

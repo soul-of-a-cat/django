@@ -2,34 +2,34 @@ import itertools
 
 from django.core.exceptions import ValidationError
 import parameterized
-from rest_framework import status
-from rest_framework.test import APITestCase
+from django.test import TestCase, Client
+from http import HTTPStatus
 
 import catalog.models
 
 
-class StaticUrlTests(APITestCase):
+class StaticUrlTests(TestCase):
     def test_catalog_endpoint(self):
-        response = self.client.get("/catalog/")
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        response = Client().get("/catalog/")
+        self.assertEqual(response.status_code, HTTPStatus.OK)
 
     @parameterized.parameterized.expand(
         [
-            ("1", status.HTTP_200_OK),
-            ("100", status.HTTP_200_OK),
-            ("0", status.HTTP_200_OK),
-            ("-0", status.HTTP_404_NOT_FOUND),
-            ("-100", status.HTTP_404_NOT_FOUND),
-            ("0.5", status.HTTP_404_NOT_FOUND),
-            ("abc", status.HTTP_404_NOT_FOUND),
-            ("0abc", status.HTTP_404_NOT_FOUND),
-            ("abc0", status.HTTP_404_NOT_FOUND),
-            ("$%^", status.HTTP_404_NOT_FOUND),
-            ("1e5", status.HTTP_404_NOT_FOUND),
+            ("1", HTTPStatus.OK),
+            ("100", HTTPStatus.OK),
+            ("0", HTTPStatus.OK),
+            ("-0", HTTPStatus.NOT_FOUND),
+            ("-100", HTTPStatus.NOT_FOUND),
+            ("0.5", HTTPStatus.NOT_FOUND),
+            ("abc", HTTPStatus.NOT_FOUND),
+            ("0abc", HTTPStatus.NOT_FOUND),
+            ("abc0", HTTPStatus.NOT_FOUND),
+            ("$%^", HTTPStatus.NOT_FOUND),
+            ("1e5", HTTPStatus.NOT_FOUND),
         ],
     )
     def test_catalog_item_endpoint(self, url, expected_status):
-        response = self.client.get(f"/catalog/{url}/")
+        response = Client().get(f"/catalog/{url}/")
         self.assertEqual(response.status_code, expected_status)
 
     @parameterized.parameterized.expand(
@@ -38,17 +38,17 @@ class StaticUrlTests(APITestCase):
             for x in itertools.product(
                 ["converter", "re"],
                 [
-                    ("1", status.HTTP_200_OK),
-                    ("100", status.HTTP_200_OK),
-                    ("0", status.HTTP_200_OK),
-                    ("-0", status.HTTP_404_NOT_FOUND),
-                    ("-100", status.HTTP_404_NOT_FOUND),
-                    ("0.5", status.HTTP_404_NOT_FOUND),
-                    ("abc", status.HTTP_404_NOT_FOUND),
-                    ("0abc", status.HTTP_404_NOT_FOUND),
-                    ("abc0", status.HTTP_404_NOT_FOUND),
-                    ("$%^", status.HTTP_404_NOT_FOUND),
-                    ("1e5", status.HTTP_404_NOT_FOUND),
+                    ("1", HTTPStatus.OK),
+                    ("100", HTTPStatus.OK),
+                    ("0", HTTPStatus.OK),
+                    ("-0", HTTPStatus.NOT_FOUND),
+                    ("-100", HTTPStatus.NOT_FOUND),
+                    ("0.5", HTTPStatus.NOT_FOUND),
+                    ("abc", HTTPStatus.NOT_FOUND),
+                    ("0abc", HTTPStatus.NOT_FOUND),
+                    ("abc0", HTTPStatus.NOT_FOUND),
+                    ("$%^", HTTPStatus.NOT_FOUND),
+                    ("1e5", HTTPStatus.NOT_FOUND),
                 ],
             )
         ),
@@ -60,7 +60,7 @@ class StaticUrlTests(APITestCase):
         expected_status,
     ):
         full_url = f"/catalog/{prefix}/{url}/"
-        response = self.client.get(full_url)
+        response = Client().get(full_url)
         self.assertEqual(
             response.status_code,
             expected_status,
@@ -68,7 +68,7 @@ class StaticUrlTests(APITestCase):
         )
 
 
-class DBItemTests(APITestCase):
+class DBItemTests(TestCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -134,7 +134,7 @@ class DBItemTests(APITestCase):
                 )
 
 
-class DBTagTests(APITestCase):
+class DBTagTests(TestCase):
     @parameterized.parameterized.expand(
         [
             ("test", "abs", True),
@@ -180,7 +180,7 @@ class DBTagTests(APITestCase):
             )
 
 
-class DBCategoryTests(APITestCase):
+class DBCategoryTests(TestCase):
     @parameterized.parameterized.expand(
         [
             ("test", "abs", 1, True),
@@ -231,7 +231,7 @@ class DBCategoryTests(APITestCase):
             )
 
 
-class DBNormalizeNameTests(APITestCase):
+class DBNormalizeNameTests(TestCase):
     @parameterized.parameterized.expand(
         (
             (x[0], x[1][:-1], x[1][2])
