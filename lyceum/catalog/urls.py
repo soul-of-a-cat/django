@@ -9,21 +9,21 @@ urlpatterns = [
     path(
         "",
         catalog.views.item_list,
-        name="Список товаров",
+        name="item_list",
     ),
     re_path(
         r"^re/(?P<num>[0-9]|[1-9]+[0-9]*)/",
         catalog.views.item_detail,
-        name="Номер товара",
-    ),
-    path(
-        "<int:num>/",
-        catalog.views.item_detail,
-        name="Товар",
+        name="item_detail",
     ),
     path(
         "converter/<pint:num>/",
         catalog.views.item_detail,
-        name="Номер товара",
+        name="item_detail",
+    ),
+    path(
+        "<int:num>/",
+        catalog.views.item_detail,
+        name="item_detail",
     ),
 ]

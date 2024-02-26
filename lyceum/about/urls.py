@@ -4,5 +4,5 @@ import about.views
 
 
 urlpatterns = [
-    path("", about.views.description, name="Описание"),
+    path("", about.views.description, name="description"),
 ]
