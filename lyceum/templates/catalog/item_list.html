@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Список товаров</h1>
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+<a href="{% url 'item_detail' 1 %}">
+    Страница с товаром
+</a>
+{% endblock %}
