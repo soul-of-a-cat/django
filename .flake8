@@ -2,4 +2,4 @@
 application_import_names = about, catalog, core, homepage, lyceum
 max-line-length=79
 import-order-style = google
-inline-quotes = "
+inline-quotes = '
