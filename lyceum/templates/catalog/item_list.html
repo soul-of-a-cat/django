@@ -7,12 +7,11 @@
 {% block content %}
 <h1>Список товаров</h1>
 {% load static %}
-<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
 
 {% for item in items %}
 <ul>
     <li>
-        <a href="{% url 'item_detail' item.id %}">
+        <a href="{% url 'catalog:item_detail' item.id %}">
             {{ item.name }}
         </a>
     </li>
