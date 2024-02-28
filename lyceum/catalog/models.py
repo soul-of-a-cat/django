@@ -3,7 +3,7 @@ import django.core.validators
 import django.db.models
 
 import catalog.validators
-from core.models import AbstractModel, BaseModel
+from core.models import AbstractModel, BaseModel, ImageModel
 
 
 class Tag(AbstractModel, BaseModel):
@@ -54,7 +54,7 @@ class Item(AbstractModel):
         ],
         verbose_name="текст",
         help_text="Описание должно быть больше, чем из 2х слов "
-        "и содержать слова 'превосходно, роскошно'",
+        'и содержать слова "превосходно, роскошно"',
     )
     category = django.db.models.ForeignKey(
         Category,
@@ -68,7 +68,7 @@ class Item(AbstractModel):
         Tag,
         related_name="tags",
         verbose_name="тег",
-        help_text="Удерживайте 'Control' (или 'Command' "
+        help_text='Удерживайте "Control" (или "Command" '
         "на Mac), чтобы выбрать несколько значений",
     )
 
@@ -79,3 +79,27 @@ class Item(AbstractModel):
 
     def __str__(self):
         return self.text[:15]
+
+
+class ItemMainImage(ImageModel):
+    item = django.db.models.OneToOneField(
+        Item,
+        on_delete=django.db.models.CASCADE,
+        related_name="main_image",
+    )
+
+    class Meta:
+        verbose_name = "главное изображение"
+        verbose_name_plural = "главные изображения"
+
+
+class ItemSecondaryImage(ImageModel):
+    item = django.db.models.ForeignKey(
+        Item,
+        on_delete=django.db.models.CASCADE,
+        related_name="images",
+    )
+
+    class Meta:
+        verbose_name = "дополнительное изображение"
+        verbose_name_plural = "дополнительные изображения"
