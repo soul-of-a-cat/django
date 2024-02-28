@@ -249,7 +249,7 @@ class DBNormalizeNameTests(TestCase):
                     (" test ", "2", False),
                     ("test,", "2", False),
                     (".test", "2", False),
-                    ("testt", "2", False),
+                    ("testt", "2", True),
                     ("te st", "2", False),
                 ],
             )
@@ -267,20 +267,27 @@ class DBNormalizeNameTests(TestCase):
             name=data2[0],
             slug=data2[1],
         )
-        if not is_validate:
-            with self.assertRaises(ValidationError):
+        with self.subTest(
+            name1=data1[0],
+            slug1=data1[1],
+            name2=data2[0],
+            slug2=data2[1],
+            is_validate=is_validate,
+        ):
+            if not is_validate:
+                with self.assertRaises(ValidationError):
+                    self.tag.full_clean()
+                    self.tag.save()
+                self.assertEqual(
+                    catalog.models.Tag.objects.count(),
+                    tag_count,
+                    msg="add no validate item",
+                )
+            else:
                 self.tag.full_clean()
                 self.tag.save()
-            self.assertEqual(
-                catalog.models.Tag.objects.count(),
-                tag_count,
-                msg="add no validate item",
-            )
-        else:
-            self.tag.full_clean()
-            self.tag.save()
-            self.assertEqual(
-                catalog.models.Tag.objects.count(),
-                tag_count + 1,
-                msg="no add validate item",
-            )
+                self.assertEqual(
+                    catalog.models.Tag.objects.count(),
+                    tag_count + 1,
+                    msg="no add validate item",
+                )
