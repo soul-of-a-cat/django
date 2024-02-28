@@ -13,7 +13,7 @@ urlpatterns = [
         name="item_list",
     ),
     re_path(
-        r"^re/(?P<num>[0-9]|[1-9]+[0-9]*)/",
+        r"^re/(?P<num>[1-9]\d*)/$",
         catalog.views.item_detail,
         name="item_detail",
     ),
