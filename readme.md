@@ -2,7 +2,7 @@
 
 # Запуск сервера
 1. Создать виртуальное окружение\
-python -m venv .venv
+python -m venv .venv (*python3 -m venv .venv* для Linux)
 2. Активировать виртуальное окружение\
 .venv/Scripts/activate (*source .venv/bin/activate* для Linux) 
 3. Установить нужные библиотеки\
