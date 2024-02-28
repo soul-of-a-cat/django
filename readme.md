@@ -2,9 +2,9 @@
 
 # Запуск сервера
 1. Создать виртуальное окружение\
-python -m venv .venv (*python3 -m venv .venv* для Linux)
+python -m venv .venv (python3 -m venv .venv для Linux)
 2. Активировать виртуальное окружение\
-.venv/Scripts/activate (*source .venv/bin/activate* для Linux) 
+.venv/Scripts/activate (source .venv/bin/activate для Linux) 
 3. Установить нужные библиотеки\
 python -m pip install -r requirements/dev.txt
 4. Переходим в нужную директорию\
@@ -18,7 +18,7 @@ python manage.py runserver *(если нужно указываем нужный
 1. Создать виртуальное окружение\
 python -m venv .venv
 2. Активировать виртуальное окружение\
-.venv/Scripts/activate (*source .venv/bin/activate* для Linux) 
+.venv/Scripts/activate (source .venv/bin/activate для Linux) 
 3. Установить нужные библиотеки\
 python -m pip install -r requirements/dev.txt -r requirements/prod.txt
 4. Переходим в нужную директорию\
