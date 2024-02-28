@@ -5,6 +5,7 @@ import catalog.views
 
 register_converter(catalog.converters.IntConverter, "pint")
 
+app_name = "catalog"
 urlpatterns = [
     path(
         "",
