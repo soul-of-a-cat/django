@@ -3,11 +3,10 @@ import itertools
 
 from django.core.exceptions import ValidationError
 from django.test import Client, TestCase
+from django.urls import reverse
 import parameterized
 
 import catalog.models
-
-from django.urls import reverse
 
 __all__ = [
     "StaticUrlTests",
