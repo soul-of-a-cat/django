@@ -7,6 +7,8 @@ import parameterized
 
 import catalog.models
 
+from django.urls import reverse
+
 __all__ = [
     "StaticUrlTests",
     "DBItemTests",
@@ -18,7 +20,8 @@ __all__ = [
 
 class StaticUrlTests(TestCase):
     def test_catalog_endpoint(self):
-        response = Client().get("/catalog/")
+        url = reverse("catalog:item_list")
+        response = Client().get(url)
         self.assertEqual(response.status_code, HTTPStatus.OK)
 
     @parameterized.parameterized.expand(
@@ -36,8 +39,8 @@ class StaticUrlTests(TestCase):
             ("1e5", HTTPStatus.NOT_FOUND),
         ],
     )
-    def test_catalog_item_endpoint(self, url, expected_status):
-        response = Client().get(f"/catalog/{url}/")
+    def test_catalog_item_endpoint(self, num, expected_status):
+        response = Client().get(f"/catalog/{num}/")
         self.assertEqual(response.status_code, expected_status)
 
     @parameterized.parameterized.expand(
@@ -48,7 +51,7 @@ class StaticUrlTests(TestCase):
                 [
                     ("1", HTTPStatus.OK),
                     ("100", HTTPStatus.OK),
-                    ("0", HTTPStatus.OK),
+                    ("0", HTTPStatus.NOT_FOUND),
                     ("-0", HTTPStatus.NOT_FOUND),
                     ("-100", HTTPStatus.NOT_FOUND),
                     ("0.5", HTTPStatus.NOT_FOUND),
