@@ -6,13 +6,13 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    initial = True
-
-    dependencies = []
+    dependencies = [
+        ("catalog", "0001_initial"),
+    ]
 
     operations = [
         migrations.CreateModel(
-            name="Tag",
+            name="Category",
             fields=[
                 (
                     "id",
@@ -59,11 +59,22 @@ class Migration(migrations.Migration):
                         verbose_name="слаг",
                     ),
                 ),
+                (
+                    "weight",
+                    models.IntegerField(
+                        default=100,
+                        validators=[
+                            django.core.validators.MaxValueValidator(32767),
+                            django.core.validators.MinValueValidator(1),
+                        ],
+                        verbose_name="вес",
+                    ),
+                ),
             ],
             options={
-                "verbose_name": "тег",
-                "verbose_name_plural": "теги",
-                "db_table": "catalog_tag",
+                "verbose_name": "категория",
+                "verbose_name_plural": "категории",
+                "db_table": "catalog_category",
             },
         ),
     ]
