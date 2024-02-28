@@ -1,35 +1,15 @@
+from pathlib import Path
 import re
 
 import django.db.models
+from django.utils.safestring import mark_safe
+from slugify import slugify
+import sorl
 
 
 def normalize_name(name):
-    name = "".join(name.split())
-    lower_string = name.lower()
-    no_number_string = re.sub(r"\d+", "", lower_string)
-    no_punc_string = re.sub(r"[^\w\s]", "", no_number_string)
-    no_wspace_string = no_punc_string.strip()
-    pattern = r"(.)\1+"
-    repl = r"\1"
-    name = re.sub(pattern, repl, no_wspace_string)
-    similar_chars = {
-        "а": "a",
-        "о": "o",
-        "у": "y",
-        "е": "e",
-        "с": "c",
-        "м": "m",
-        "р": "p",
-        "т": "t",
-        "х": "x",
-        "в": "b",
-        "к": "k",
-        "н": "h",
-        "г": "r",
-    }
-    for word, replacement in similar_chars.items():
-        name = name.replace(word, replacement)
-    return name
+    words = re.findall("[0-9а-яёa-z]+", name.lower())
+    return slugify("".join(words))
 
 
 class BaseModel(django.db.models.Model):
@@ -74,3 +54,36 @@ class AbstractModel(django.db.models.Model):
 
     class Meta:
         abstract = True
+
+
+class ImageModel(django.db.models.Model):
+    image = sorl.thumbnail.ImageField(
+        verbose_name="картинка",
+        help_text="Будет приведено к ширине 1280px",
+        upload_to="catalog/items/",
+    )
+
+    def get_image_300x300(self):
+        return sorl.thumbnail.get_thumbnail(
+            self.image,
+            "300x300",
+            crop="center",
+            quality=51,
+        )
+
+    def image_tmb(self):
+        if self.image:
+            return mark_safe(
+                f'<img scr="{self.get_image_300x300().url}">',
+            )
+        return "Нет изображения"
+
+    image_tmb.short_description = "превью"
+    image_tmb.allow_tags = True
+    image_tmb.field_name = "image_tmb"
+
+    class Meta:
+        abstract = True
+
+    def __str__(self):
+        return Path(self.image.path).stem
