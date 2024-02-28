@@ -3,6 +3,10 @@ import re
 from django.core.exceptions import ValidationError
 import django.utils.deconstruct
 
+__all__ = [
+    "ValidateMustContain",
+]
+
 
 @django.utils.deconstruct.deconstructible
 class ValidateMustContain:

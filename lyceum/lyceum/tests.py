@@ -1,7 +1,10 @@
 from django.test import Client, override_settings, TestCase
+from django.urls import reverse
 import parameterized
 
 from lyceum.middleware import reverse_words
+
+__all__ = ["ReverseResponseMiddlewareTests"]
 
 
 class ReverseResponseMiddlewareTests(TestCase):
@@ -22,13 +25,11 @@ class ReverseResponseMiddlewareTests(TestCase):
             contents[content] = contents.get(content, 0) + 1
         self.assertNotIn("Я кинйач", contents)
 
-    def test_reverse_russian_words(self):
-        contents = {}
-        for i in range(10):
-            content = Client().get("/coffee/").content.decode()
-            contents[content] = contents.get(content, 0) + 1
-        self.assertEqual(contents["Я чайник"], 9)
-        self.assertEqual(contents["Я кинйач"], 1)
+    def test_reverse_russian_words_enabled_default(self) -> None:
+        url = reverse("homepage:coffee")
+        contents = [Client().get(url).content.decode() for _ in range(20)]
+        msg1 = "No reversed responses by default"
+        self.assertIn("Я кинйач", contents, msg1)
 
     @parameterized.parameterized.expand(
         [

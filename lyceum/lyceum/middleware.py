@@ -5,6 +5,11 @@ from django.conf import settings
 WORDS_REGEX = re.compile(r"\S+")
 NOT_RUSSIAN_REGEX = re.compile(r"[^а-яА-Я\s]+")
 
+__all__ = [
+    "ReverseResponseMiddleware",
+    "reverse_words",
+]
+
 
 def reverse_words(content):
     words = WORDS_REGEX.findall(content)

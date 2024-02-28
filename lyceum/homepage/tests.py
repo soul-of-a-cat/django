@@ -2,6 +2,8 @@ from http import HTTPStatus
 
 from django.test import Client, TestCase
 
+__all__ = ["StaticUrlTests"]
+
 
 class StaticUrlTests(TestCase):
     def test_homepage_endpoint(self):

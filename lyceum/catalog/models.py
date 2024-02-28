@@ -5,6 +5,12 @@ import django.db.models
 import catalog.validators
 from core.models import AbstractModel, BaseModel, ImageModel
 
+__all__ = [
+    "Category",
+    "Item",
+    "Tag",
+]
+
 
 class Tag(AbstractModel, BaseModel):
     slug = django.db.models.SlugField(

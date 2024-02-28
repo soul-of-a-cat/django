@@ -7,6 +7,14 @@ import parameterized
 
 import catalog.models
 
+__all__ = [
+    "StaticUrlTests",
+    "DBItemTests",
+    "DBTagTests",
+    "DBCategoryTests",
+    "DBNormalizeNameTests",
+]
+
 
 class StaticUrlTests(TestCase):
     def test_catalog_endpoint(self):

@@ -6,6 +6,12 @@ from django.utils.safestring import mark_safe
 from slugify import slugify
 import sorl
 
+__all__ = [
+    "AbstractModel",
+    "BaseModel",
+    "normalize_name",
+]
+
 
 def normalize_name(name):
     words = re.findall("[0-9а-яёa-z]+", name.lower())

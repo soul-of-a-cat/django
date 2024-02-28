@@ -2,6 +2,8 @@ from django.shortcuts import render
 
 import catalog.models
 
+__all__ = ["item_list", "item_detail"]
+
 
 def item_list(request):
     template = "catalog/item_list.html"
