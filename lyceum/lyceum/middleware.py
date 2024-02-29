@@ -2,8 +2,8 @@ import re
 
 from django.conf import settings
 
-WORDS_REGEX = re.compile(r"\S+")
-NOT_RUSSIAN_REGEX = re.compile(r"[^а-яА-Я\s]+")
+WORDS_REGEX = re.compile(r"\w+|\W+")
+NOT_RUSSIAN_REGEX = re.compile(r"^[^а-яА-Я\s]+$")
 
 __all__ = [
     "ReverseResponseMiddleware",
@@ -19,7 +19,7 @@ def reverse_words(content):
         for word in words
     ]
 
-    rev_content = " ".join(transformed).encode()
+    rev_content = "".join(transformed).encode()
     return rev_content
 
 
