@@ -29,7 +29,8 @@ class Migration(migrations.Migration):
                 (
                     "is_published",
                     models.BooleanField(
-                        default=True, verbose_name="опубликовано",
+                        default=True,
+                        verbose_name="опубликовано",
                     ),
                 ),
                 (
@@ -45,10 +46,11 @@ class Migration(migrations.Migration):
                     "text",
                     models.TextField(
                         help_text="Описание должно быть больше, чем из 2х слов"
-                                  " и содержать слова 'превосходно, роскошно'",
+                        " и содержать слова 'превосходно, роскошно'",
                         validators=[
                             catalog.validators.ValidateMustContain(
-                                "превосходно", "роскошно",
+                                "превосходно",
+                                "роскошно",
                             ),
                             django.core.validators.MinLengthValidator(2),
                         ],
@@ -70,7 +72,7 @@ class Migration(migrations.Migration):
                     "tags",
                     models.ManyToManyField(
                         help_text="Удерживайте 'Control' (или 'Command' на"
-                                  " Mac), чтобы выбрать несколько значений",
+                        " Mac), чтобы выбрать несколько значений",
                         related_name="tags",
                         to="catalog.tag",
                         verbose_name="тег",

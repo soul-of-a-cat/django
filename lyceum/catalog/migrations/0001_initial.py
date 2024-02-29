@@ -38,7 +38,8 @@ class Migration(migrations.Migration):
                 (
                     "is_published",
                     models.BooleanField(
-                        default=True, verbose_name="опубликовано",
+                        default=True,
+                        verbose_name="опубликовано",
                     ),
                 ),
                 (
@@ -53,7 +54,9 @@ class Migration(migrations.Migration):
                 (
                     "slug",
                     models.SlugField(
-                        max_length=200, unique=True, verbose_name="слаг",
+                        max_length=200,
+                        unique=True,
+                        verbose_name="слаг",
                     ),
                 ),
             ],
