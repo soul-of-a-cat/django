@@ -1,6 +1,7 @@
 import os
 from pathlib import Path
 
+from django.utils.translation import gettext_lazy
 import dotenv
 
 dotenv.load_dotenv()
@@ -50,7 +51,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "lyceum.middleware.ReverseResponseMiddleware",
-    'django.middleware.locale.LocaleMiddleware',
+    "django.middleware.locale.LocaleMiddleware",
 ]
 
 ROOT_URLCONF = "lyceum.urls"
@@ -115,12 +116,12 @@ USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 
-LANGUAGES = (
-    ("ru", "Russian"),
-    ("en", "English"),
-    ("de", "German"),
-    ("fr", "French")
-)
+LANGUAGES = [
+    ("ru", gettext_lazy("Russian")),
+    ("en", gettext_lazy("English")),
+    ("de", gettext_lazy("German")),
+    ("fr", gettext_lazy("French")),
+]
 
 LOCALE_PATHS = ("locale",)
 
