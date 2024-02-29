@@ -50,6 +50,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "lyceum.middleware.ReverseResponseMiddleware",
+    'django.middleware.locale.LocaleMiddleware',
 ]
 
 ROOT_URLCONF = "lyceum.urls"
@@ -113,6 +114,13 @@ TIME_ZONE = "UTC"
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
+
+LANGUAGES = (
+    ("ru", "Russian"),
+    ("en", "English"),
+    ("de", "German"),
+    ("fr", "French")
+)
 
 LOCALE_PATHS = ("locale",)
 
