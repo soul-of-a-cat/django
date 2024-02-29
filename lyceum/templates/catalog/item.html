@@ -1,15 +1,16 @@
 {% extends "base.html" %}
+{% load i18n %}
 
 {% block title %}
-Товар
+{% trans "Товар" %}
 {% endblock %}
 
 {% block content %}
 {% load static %}
 <h1>{{ item_name }}</h1>
-<p>Текст: {{ item_text }}</p>
-<p>Категория: {{ category }}</p>
-<p>Теги:</p>
+<p>{% trans "Текст:" %} {{ item_text }}</p>
+<p>{% trans "Категория:" %} {{ category }}</p>
+<p>{% trans "Теги:" %}</p>
 {% for tag in tags %}
 <ul>
     <li>

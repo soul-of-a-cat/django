@@ -1,3 +1,19 @@
 <footer>
-    <p>Ну подвал так подвал</p>
+    <p id="date">
+        <script>
+            let year_now = {% now "Y" %}
+            let day_now = {% now "j" %}
+            let date = new Date();
+            let year_local = date.getFullYear();
+            let day_local = date.getDate()
+            if (Math.abs(day_now - day_local) == 1) {
+                document.getElementById('date').innerHTML = year_now;
+            } else {
+                document.getElementById('date').innerHTML = year_local;
+            }
+        </script>
+        <noscript>
+            {% now "Y" %}
+        </noscript>
+    </p>
 </footer>

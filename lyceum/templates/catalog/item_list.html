@@ -1,11 +1,12 @@
 {% extends "base.html" %}
+{% load i18n %}
 
 {% block title %}
-Товары
+{% trans "Товары" %}
 {% endblock %}
 
 {% block content %}
-<h1>Список товаров</h1>
+<h1>{% trans "Список товаров" %}</h1>
 {% load static %}
 
 {% for item in items %}
