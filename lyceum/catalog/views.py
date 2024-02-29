@@ -26,7 +26,7 @@ def item_detail(request, num):
         context = {
             "item_name": item[0].name,
             "item_text": item[0].text,
-            "category": category.name,
+            "category": category[0].name,
             "tags": list(item[0].tags.all()),
         }
     else:
