@@ -34,10 +34,10 @@ class ReverseResponseMiddlewareTests(TestCase):
     @parameterized.parameterized.expand(
         [
             ("Я чайник", "Я кинйач"),
-            ("Я чайникqwerty", "Я чайникqwerty"),
+            ("Я чайникqwerty", "Я ytrewqкинйач"),
             ("qwerty qwerty", "qwerty qwerty"),
-            ("Я чайник1", "Я чайник1"),
-            ("Я чайн!ик", "Я чайн!ик"),
+            ("Я чайник1", "Я 1кинйач"),
+            ("Я чайн!ик", "Я нйач!ки"),
         ],
     )
     def test_reverse_worlds(self, word, rev_word):
