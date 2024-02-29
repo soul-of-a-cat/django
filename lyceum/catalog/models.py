@@ -60,7 +60,7 @@ class Item(AbstractModel):
         ],
         verbose_name="текст",
         help_text="Описание должно быть больше, чем из 2х слов "
-        'и содержать слова "превосходно, роскошно"',
+        "и содержать слова 'превосходно, роскошно'",
     )
     category = django.db.models.ForeignKey(
         Category,
@@ -74,7 +74,7 @@ class Item(AbstractModel):
         Tag,
         related_name="tags",
         verbose_name="тег",
-        help_text='Удерживайте "Control" (или "Command" '
+        help_text="Удерживайте 'Control' (или 'Command' "
         "на Mac), чтобы выбрать несколько значений",
     )
 
