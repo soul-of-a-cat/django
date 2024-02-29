@@ -1,6 +1,7 @@
 import django.core.exceptions
 import django.core.validators
 import django.db.models
+from mdeditor.fields import MDTextField
 
 import catalog.validators
 from core.models import AbstractModel, BaseModel, ImageModel
@@ -53,7 +54,7 @@ class Category(AbstractModel, BaseModel):
 
 
 class Item(AbstractModel):
-    text = django.db.models.TextField(
+    text = MDTextField(
         validators=[
             catalog.validators.ValidateMustContain("превосходно", "роскошно"),
             django.core.validators.MinLengthValidator(2),
