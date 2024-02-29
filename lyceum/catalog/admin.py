@@ -7,6 +7,8 @@ __all__ = [
     "CategoryAdmin",
     "TagAdmin",
     "ItemAdmin",
+    "ItemMainImageAdmin",
+    "ItemSecondaryImageAdmin",
 ]
 
 
