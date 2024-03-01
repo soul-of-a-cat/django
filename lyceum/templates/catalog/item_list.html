@@ -11,11 +11,11 @@
 
 {% for item in items %}
 <ul>
-    <li>
-        <a href="{% url 'catalog:item_detail' item.id %}">
-            {{ item.name }}
-        </a>
-    </li>
+	<li>
+		<a href="{% url 'catalog:item_detail' item.id %}">
+			{{ item.name }}
+		</a>
+	</li>
 </ul>
 {% endfor %}
 
