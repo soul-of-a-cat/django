@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-02-29 21:45+0300\n"
+"POT-Creation-Date: 2024-03-01 17:43+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,11 +17,28 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: .\lyceum\settings.py:120
+msgid "Russian"
+msgstr "Russe"
+
+#: .\lyceum\settings.py:121
+msgid "English"
+msgstr "Anglais"
+
+#: .\lyceum\settings.py:122
+msgid "German"
+msgstr "Allemand"
+
+#: .\lyceum\settings.py:123
+msgid "French"
+msgstr "Français"
+
 #: .\templates\about\about.html:5
 msgid "Описание"
 msgstr "Description"
 
-#: .\templates\about\about.html:9 .\templates\includes\header.html:14
+#: .\templates\about\about.html:9 .\templates\includes\header.html:15
 msgid "О проекте"
 msgstr "À propos du projet"
 
@@ -30,12 +47,20 @@ msgid ""
 "Данный сайт представляет собой наиуникальнейшую структуру (я так подозреваю) "
 "торговой площадки."
 msgstr ""
-"Ce site est la structure la plus unique (je soupçonne) "
-"de la plateforme de trading."
+"Ce site est la structure la plus unique (je soupçonne) de la plateforme de "
+"trading."
 
 #: .\templates\about\about.html:12
 msgid "Скорее всего я её не доделаю"
 msgstr "Je ne vais probablement pas la terminer."
+
+#: .\templates\base.html:11
+msgid "Заголовок"
+msgstr "En-tête"
+
+#: .\templates\base.html:17
+msgid "Контент"
+msgstr "Contenu"
 
 #: .\templates\catalog\item.html:5
 msgid "Товар"
@@ -57,7 +82,7 @@ msgstr "Tags:"
 msgid "Товары"
 msgstr "Articles"
 
-#: .\templates\catalog\item_list.html:9 .\templates\includes\header.html:19
+#: .\templates\catalog\item_list.html:9 .\templates\includes\header.html:21
 msgid "Список товаров"
 msgstr "Liste des marchandises"
 
@@ -74,16 +99,16 @@ msgid ""
 "Я приветствую тебя, путник! Неужели ты сам забрёл на эту БРОШЕННУЮ БОГОМ "
 "страницу?"
 msgstr ""
-"Je te salue, voyageur! Est-ce toi qui as erré sur cette page "
-"ABANDONNÉE par DIEU?"
+"Je te salue, voyageur! Est-ce toi qui as erré sur cette page ABANDONNÉE par "
+"DIEU?"
 
 #: .\templates\homepage\main.html:16
 msgid ""
 "Что ж, располагайся и выбирай всё, что душе угодно. Я надеюсь, ты найдешь "
 "что-нибудь себе по вкусу."
 msgstr ""
-"Eh bien, installez-vous et choisissez ce que vous voulez. "
-"J'espère que tu trouveras quelque chose à ton goût."
+"Eh bien, installez-vous et choisissez ce que vous voulez. J'espère que tu "
+"trouveras quelque chose à ton goût."
 
 #: .\templates\homepage\main.html:17
 msgid "ТОЛЬКО НЕ ЗАБУДЬ ЗАПЛАТИТЬ!!!"

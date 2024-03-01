@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-02-29 21:21+0300\n"
+"POT-Creation-Date: 2024-03-01 17:39+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,77 +17,101 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: .\about\about.html:5
+#: .\lyceum\settings.py:120
+msgid "Russian"
+msgstr "Russian"
+
+#: .\lyceum\settings.py:121
+msgid "English"
+msgstr "English"
+
+#: .\lyceum\settings.py:122
+msgid "German"
+msgstr "German"
+
+#: .\lyceum\settings.py:123
+msgid "French"
+msgstr "French"
+
+#: .\templates\about\about.html:5
 msgid "Описание"
 msgstr "Description"
 
-#: .\about\about.html:9 .\includes\header.html:14
+#: .\templates\about\about.html:9 .\templates\includes\header.html:15
 msgid "О проекте"
 msgstr "About the project"
 
-#: .\about\about.html:11
+#: .\templates\about\about.html:11
 msgid ""
 "Данный сайт представляет собой наиуникальнейшую структуру (я так подозреваю) "
 "торговой площадки."
 msgstr ""
 "This site is the most unique structure (I suspect so) of a trading platform."
 
-#: .\about\about.html:12
+#: .\templates\about\about.html:12
 msgid "Скорее всего я её не доделаю"
 msgstr "I probably won't finish it."
 
-#: .\catalog\item.html:5
+#: .\templates\base.html:11
+msgid "Заголовок"
+msgstr "Heading"
+
+#: .\templates\base.html:17
+msgid "Контент"
+msgstr "Content"
+
+#: .\templates\catalog\item.html:5
 msgid "Товар"
 msgstr "Product"
 
-#: .\catalog\item.html:11
+#: .\templates\catalog\item.html:11
 msgid "Текст:"
 msgstr "Text:"
 
-#: .\catalog\item.html:12
+#: .\templates\catalog\item.html:12
 msgid "Категория:"
 msgstr "Category:"
 
-#: .\catalog\item.html:13
+#: .\templates\catalog\item.html:13
 msgid "Теги:"
 msgstr "Tags:"
 
-#: .\catalog\item_list.html:5
+#: .\templates\catalog\item_list.html:5
 msgid "Товары"
 msgstr "Products"
 
-#: .\catalog\item_list.html:9 .\includes\header.html:19
+#: .\templates\catalog\item_list.html:9 .\templates\includes\header.html:21
 msgid "Список товаров"
 msgstr "List of products"
 
-#: .\homepage\main.html:5
+#: .\templates\homepage\main.html:5
 msgid "Главная"
 msgstr "Main"
 
-#: .\homepage\main.html:9
+#: .\templates\homepage\main.html:9
 msgid "Дом, милый дом!"
 msgstr "Home, sweet home!"
 
-#: .\homepage\main.html:15
+#: .\templates\homepage\main.html:15
 msgid ""
 "Я приветствую тебя, путник! Неужели ты сам забрёл на эту БРОШЕННУЮ БОГОМ "
 "страницу?"
 msgstr ""
-"I greet you, traveler! Did you really wander into this GOD-FORSAKEN "
-"page yourself?"
+"I greet you, traveler! Did you really wander into this GOD-FORSAKEN page "
+"yourself?"
 
-#: .\homepage\main.html:16
+#: .\templates\homepage\main.html:16
 msgid ""
 "Что ж, располагайся и выбирай всё, что душе угодно. Я надеюсь, ты найдешь "
 "что-нибудь себе по вкусу."
 msgstr ""
-"Well, settle down and choose whatever your heart desires. "
-"I hope you'll find something to your liking."
+"Well, settle down and choose whatever your heart desires. I hope you'll find "
+"something to your liking."
 
-#: .\homepage\main.html:17
+#: .\templates\homepage\main.html:17
 msgid "ТОЛЬКО НЕ ЗАБУДЬ ЗАПЛАТИТЬ!!!"
 msgstr "JUST DON'T FORGET TO PAY!!!"
 
-#: .\includes\header.html:9
+#: .\templates\includes\header.html:9
 msgid "На главную"
 msgstr "To the main page"
