@@ -60,6 +60,11 @@ class TagAdmin(admin.ModelAdmin):
     )
     list_editable = (catalog.models.Tag.is_published.field.name,)
     list_display_links = (catalog.models.Tag.name.field.name,)
+    prepopulated_fields = {
+        catalog.models.Tag.slug.field.name: (
+            catalog.models.Tag.name.field.name,
+        ),
+    }
 
 
 @admin.register(catalog.models.Category)
@@ -71,3 +76,8 @@ class CategoryAdmin(admin.ModelAdmin):
     )
     list_editable = (catalog.models.Category.is_published.field.name,)
     list_display_links = (catalog.models.Category.name.field.name,)
+    prepopulated_fields = {
+        catalog.models.Category.slug.field.name: (
+            catalog.models.Category.name.field.name,
+        ),
+    }
