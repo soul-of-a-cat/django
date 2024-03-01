@@ -66,7 +66,7 @@ class ImageModel(django.db.models.Model):
     image = sorl.thumbnail.ImageField(
         verbose_name="картинка",
         help_text="Будет приведено к ширине 1280px",
-        upload_to="catalog/items/",
+        upload_to="catalog/items//%Y/%m/%d",
     )
 
     def get_image_300x300(self):
