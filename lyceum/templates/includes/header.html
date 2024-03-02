@@ -1,26 +1,26 @@
 <header>
-	{% load static %}
-	{% load i18n %}
-	<img src="{% static 'img/logo.jpg' %}" alt="Логотип" align="right">
-	{% with request.resolver_match.view_name as view_name %}
-	<ul class="nav nav-pills">
-		<li class="nav-item">
-			<a class="nav-link {% if view_name == 'homepage:home' %}active{% endif %}" href="{% url 'homepage:home' %}">
-				{% trans "На главную" %}
-			</a>
-		</li>
-		<li class="nav-item">
-			<a class="nav-link {% if view_name == 'about:description' %}active{% endif %}"
-			   href="{% url 'about:description' %}">
-				{% trans "О проекте" %}
-			</a>
-		</li>
-		<li class="nav-item">
-			<a class="nav-link {% if view_name == 'catalog:item_list' %}active{% endif %}"
-			   href="{% url 'catalog:item_list' %}">
-				{% trans "Список товаров" %}
-			</a>
-		</li>
-	</ul>
-	{% endwith %}
+  {% load static %}
+  {% load i18n %}
+  <img src="{% static 'img/logo.jpg' %}" alt="Логотип" align="right">
+  {% with request.resolver_match.view_name as view_name %}
+  <ul class="nav nav-pills">
+	  <li class="nav-item">
+      <a class="nav-link {% if view_name == 'homepage:home' %}active{% endif %}" href="{% url 'homepage:home' %}">
+        {% trans "На главную" %}
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link {% if view_name == 'about:description' %}active{% endif %}"
+         href="{% url 'about:description' %}">
+        {% trans "О проекте" %}
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link {% if view_name == 'catalog:item_list' %}active{% endif %}"
+         href="{% url 'catalog:item_list' %}">
+        {% trans "Список товаров" %}
+      </a>
+    </li>
+  </ul>
+  {% endwith %}
 </header>
