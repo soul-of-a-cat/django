@@ -18,6 +18,7 @@ def home(request):
         .filter(is_on_main=True)
         .order_by("name")
     )
+
     context = {"items": items}
     return render(
         request,
