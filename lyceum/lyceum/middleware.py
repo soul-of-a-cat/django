@@ -19,8 +19,7 @@ def reverse_words(content):
         for word in words
     ]
 
-    rev_content = "".join(transformed).encode()
-    return rev_content
+    return "".join(transformed).encode()
 
 
 class ReverseResponseMiddleware:
