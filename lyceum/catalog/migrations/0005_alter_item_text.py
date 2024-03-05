@@ -6,6 +6,10 @@ import mdeditor.fields
 
 import catalog.validators
 
+__all__ = [
+    "Migration",
+]
+
 
 class Migration(migrations.Migration):
 

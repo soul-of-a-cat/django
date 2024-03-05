@@ -6,6 +6,10 @@ import django.db.models.deletion
 
 import catalog.validators
 
+__all__ = [
+    "Migration",
+]
+
 
 class Migration(migrations.Migration):
 
