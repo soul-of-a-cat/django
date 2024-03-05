@@ -1,7 +1,12 @@
+from django.db.models import QuerySet
 from django.test import Client, TestCase
 from django.urls import reverse
 
 import catalog.models
+
+__all__ = [
+    "ContextTest",
+]
 
 
 class ContextTest(TestCase):
@@ -66,4 +71,11 @@ class ContextTest(TestCase):
     def test_home_count_item(self):
         response = Client().get(reverse("catalog:item_list"))
         items = response.context["items"]
-        self.assertEqual(items.count(), 1)
+        self.assertEqual(len(items), 1)
+
+    def test_context_items_type(self):
+        response = Client().get(reverse("catalog:item_list"))
+        items = response.context["items"]
+        expected_type = QuerySet
+
+        self.assertIsInstance(items, expected_type)
