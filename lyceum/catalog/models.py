@@ -60,6 +60,7 @@ class ItemManager(django.db.models.Manager):
             .filter(is_published=True)
             .select_related("category")
             .filter(category__is_published=True)
+            .select_related("main_image")
             .prefetch_related(
                 django.db.models.Prefetch(
                     "tags",
@@ -68,7 +69,7 @@ class ItemManager(django.db.models.Manager):
                     ).only("name"),
                 ),
             )
-            .only("name", "category__name", "text")
+            .only("name", "category__name", "text", "main_image__image")
         )
 
 
