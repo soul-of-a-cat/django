@@ -119,6 +119,7 @@ class ItemMainImage(ImageModel):
         Item,
         on_delete=django.db.models.CASCADE,
         related_name="main_image",
+        related_query_name="main_image",
     )
 
     class Meta:
@@ -131,6 +132,7 @@ class ItemSecondaryImage(ImageModel):
         Item,
         on_delete=django.db.models.CASCADE,
         related_name="images",
+        related_query_name="images",
     )
 
     class Meta:
