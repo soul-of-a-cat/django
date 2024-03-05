@@ -29,7 +29,7 @@ class ReverseResponseMiddlewareTests(TestCase):
         url = reverse("homepage:coffee")
         contents = [Client().get(url).content.decode() for _ in range(20)]
         msg1 = "No reversed responses by default"
-        self.assertIn("Я кинйач", contents, msg1)
+        self.assertNotIn("Я кинйач", contents, msg1)
 
     @parameterized.parameterized.expand(
         [

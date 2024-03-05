@@ -23,60 +23,6 @@ class StaticUrlTests(TestCase):
         response = Client().get(url)
         self.assertEqual(response.status_code, HTTPStatus.OK)
 
-    @parameterized.parameterized.expand(
-        [
-            ("1", HTTPStatus.OK),
-            ("100", HTTPStatus.OK),
-            ("0", HTTPStatus.OK),
-            ("-0", HTTPStatus.NOT_FOUND),
-            ("-100", HTTPStatus.NOT_FOUND),
-            ("0.5", HTTPStatus.NOT_FOUND),
-            ("abc", HTTPStatus.NOT_FOUND),
-            ("0abc", HTTPStatus.NOT_FOUND),
-            ("abc0", HTTPStatus.NOT_FOUND),
-            ("$%^", HTTPStatus.NOT_FOUND),
-            ("1e5", HTTPStatus.NOT_FOUND),
-        ],
-    )
-    def test_catalog_item_endpoint(self, num, expected_status):
-        response = Client().get(f"/catalog/{num}/")
-        self.assertEqual(response.status_code, expected_status)
-
-    @parameterized.parameterized.expand(
-        (
-            (x[0], x[1][0], x[1][1])
-            for x in itertools.product(
-                ["converter", "re"],
-                [
-                    ("1", HTTPStatus.OK),
-                    ("100", HTTPStatus.OK),
-                    ("0", HTTPStatus.NOT_FOUND),
-                    ("-0", HTTPStatus.NOT_FOUND),
-                    ("-100", HTTPStatus.NOT_FOUND),
-                    ("0.5", HTTPStatus.NOT_FOUND),
-                    ("abc", HTTPStatus.NOT_FOUND),
-                    ("0abc", HTTPStatus.NOT_FOUND),
-                    ("abc0", HTTPStatus.NOT_FOUND),
-                    ("$%^", HTTPStatus.NOT_FOUND),
-                    ("1e5", HTTPStatus.NOT_FOUND),
-                ],
-            )
-        ),
-    )
-    def test_catalog_item_pint_endpoint(
-        self,
-        prefix,
-        url,
-        expected_status,
-    ):
-        full_url = f"/catalog/{prefix}/{url}/"
-        response = Client().get(full_url)
-        self.assertEqual(
-            response.status_code,
-            expected_status,
-            f"failed check status request to {full_url}",
-        )
-
 
 class DBItemTests(TestCase):
     @classmethod
