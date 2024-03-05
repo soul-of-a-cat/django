@@ -22,6 +22,7 @@ def item_detail(request, num):
     item = get_object_or_404(
         catalog.models.Item.objects.filter(is_published=True)
         .select_related("category")
+        .select_related("main_image")
         .filter(category__is_published=True)
         .prefetch_related(
             django.db.models.Prefetch(
@@ -31,22 +32,12 @@ def item_detail(request, num):
                 ).only("name"),
             ),
         )
-        .only("name", "category__name", "text"),
+        .only("name", "category__name", "text", "main_image__image"),
         id=num,
     )
 
-    main_image = catalog.models.ItemMainImage.objects.filter(
-        item_id=item.id,
-    ).all()
-
-    secondary_image = catalog.models.ItemSecondaryImage.objects.filter(
-        item_id=item.id,
-    ).all()
-
     context = {
         "item": item,
-        "main_image": main_image,
-        "secondary_image": secondary_image,
     }
     return render(
         request,

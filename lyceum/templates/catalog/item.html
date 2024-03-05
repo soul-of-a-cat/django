@@ -9,8 +9,8 @@
 {% load static %}
 
 <h1>{{ item.name }}</h1>
-{% if main_image %}
-  <img src="{{ main_image }}">
+{% if item.main_image.image %}
+  <img src="{{ item.main_image.image.url }}">
 {% else %}
   <img src="{% static 'img/default.png' %}">
 {% endif %}
@@ -24,8 +24,8 @@
   </li>
 </ul>
 {% endfor %}
-{% if secondary_image %}
-  <img src="{{ secondary_image }}">
+{% if item.images.image.url %}
+  <img src="{{ item.images.image.url }}">
 {% else %}
   <img src="{% static 'img/default.png' %}">
 {% endif %}
