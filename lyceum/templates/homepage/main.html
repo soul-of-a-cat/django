@@ -12,8 +12,14 @@
 
 <img src="{% static 'img/cats.jpg' %}" alt="Котики">
 
-<p>{% trans "homepage_info1" %}</p>
-<p>{% trans "homepage_info2" %}</p>
-<p>{% trans "homepage_info3" %}</p>
+<p>{% trans "Я приветствую тебя, путник! Неужели ты сам забрёл на эту БРОШЕННУЮ БОГОМ страницу?" %}</p>
+<p>{% trans "Что ж, располагайся и выбирай всё, что душе угодно. Я надеюсь, ты найдешь что-нибудь себе по вкусу." %}</p>
+<p>{% trans "ТОЛЬКО НЕ ЗАБУДЬ ЗАПЛАТИТЬ!!!" %}</p>
+
+<div class="wrapper">
+	{% for item, main_image in items.items %}
+	{% include "includes/item_card.html" %}
+	{% endfor %}
+</div>
 
 {% endblock %}

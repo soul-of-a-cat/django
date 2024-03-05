@@ -1,0 +1,21 @@
+{% load i18n %}
+
+{% block content %}
+{% load static %}
+
+
+<div class="item_block">
+	<p>Имя: {{ item.name }}</p>
+	<p>Описание: {{ item.text|truncatewords:10 }}</p>
+	<p>Теги:</p>
+	{% for tag in item.tags.all %}
+	<ul>
+		<li>
+			{{ tag.name }}
+		</li>
+	</ul>
+	{% endfor %}
+</div>
+
+
+{% endblock %}

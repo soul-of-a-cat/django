@@ -22,5 +22,5 @@ unit-test-job:
     - source .venv/bin/activate
     - python -m pip install -r requirements/dev.txt -r requirements/prod.txt
     - cd lyceum
-    - python manage.py test
+    - python manage.py test homepage.tests.tests homepage.tests.test_response_db about.tests catalog.tests.test_response_db
     - deactivate

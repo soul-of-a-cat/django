@@ -1,4 +1,5 @@
-from django.shortcuts import render
+import django.db.models
+from django.shortcuts import get_object_or_404, render
 
 import catalog.models
 
@@ -7,8 +8,8 @@ __all__ = ["item_list", "item_detail"]
 
 def item_list(request):
     template = "catalog/item_list.html"
-    queryset = catalog.models.Item.objects.all()
-    context = {"items": queryset}
+    items = catalog.models.Item.objects.published().order_by("category__name")
+    context = {"items": items}
     return render(
         request,
         template,
@@ -18,24 +19,35 @@ def item_list(request):
 
 def item_detail(request, num):
     template = "catalog/item.html"
-    item = catalog.models.Item.objects.filter(id=num)
-    if item:
-        category = catalog.models.Category.objects.filter(
-            id=item[0].category_id,
+    item = get_object_or_404(
+        catalog.models.Item.objects.filter(is_published=True)
+        .select_related("category")
+        .filter(category__is_published=True)
+        .prefetch_related(
+            django.db.models.Prefetch(
+                "tags",
+                queryset=catalog.models.Tag.objects.filter(
+                    is_published=True,
+                ).only("name"),
+            ),
         )
-        context = {
-            "item_name": item[0].name,
-            "item_text": item[0].text,
-            "category": category[0].name,
-            "tags": list(item[0].tags.all()),
-        }
-    else:
-        context = {
-            "item_name": "",
-            "item_text": "",
-            "category": "",
-            "tags": "",
-        }
+        .only("name", "category__name", "text"),
+        id=num,
+    )
+
+    main_image = catalog.models.ItemMainImage.objects.filter(
+        item_id=item.id,
+    ).all()
+
+    secondary_image = catalog.models.ItemSecondaryImage.objects.filter(
+        item_id=item.id,
+    ).all()
+
+    context = {
+        "item": item,
+        "main_image": main_image,
+        "secondary_image": secondary_image,
+    }
     return render(
         request,
         template,

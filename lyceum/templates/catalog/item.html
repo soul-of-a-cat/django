@@ -7,16 +7,27 @@
 
 {% block content %}
 {% load static %}
-<h1>{{ item_name }}</h1>
-<p>{% trans "Текст:" %} {{ item_text }}</p>
-<p>{% trans "Категория:" %} {{ category }}</p>
+
+<h1>{{ item.name }}</h1>
+{% if main_image %}
+  <img src="{{ main_image }}">
+{% else %}
+  <img src="{% static 'img/default.png' %}">
+{% endif %}
+<p>{% trans "Текст:" %} {{ item.text }}</p>
+<p>{% trans "Категория:" %} {{ item.category }}</p>
 <p>{% trans "Теги:" %}</p>
-{% for tag in tags %}
+{% for tag in item.tags.all %}
 <ul>
   <li>
     {{ tag.name }}
   </li>
 </ul>
 {% endfor %}
+{% if secondary_image %}
+  <img src="{{ secondary_image }}">
+{% else %}
+  <img src="{% static 'img/default.png' %}">
+{% endif %}
 
 {% endblock %}

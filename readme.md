@@ -36,5 +36,3 @@ cd lyceum
 python manage.py test 
 6. Деактивировать виртуальное окружение (при необходимости)\
 deactivate
-
-

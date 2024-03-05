@@ -9,14 +9,11 @@
 <h1>{% trans "Список товаров" %}</h1>
 {% load static %}
 
-{% for item in items %}
-<ul>
-  <li>
-    <a href="{% url 'catalog:item_detail' item.id %}">
-      {{ item.name }}
-    </a>
-  </li>
-</ul>
-{% endfor %}
+<div class="wrapper">
+	{% for item, main_image in items.items %}
+	{% include "includes/item_card.html" %}
+	{% endfor %}
+</div>
+
 
 {% endblock %}

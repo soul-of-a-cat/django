@@ -1,0 +1,10 @@
+.wrapper {
+  display: flex;
+}
+.item_block {
+background: #DDA0DD;
+border: 5px solid #A9A9A9;
+padding: 10px;
+margin: 10px;
+display: inline-block;
+}

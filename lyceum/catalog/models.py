@@ -53,7 +53,32 @@ class Category(AbstractModel, BaseModel):
         return self.name[:15]
 
 
+class ItemManager(django.db.models.Manager):
+    def published(self):
+        return (
+            self.get_queryset()
+            .filter(is_published=True)
+            .select_related("category")
+            .filter(category__is_published=True)
+            .prefetch_related(
+                django.db.models.Prefetch(
+                    "tags",
+                    queryset=catalog.models.Tag.objects.filter(
+                        is_published=True,
+                    ).only("name"),
+                ),
+            )
+            .only("name", "category__name", "text")
+        )
+
+
 class Item(AbstractModel):
+    objects = ItemManager()
+
+    is_on_main = django.db.models.BooleanField(
+        default=False,
+        verbose_name="на главной странице",
+    )
     text = MDTextField(
         validators=[
             catalog.validators.ValidateMustContain("превосходно", "роскошно"),

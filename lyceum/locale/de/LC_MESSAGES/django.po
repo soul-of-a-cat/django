@@ -44,13 +44,14 @@ msgstr "Über das Projekt"
 
 #: .\templates\about\about.html:11
 msgid ""
-"about_info1"
+"Данный сайт представляет собой наиуникальнейшую структуру (я так подозреваю) "
+"торговой площадки."
 msgstr ""
 "Diese Website ist eine einzigartige Struktur (ich vermute) der "
 "Handelsplattform."
 
 #: .\templates\about\about.html:12
-msgid "about_info2"
+msgid "Скорее всего я её не доделаю"
 msgstr "Wahrscheinlich werde ich es nicht beenden"
 
 #: .\templates\base.html:11
@@ -95,20 +96,22 @@ msgstr "Zuhause, liebes Zuhause!"
 
 #: .\templates\homepage\main.html:15
 msgid ""
-"homepage_info1"
+"Я приветствую тебя, путник! Неужели ты сам забрёл на эту БРОШЕННУЮ БОГОМ "
+"страницу?"
 msgstr ""
 "Ich grüße dich, Reisender! Hast du selbst auf diese VON GOTT VERLASSENE "
 "Seite geklettert?"
 
 #: .\templates\homepage\main.html:16
 msgid ""
-"homepage_info2"
+"Что ж, располагайся и выбирай всё, что душе угодно. Я надеюсь, ты найдешь "
+"что-нибудь себе по вкусу."
 msgstr ""
 "Nun, mach dich auf und wähle aus, was immer du willst. Ich hoffe, du findest "
 "etwas nach deinem Geschmack."
 
 #: .\templates\homepage\main.html:17
-msgid "homepage_info3"
+msgid "ТОЛЬКО НЕ ЗАБУДЬ ЗАПЛАТИТЬ!!!"
 msgstr "VERGISS NICHT ZU BEZAHLEN!!!"
 
 #: .\templates\includes\header.html:9

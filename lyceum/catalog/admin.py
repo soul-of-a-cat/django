@@ -1,4 +1,6 @@
 from django.contrib import admin
+import django.db.models
+from mdeditor.widgets import MDEditorWidget
 from sorl.thumbnail.admin import AdminImageMixin
 
 import catalog.models
@@ -22,6 +24,11 @@ class ItemSecondaryImageInline(AdminImageMixin, admin.TabularInline):
 
 @admin.register(catalog.models.Item)
 class ItemAdmin(admin.ModelAdmin):
+    formfield_overrides = {
+        django.db.models.TextField: {
+            "widget": MDEditorWidget,
+        },
+    }
     list_display = (
         catalog.models.Item.name.field.name,
         catalog.models.Item.is_published.field.name,

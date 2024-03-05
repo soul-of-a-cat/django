@@ -65,7 +65,7 @@ class AbstractModel(django.db.models.Model):
 class ImageModel(django.db.models.Model):
     image = sorl.thumbnail.ImageField(
         verbose_name="картинка",
-        help_text="Будет приведено к ширине 1280px",
+        help_text="Будет приведено к 300x300",
         upload_to="catalog/items//%Y/%m/%d",
     )
 

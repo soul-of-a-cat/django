@@ -19,6 +19,8 @@ ALLOW_REVERSE = ALLOW_REVERSE_ENV in (
     "y",
 )
 
+X_FRAME_OPTIONS = "SAMEORIGIN"
+
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", default="not_so_secret")
 
 DEBUG_ENV = os.getenv("DJANGO_DEBUG", "false").lower()
