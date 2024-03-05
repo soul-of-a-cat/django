@@ -17,7 +17,7 @@
 <p>{% trans "ТОЛЬКО НЕ ЗАБУДЬ ЗАПЛАТИТЬ!!!" %}</p>
 
 <div class="wrapper">
-	{% for item, main_image in items.items %}
+	{% for item in items %}
 	{% include "includes/item_card.html" %}
 	{% endfor %}
 </div>
