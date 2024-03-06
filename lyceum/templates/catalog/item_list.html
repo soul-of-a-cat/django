@@ -9,9 +9,13 @@
 <h1>{% trans "Список товаров" %}</h1>
 {% load static %}
 
-<div class="wrapper">
+<div>
 	{% for item in items %}
-	{% include "includes/item_card.html" %}
+		{% ifchanged item.category %}
+			<h2 align="left">{{ item.category }}</h2>
+			<br clear="all" />
+		{% endifchanged %}
+		{% include "includes/item_card.html" %}
 	{% endfor %}
 </div>
 
