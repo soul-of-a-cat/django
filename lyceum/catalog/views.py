@@ -32,6 +32,12 @@ def item_detail(request, num):
                 ).only("name"),
             ),
         )
+        .prefetch_related(
+            django.db.models.Prefetch(
+                "images",
+                queryset=catalog.models.ItemSecondaryImage.objects.only("image"),
+            ),
+        )
         .only("name", "category__name", "text", "main_image__image"),
         id=num,
     )

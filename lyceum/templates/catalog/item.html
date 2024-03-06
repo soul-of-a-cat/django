@@ -24,8 +24,10 @@
   </li>
 </ul>
 {% endfor %}
-{% if item.images.image.url %}
-  <img src="{{ item.images.image.url }}">
+{% if item.images.all %}
+	{% for image in item.images.all %}
+		<img src="{{ item.images.image.url }}">
+	{% endfor %}
 {% else %}
   <img src="{% static 'img/default.png' %}">
 {% endif %}
