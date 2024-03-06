@@ -72,6 +72,24 @@ class ItemManager(django.db.models.Manager):
             .only("name", "category__name", "text", "main_image__image")
         )
 
+    def on_main(self):
+        return (
+            self.get_queryset()
+            .filter(is_published=True, is_on_main=True)
+            .select_related("category")
+            .filter(category__is_published=True)
+            .select_related("main_image")
+            .prefetch_related(
+                django.db.models.Prefetch(
+                    "tags",
+                    queryset=catalog.models.Tag.objects.filter(
+                        is_published=True,
+                    ).only("name"),
+                ),
+            )
+            .only("name", "category__name", "text", "main_image__image")
+        )
+
 
 class Item(AbstractModel):
     objects = ItemManager()
