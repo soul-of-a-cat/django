@@ -79,3 +79,35 @@ class ContextTest(TestCase):
         expected_type = QuerySet
 
         self.assertIsInstance(items, expected_type)
+
+    def test_context_items_field(self):
+        response = Client().get(reverse("catalog:item_list"))
+        items = response.context["items"].first().__dict__
+        tags = items["_prefetched_objects_cache"]["tags"].first().__dict__
+        need_fields = [
+            "name",
+            "text",
+            "category_id",
+        ]
+        unnecessary_fields = [
+            "is_published",
+            "category_is_published",
+            "category_slug",
+        ]
+
+        for field in need_fields:
+            self.assertIn(
+                field,
+                items,
+                f"{field} not expected in context items",
+            )
+        self.assertIn("name", tags)
+
+        for field in unnecessary_fields:
+            self.assertNotIn(
+                field,
+                items,
+                f"{field} was found in context items",
+            )
+        self.assertNotIn("is_published", tags)
+        self.assertNotIn("slug", tags)
