@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}
+{% trans "Товары" %}
+{% endblock %}
+
+{% block content %}
+<h1>{% trans "Новинки" %}</h1>
+{% load static %}
+
+<div>
+	{% for item in items %}
+		{% ifchanged item.category %}
+			<h2 align="left">{{ item.category }}</h2>
+			<br clear="all" />
+		{% endifchanged %}
+		{% include "includes/item_card.html" %}
+	{% empty %}
+		<p>
+			Пока ничего нет!
+		</p>
+	{% endfor %}
+</div>
+
+
+{% endblock %}
