@@ -15,7 +15,9 @@ def home(request):
     template = "homepage/main.html"
     items = catalog.models.Item.objects.on_main().order_by("name")
 
-    context = {"items": items}
+    context = {
+        "items": items,
+    }
     return render(
         request,
         template,
