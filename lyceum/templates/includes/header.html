@@ -22,6 +22,31 @@
 					{% trans "Список товаров" %}
 				</a>
 			</li>
+			<li class="nav-item">
+				<a class="nav-link {% if view_name == 'catalog:new' %}active{% endif %}"
+				   href="{% url 'catalog:new' %}">
+					{% trans "Новинки" %}
+				</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link {% if view_name == 'catalog:friday' %}active{% endif %}"
+				   href="{% url 'catalog:friday' %}">
+					{% trans "Пятница" %}
+				</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link {% if view_name == 'catalog:unverified' %}active{% endif %}"
+				   href="{% url 'catalog:unverified' %}">
+					{% trans "Непроверенное" %}
+				</a>
+			</li>
+			{% if user.is_staff %}
+				<li class="nav-item">
+					<a class="nav-link" href="/admin/">
+						Администрирование
+					</a>
+				</li>
+			{% endif %}
 		</ul>
 		{% endwith %}
 	</div>
