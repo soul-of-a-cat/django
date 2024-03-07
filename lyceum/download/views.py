@@ -15,5 +15,5 @@ def download_main_image(request, main_image_id):
     name = image.image.name[count::]
     response = FileResponse(open(file_path, "rb"))
     response["Content-Type"] = "application/octet-stream"
-    response["Content-Disposition"] = f'attachment; filename="{name}"'
+    response["Content-Disposition"] = f"attachment; filename='{name}'"
     return response
