@@ -16,6 +16,10 @@
 			<br clear="all" />
 		{% endifchanged %}
 		{% include "includes/item_card.html" %}
+	{% empty %}
+		<p>
+			Пока ничего нет!
+		</p>
 	{% endfor %}
 </div>
 
