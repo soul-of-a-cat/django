@@ -13,7 +13,7 @@ def download_main_image(request, main_image_id):
     file_path = f".{image.image.url}"
     count = image.image.name.rfind("/") + 1
     name = image.image.name[count::]
-    response = FileResponse(open(file_path, "rb"))
+    response = FileResponse(open(file_path, "rb"), as_attachment=True)
     response["Content-Type"] = "application/octet-stream"
     response["Content-Disposition"] = f"attachment; filename='{name}'"
     return response
