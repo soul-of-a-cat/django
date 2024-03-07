@@ -76,9 +76,12 @@
     "pk": 1,
     "fields": {
         "is_published": true,
-        "name": "item1",
-        "text": "превосходно",
+        "name": "Носок ласковый",
+        "is_on_main": true,
+        "text": "Это просто превосходно. Лучше вы нигде не найдёте. Он единственный в своём роде. И очень ласковый!!!",
         "category": 1,
+        "create_date": "2024-03-07",
+        "change_date": "2024-03-07",
         "tags": [
             1,
             2,
@@ -94,25 +97,13 @@
     "fields": {
         "is_published": true,
         "name": "item2",
+        "is_on_main": true,
         "text": "роскошно",
         "category": 2,
+        "create_date": "2024-03-07",
+        "change_date": "2024-03-07",
         "tags": [
             1
-        ]
-    }
-},
-{
-    "model": "catalog.item",
-    "pk": 3,
-    "fields": {
-        "is_published": true,
-        "name": "item3",
-        "text": "превосходно и роскошно",
-        "category": 1,
-        "tags": [
-            2,
-            3,
-            5
         ]
     }
 },
@@ -121,9 +112,12 @@
     "pk": 4,
     "fields": {
         "is_published": true,
-        "name": "item4",
+        "name": "item3",
+        "is_on_main": true,
         "text": "ни превосходно ни роскошно",
         "category": 2,
+        "create_date": "2024-03-07",
+        "change_date": "2024-03-07",
         "tags": [
             3
         ]
@@ -134,14 +128,43 @@
     "pk": 5,
     "fields": {
         "is_published": true,
-        "name": "item5",
+        "name": "item4",
+        "is_on_main": false,
         "text": "ни превосходно но роскошно",
         "category": 1,
+        "create_date": "2024-03-07",
+        "change_date": "2024-03-07",
         "tags": [
             1,
             4,
             5
         ]
+    }
+},
+{
+    "model": "catalog.item",
+    "pk": 6,
+    "fields": {
+        "is_published": true,
+        "name": "item5",
+        "is_on_main": false,
+        "text": "превосходно и роскошно",
+        "category": 1,
+        "create_date": "2024-03-07",
+        "change_date": "2024-03-07",
+        "tags": [
+            2,
+            3,
+            5
+        ]
+    }
+},
+{
+    "model": "catalog.itemmainimage",
+    "pk": 4,
+    "fields": {
+        "image": "catalog/items/2024/03/05/sock.jpg",
+        "item": 1
     }
 }
 ]
