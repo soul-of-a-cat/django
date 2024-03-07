@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     "about.apps.AboutConfig",
     "catalog.apps.CatalogConfig",
     "homepage.apps.HomepageConfig",
+    "Download.apps.DownloadConfig",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
