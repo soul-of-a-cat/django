@@ -125,12 +125,13 @@ class Item(AbstractModel):
         help_text="Удерживайте 'Control' (или 'Command' "
         "на Mac), чтобы выбрать несколько значений",
     )
-    create_date = django.db.models.DateField(
+    created = django.db.models.DateTimeField(
         auto_now_add=True,
         null=True,
     )
-    change_date = django.db.models.DateField(
+    updated = django.db.models.DateTimeField(
         auto_now=True,
+        null=True,
     )
 
     class Meta:

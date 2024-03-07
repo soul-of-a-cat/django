@@ -73,7 +73,7 @@ def new(request):
 
     items_all = list(
         catalog.models.Item.objects.published()
-        .filter(create_date__range=[start_date, end_date])
+        .filter(created__range=[start_date, end_date])
         .order_by("category__name"),
     )
 
@@ -97,8 +97,8 @@ def friday(request):
 
     items = (
         catalog.models.Item.objects.published()
-        .filter(change_date__iso_week_day=5)
-        .order_by("category__name", "change_date")
+        .filter(updated__iso_week_day=5)
+        .order_by("category__name", "updated")
     )
 
     if len(items) > 5:
@@ -124,7 +124,7 @@ def unverified(request):
 
     items = (
         catalog.models.Item.objects.published()
-        .filter(create_date=django.db.models.F("change_date"))
+        .filter(created=django.db.models.F("updated"))
         .order_by("category__name")
     )
 
