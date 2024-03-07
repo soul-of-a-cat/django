@@ -27,4 +27,19 @@ urlpatterns = [
         catalog.views.item_detail,
         name="item_detail",
     ),
+    path(
+        "new/",
+        catalog.views.new,
+        name="new",
+    ),
+    path(
+        "friday/",
+        catalog.views.friday,
+        name="friday",
+    ),
+    path(
+        "unverified/",
+        catalog.views.unverified,
+        name="unverified",
+    ),
 ]
