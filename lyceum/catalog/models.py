@@ -10,6 +10,9 @@ __all__ = [
     "Category",
     "Item",
     "Tag",
+    "ItemManager",
+    "ItemSecondaryImage",
+    "ItemMainImage",
 ]
 
 
@@ -121,6 +124,13 @@ class Item(AbstractModel):
         verbose_name="тег",
         help_text="Удерживайте 'Control' (или 'Command' "
         "на Mac), чтобы выбрать несколько значений",
+    )
+    create_date = django.db.models.DateField(
+        auto_now_add=True,
+        null=True,
+    )
+    change_date = django.db.models.DateField(
+        auto_now=True,
     )
 
     class Meta:
