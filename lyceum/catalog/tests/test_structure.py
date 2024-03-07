@@ -23,6 +23,21 @@ class StaticUrlTests(TestCase):
         response = Client().get(url)
         self.assertEqual(response.status_code, HTTPStatus.OK)
 
+    def test_catalog_new_endpoint(self):
+        url = reverse("catalog:new")
+        response = Client().get(url)
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+
+    def test_catalog_friday_endpoint(self):
+        url = reverse("catalog:friday")
+        response = Client().get(url)
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+
+    def test_catalog_unverified_endpoint(self):
+        url = reverse("catalog:unverified")
+        response = Client().get(url)
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+
 
 class DBItemTests(TestCase):
     @classmethod
