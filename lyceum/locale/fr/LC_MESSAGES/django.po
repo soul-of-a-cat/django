@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-01 17:43+0300\n"
+"POT-Creation-Date: 2024-03-07 21:18+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,19 +18,19 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: .\lyceum\settings.py:120
+#: .\lyceum\settings.py:132
 msgid "Russian"
 msgstr "Russe"
 
-#: .\lyceum\settings.py:121
+#: .\lyceum\settings.py:133
 msgid "English"
 msgstr "Anglais"
 
-#: .\lyceum\settings.py:122
+#: .\lyceum\settings.py:134
 msgid "German"
 msgstr "Allemand"
 
-#: .\lyceum\settings.py:123
+#: .\lyceum\settings.py:135
 msgid "French"
 msgstr "Français"
 
@@ -38,7 +38,7 @@ msgstr "Français"
 msgid "Описание"
 msgstr "Description"
 
-#: .\templates\about\about.html:9 .\templates\includes\header.html:15
+#: .\templates\about\about.html:9 .\templates\includes\header.html:16
 msgid "О проекте"
 msgstr "À propos du projet"
 
@@ -54,37 +54,50 @@ msgstr ""
 msgid "Скорее всего я её не доделаю"
 msgstr "Je ne vais probablement pas la terminer."
 
-#: .\templates\base.html:11
+#: .\templates\base.html:12
 msgid "Заголовок"
 msgstr "En-tête"
 
-#: .\templates\base.html:17
+#: .\templates\base.html:18
 msgid "Контент"
 msgstr "Contenu"
+
+#: .\templates\catalog\friday.html:5 .\templates\catalog\item_list.html:5
+#: .\templates\catalog\new.html:5 .\templates\catalog\unverified.html:5
+msgid "Товары"
+msgstr "Articles"
+
+#: .\templates\catalog\friday.html:9
+msgid "Пятница"
+msgstr "Vendredi"
 
 #: .\templates\catalog\item.html:5
 msgid "Товар"
 msgstr "Marchandise"
 
-#: .\templates\catalog\item.html:11
+#: .\templates\catalog\item.html:19
 msgid "Текст:"
 msgstr "Texte:"
 
-#: .\templates\catalog\item.html:12
+#: .\templates\catalog\item.html:20
 msgid "Категория:"
 msgstr "Catégorie:"
 
-#: .\templates\catalog\item.html:13
+#: .\templates\catalog\item.html:21
 msgid "Теги:"
 msgstr "Tags:"
 
-#: .\templates\catalog\item_list.html:5
-msgid "Товары"
-msgstr "Articles"
-
-#: .\templates\catalog\item_list.html:9 .\templates\includes\header.html:21
+#: .\templates\catalog\item_list.html:9 .\templates\includes\header.html:22
 msgid "Список товаров"
 msgstr "Liste des marchandises"
+
+#: .\templates\catalog\new.html:9
+msgid "Новинки"
+msgstr "Nouveautés"
+
+#: .\templates\catalog\unverified.html:9
+msgid "Непроверенное"
+msgstr "Non vérifié"
 
 #: .\templates\homepage\main.html:5
 msgid "Главная"
@@ -114,6 +127,6 @@ msgstr ""
 msgid "ТОЛЬКО НЕ ЗАБУДЬ ЗАПЛАТИТЬ!!!"
 msgstr "N'OUBLIE PAS DE PAYER!!!"
 
-#: .\templates\includes\header.html:9
+#: .\templates\includes\header.html:10
 msgid "На главную"
 msgstr "Accueil"
