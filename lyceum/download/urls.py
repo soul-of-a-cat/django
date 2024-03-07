@@ -1,8 +1,7 @@
 from django.urls import path
-
 import Download.views
 
-app_name = "Download"
+app_name = "download"
 urlpatterns = [
     path(
         "<int:main_image_id>/",

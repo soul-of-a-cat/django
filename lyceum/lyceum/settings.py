@@ -29,11 +29,11 @@ DEBUG = DEBUG_ENV in ("yes", "true", "y", "1", "t")
 ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "*").split(",")
 
 INSTALLED_APPS = [
-    "core.apps.CoreConfig",
     "about.apps.AboutConfig",
+    "core.apps.CoreConfig",
     "catalog.apps.CatalogConfig",
+    "download.apps.DownloadConfig",
     "homepage.apps.HomepageConfig",
-    "Download.apps.DownloadConfig",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
