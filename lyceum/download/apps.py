@@ -1,9 +1,11 @@
 from django.apps import AppConfig
 
-__all__ = ["DownloadConfig"]
+__all__ = [
+    "DownloadConfig",
+]
 
 
 class DownloadConfig(AppConfig):
     default_auto_field = "django.db.models.BigAutoField"
-    name = "Download"
+    name = "download"
     verbose_name = "Скачать"
