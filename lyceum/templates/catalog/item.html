@@ -10,7 +10,7 @@
 
 <h1>{{ item.name }}</h1>
 {% if item.main_image.image %}
-	<a href="{% url 'Download:download_main_image' item.main_image.id %}" download>
+	<a href="{% url 'download:download_main_image' item.main_image.id %}" download>
 		<img src="{{ item.main_image.image.url }}">
 	</a>
 {% else %}

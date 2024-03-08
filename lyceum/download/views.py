@@ -1,5 +1,5 @@
+from django.conf import settings
 from django.http import FileResponse
-
 from django.shortcuts import get_object_or_404
 
 import catalog.models
@@ -11,10 +11,10 @@ __all__ = [
 
 def download_main_image(request, main_image_id):
     image = get_object_or_404(catalog.models.ItemMainImage, pk=main_image_id)
-    file_path = f".{image.image.url}"
+    file_path = f"{settings.MEDIA_ROOT}/{image.image}"
     count = image.image.name.rfind("/") + 1
     name = image.image.name[count::]
     response = FileResponse(open(file_path, "rb"), as_attachment=True)
     response["Content-Type"] = "application/octet-stream"
-    response["Content-Disposition"] = f"attachment; filename='{name}'"
+    response["Content-Disposition"] = f"attachment; filename={name}"
     return response

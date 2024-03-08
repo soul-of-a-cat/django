@@ -10,8 +10,10 @@ urlpatterns = [
     path("catalog/", include("catalog.urls")),
     path("admin/", admin.site.urls),
     path("mdeditor/", include("mdeditor.urls")),
-    path("download/", include("download.urls"),
-         {"document root": settings.MEDIA_ROOT}),
+    path(
+        "download/",
+        include("download.urls"),
+    ),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
