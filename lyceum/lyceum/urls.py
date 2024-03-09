@@ -10,11 +10,13 @@ urlpatterns = [
     path("catalog/", include("catalog.urls")),
     path("admin/", admin.site.urls),
     path("mdeditor/", include("mdeditor.urls")),
-    path(
-        "download/",
-        include("download.urls"),
-    ),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    path("download/", include("download.urls")),
+    path("i18n/", include("django.conf.urls.i18n")),
+]
+
+urlpatterns.extend(
+    static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT),
+)
 
 
 if settings.DEBUG:
