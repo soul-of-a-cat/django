@@ -32,27 +32,21 @@ def item_list(request):
 def item_detail(request, num):
     template = "catalog/item.html"
     item = get_object_or_404(
-        catalog.models.Item.objects.filter(is_published=True)
-        .select_related("category")
-        .select_related("main_image")
-        .filter(category__is_published=True)
+        catalog.models.Item.objects.published()
         .prefetch_related(
             django.db.models.Prefetch(
-                "tags",
-                queryset=catalog.models.Tag.objects.filter(
-                    is_published=True,
-                ).only("name"),
-            ),
-        )
-        .prefetch_related(
-            django.db.models.Prefetch(
-                "images",
+                catalog.models.ItemSecondaryImage.item.field.name,
                 queryset=catalog.models.ItemSecondaryImage.objects.only(
                     "image",
                 ),
             ),
         )
-        .only("name", "category__name", "text", "main_image__image"),
+        .only(
+            catalog.models.Item.name.field.name,
+            catalog.models.Item.text.field.name,
+            catalog.models.Item.category.field.name,
+            "main_image__image",
+        ),
         id=num,
     )
 
