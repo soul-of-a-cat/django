@@ -10,22 +10,22 @@ urlpatterns = [
     path(
         "",
         catalog.views.item_list,
-        name="item_list",
+        name="item-list",
     ),
     re_path(
         r"^re/(?P<num>[1-9]\d*)/$",
         catalog.views.item_detail,
-        name="item_detail",
+        name="item-detail",
     ),
     path(
         "converter/<pint:num>/",
         catalog.views.item_detail,
-        name="item_detail",
+        name="item-detail",
     ),
     path(
         "<int:num>/",
         catalog.views.item_detail,
-        name="item_detail",
+        name="item-detail",
     ),
     path(
         "new/",
