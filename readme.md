@@ -4,32 +4,39 @@
 
 ![ER.jpg](ER.jpg)
 
-Для создания файлов перевода:\
-django-admin compilemessages
-
-Для Windows используем **python (pip)**, для Linux - **python3 (pip3)**
++ Для создания файлов перевода:\
+***django-admin compilemessages***
++ Некоторые переменные должны быть сохранены в файл **.env**\
+Для этого используем команду: ***cp .env.example .env***
++ Для Windows используем ***python (pip)***, для Linux - ***python3 (pip3)***
++ Чтобы стать администратором нужна команда:\
+***python manage.py createsuperuser***\
+После заполняем поля:
+  + Имя пользователя (обязательно)
+  + Адрес электронной почты (необязательно)
+  + Пароль (обязательно)
++ Для загрузки fixtures:\
+***python manage.py loaddata fixtures/data.json --app app.catalog***
 
 # Запуск сервера
 1. Создать виртуальное окружение\
 python -m venv venv (python3 -m venv venv)
 2. Активировать виртуальное окружение\
-venv/Scripts/activate (source .venv/bin/activate) 
+venv\Scripts\activate (source .venv/bin/activate) 
 3. Установить нужные библиотеки\
-python -m pip install -r requirements/dev.txt
+python -m pip install -r requirements\dev.txt
 4. Переходим в нужную директорию\
 cd lyceum
 5. Запускаем сервер\
 python manage.py runserver *(если нужно указываем нужный порт)*
 
-***Некоторые переменные сохранены в файл .env***
-
 # Запуск тестирования
 1. Создать виртуальное окружение\
 python -m venv venv
 2. Активировать виртуальное окружение\
-venv/Scripts/activate
+venv\Scripts\activate
 3. Установить нужные библиотеки\
-python -m pip install -r requirements/dev.txt -r requirements/prod.txt
+python -m pip install -r requirements\dev.txt -r requirements\prod.txt
 4. Переходим в нужную директорию\
 cd lyceum
 5. Запустить тесты\
