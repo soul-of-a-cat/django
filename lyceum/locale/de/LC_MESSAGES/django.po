@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-07 21:15+0300\n"
+"POT-Creation-Date: 2024-03-09 15:19+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -67,9 +67,14 @@ msgstr "Inhalt"
 msgid "Товары"
 msgstr "Güter"
 
-#: .\templates\catalog\friday.html:9
+#: .\templates\catalog\friday.html:9 .\templates\includes\header.html:34
 msgid "Пятница"
 msgstr "Freitag"
+
+#: .\templates\catalog\friday.html:21 .\templates\catalog\item_list.html:21
+#: .\templates\catalog\new.html:21 .\templates\catalog\unverified.html:21
+msgid "Пока ничего нет!"
+msgstr "Noch ist nichts da!"
 
 #: .\templates\catalog\item.html:5
 msgid "Товар"
@@ -91,11 +96,11 @@ msgstr "Kennungen:"
 msgid "Список товаров"
 msgstr "Warenverzeichnis"
 
-#: .\templates\catalog\new.html:9
+#: .\templates\catalog\new.html:9 .\templates\includes\header.html:28
 msgid "Новинки"
 msgstr "Neuheiten"
 
-#: .\templates\catalog\unverified.html:9
+#: .\templates\catalog\unverified.html:9 .\templates\includes\header.html:40
 msgid "Непроверенное"
 msgstr "Unbestaetigtes"
 
@@ -130,3 +135,15 @@ msgstr "VERGISS NICHT ZU BEZAHLEN!!!"
 #: .\templates\includes\header.html:10
 msgid "На главную"
 msgstr "Auf der Hauptseite"
+
+#: .\templates\includes\header.html:46
+msgid "Администрирование"
+msgstr "Administration"
+
+#: .\templates\includes\header.html:54
+msgid "Язык"
+msgstr "Sprache"
+
+#: .\templates\includes\header.html:65
+msgid "Изменить"
+msgstr "Ändern"
