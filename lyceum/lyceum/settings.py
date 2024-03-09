@@ -8,7 +8,7 @@ dotenv.load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-ALLOW_REVERSE_ENV = os.getenv("DJANGO_ALLOW_REVERSE", "true")
+ALLOW_REVERSE_ENV = os.getenv("DJANGO_ALLOW_REVERSE", "false")
 ALLOW_REVERSE = ALLOW_REVERSE_ENV in (
     "",
     "true",
@@ -99,26 +99,26 @@ AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": (
             "django.contrib.auth.password_validation"
-            ".UserAttributeSimilarityValidator",
-        ),
+            ".UserAttributeSimilarityValidator"
+        )
     },
     {
         "NAME": (
             "django.contrib.auth.password_validation"
-            ".MinimumLengthValidator",
-        ),
+            ".MinimumLengthValidator"
+        )
     },
     {
         "NAME": (
             "django.contrib.auth.password_validation"
-            ".CommonPasswordValidator",
-        ),
+            ".CommonPasswordValidator"
+        )
     },
     {
         "NAME": (
             "django.contrib.auth.password_validation"
-            ".NumericPasswordValidator",
-        ),
+            ".NumericPasswordValidator"
+        )
     },
 ]
 
