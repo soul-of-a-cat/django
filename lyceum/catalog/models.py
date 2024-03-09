@@ -61,36 +61,46 @@ class ItemManager(django.db.models.Manager):
         return (
             self.get_queryset()
             .filter(is_published=True)
-            .select_related("category")
+            .select_related(catalog.models.Item.category.field.name)
             .filter(category__is_published=True)
             .select_related("main_image")
             .prefetch_related(
                 django.db.models.Prefetch(
-                    "tags",
+                    catalog.models.Item.tags.field.name,
                     queryset=catalog.models.Tag.objects.filter(
                         is_published=True,
-                    ).only("name"),
+                    ).only(catalog.models.Tag.name.field.name),
                 ),
             )
-            .only("name", "category__name", "text", "main_image__image")
+            .only(
+                catalog.models.Item.name.field.name,
+                catalog.models.Item.text.field.name,
+                catalog.models.Item.category.field.name,
+                "main_image__image",
+            )
         )
 
     def on_main(self):
         return (
             self.get_queryset()
             .filter(is_published=True, is_on_main=True)
-            .select_related("category")
+            .select_related(catalog.models.Item.category.field.name)
             .filter(category__is_published=True)
             .select_related("main_image")
             .prefetch_related(
                 django.db.models.Prefetch(
-                    "tags",
+                    catalog.models.Item.tags.field.name,
                     queryset=catalog.models.Tag.objects.filter(
                         is_published=True,
-                    ).only("name"),
+                    ).only(catalog.models.Tag.name.field.name),
                 ),
             )
-            .only("name", "category__name", "text", "main_image__image")
+            .only(
+                catalog.models.Item.name.field.name,
+                catalog.models.Item.text.field.name,
+                catalog.models.Item.category.field.name,
+                "main_image__image",
+            )
         )
 
 
