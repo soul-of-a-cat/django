@@ -7,6 +7,6 @@ urlpatterns = [
     path(
         "<int:main_image_id>/",
         download.views.download_main_image,
-        name="download_main_image",
+        name="download-main-image",
     ),
 ]
