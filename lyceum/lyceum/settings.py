@@ -30,8 +30,8 @@ ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "*").split(",")
 
 INSTALLED_APPS = [
     "about.apps.AboutConfig",
-    "core.apps.CoreConfig",
     "catalog.apps.CatalogConfig",
+    "core.apps.CoreConfig",
     "download.apps.DownloadConfig",
     "homepage.apps.HomepageConfig",
     "django.contrib.admin",
@@ -59,10 +59,12 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = "lyceum.urls"
 
+TEMPLATES_DIRS = BASE_DIR / "templates"
+
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [BASE_DIR / "templates"],
+        "DIRS": [TEMPLATES_DIRS],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
