@@ -15,8 +15,6 @@
   + Имя пользователя (обязательно)
   + Адрес электронной почты (необязательно)
   + Пароль (обязательно)
-+ Для загрузки fixtures:\
-***python manage.py loaddata fixtures/data.json --app app.catalog***
 
 # Запуск сервера
 1. Создать виртуальное окружение\
@@ -27,7 +25,11 @@ venv\Scripts\activate (source .venv/bin/activate)
 python -m pip install -r requirements\dev.txt
 4. Переходим в нужную директорию\
 cd lyceum
-5. Запускаем сервер\
+5. Создаём базу данных\
+python manage.py migrate
+6. Загружаем fixtures\
+python manage.py loaddata fixtures/data.json --app app.catalog
+7. Запускаем сервер\
 python manage.py runserver *(если нужно указываем нужный порт)*
 
 # Запуск тестирования
