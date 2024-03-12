@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     "catalog.apps.CatalogConfig",
     "core.apps.CoreConfig",
     "download.apps.DownloadConfig",
+    "feedback.apps.FeedbackConfig",
     "homepage.apps.HomepageConfig",
     "django.contrib.admin",
     "django.contrib.auth",
@@ -151,3 +152,9 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 MEDIA_ROOT = BASE_DIR / "media"
 
 MEDIA_URL = "/media/"
+
+EMAIL_HOST_USER = os.getenv("DJANGO_MAIL", default="django@mail.ru")
+
+EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
+
+EMAIL_FILE_PATH = BASE_DIR / "sent_emails"
