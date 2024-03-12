@@ -8,3 +8,10 @@
   margin: 10px;
   overflow: hidden;
 }
+
+.header {
+  overflow: hidden;
+  background: #b2b8b2;
+  border: 1px solid #181a18;
+  margin: 0px 0px 10px 0px;
+}
