@@ -6,4 +6,6 @@ app_name = "homepage"
 urlpatterns = [
     path("", homepage.views.home, name="home"),
     path("coffee/", homepage.views.coffee, name="coffee"),
+    path("echo/", homepage.views.echo, name="echo"),
+    path("echo/submit/", homepage.views.echo_submit, name="echo-submit"),
 ]
