@@ -58,49 +58,95 @@ class Category(AbstractModel, BaseModel):
 
 class ItemManager(django.db.models.Manager):
     def published(self):
-        return (
+        items = (
             self.get_queryset()
-            .filter(is_published=True)
-            .select_related(catalog.models.Item.category.field.name)
-            .filter(category__is_published=True)
-            .select_related("main_image")
+            .filter(
+                is_published=True,
+                category__is_published=True,
+            )
+            .select_related(
+                Item.category.field.name,
+                Item.main_image.related.name,
+            )
             .prefetch_related(
                 django.db.models.Prefetch(
-                    catalog.models.Item.tags.field.name,
-                    queryset=catalog.models.Tag.objects.filter(
-                        is_published=True,
-                    ).only(catalog.models.Tag.name.field.name),
+                    Item.tags.field.name,
+                    queryset=Tag.objects.filter(is_published=True).only(
+                        Tag.name.field.name,
+                    ),
                 ),
             )
-            .only(
-                catalog.models.Item.name.field.name,
-                catalog.models.Item.text.field.name,
-                catalog.models.Item.category.field.name,
-                "main_image__image",
-            )
+        )
+        return items.only(
+            Item.name.field.name,
+            Item.text.field.name,
+            f"{Item.category.field.name}__{Category.name.field.name}",
+            f"{Item.tags.field.name}__{Tag.name.field.name}",
+            f"{Item.main_image.related.name}__{ItemMainImage.item.field.name}",
         )
 
     def on_main(self):
-        return (
+        items = (
             self.get_queryset()
-            .filter(is_published=True, is_on_main=True)
-            .select_related(catalog.models.Item.category.field.name)
-            .filter(category__is_published=True)
-            .select_related("main_image")
+            .filter(
+                is_published=True,
+                is_on_main=True,
+                category__is_published=True,
+            )
+            .select_related(
+                Item.category.field.name,
+                Item.main_image.related.name,
+            )
             .prefetch_related(
                 django.db.models.Prefetch(
-                    catalog.models.Item.tags.field.name,
-                    queryset=catalog.models.Tag.objects.filter(
-                        is_published=True,
-                    ).only(catalog.models.Tag.name.field.name),
+                    Item.tags.field.name,
+                    queryset=Tag.objects.filter(is_published=True).only(
+                        Tag.name.field.name,
+                    ),
                 ),
             )
-            .only(
-                catalog.models.Item.name.field.name,
-                catalog.models.Item.text.field.name,
-                catalog.models.Item.category.field.name,
-                "main_image__image",
+        )
+        return items.only(
+            Item.name.field.name,
+            Item.text.field.name,
+            f"{Item.category.field.name}__{Category.name.field.name}",
+            f"{Item.tags.field.name}__{Tag.name.field.name}",
+            f"{Item.main_image.related.name}__"
+            f"{ItemMainImage.item.field.name}",
+        )
+
+    def item_detail(self):
+        items = (
+            self.get_queryset()
+            .filter(
+                is_published=True,
+                category__is_published=True,
             )
+            .select_related(
+                Item.category.field.name,
+                Item.main_image.related.name,
+            )
+            .prefetch_related(
+                django.db.models.Prefetch(
+                    Item.tags.field.name,
+                    queryset=Tag.objects.filter(is_published=True).only(
+                        Tag.name.field.name,
+                    ),
+                ),
+                django.db.models.Prefetch(
+                    Item.images.field._related_name,
+                    queryset=ItemSecondaryImage.objects.all(),
+                ),
+            )
+        )
+        return items.only(
+            Item.name.field.name,
+            Item.text.field.name,
+            f"{Item.category.field.name}__" f"{Category.name.field.name}",
+            f"{Item.main_image.related.name}__"
+            f"{ItemMainImage.item.field.name}",
+            f"{Item.images.field._related_name}__"
+            f"{ItemSecondaryImage.item.field.name}",
         )
 
 
