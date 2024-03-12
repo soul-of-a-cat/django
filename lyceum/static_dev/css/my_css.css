@@ -15,3 +15,11 @@
   border: 1px solid #181a18;
   margin: 0px 0px 10px 0px;
 }
+
+.my-field {
+  border:1px solid #ccc;
+  border-radius:5px;
+  height:25px;
+  width:200px;
+  margin: 10px 10px 10px 0;
+}
