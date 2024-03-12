@@ -142,11 +142,99 @@ class ItemManager(django.db.models.Manager):
         return items.only(
             Item.name.field.name,
             Item.text.field.name,
-            f"{Item.category.field.name}__" f"{Category.name.field.name}",
+            f"{Item.category.field.name}__{Category.name.field.name}",
             f"{Item.main_image.related.name}__"
             f"{ItemMainImage.item.field.name}",
             f"{Item.images.field._related_name}__"
             f"{ItemSecondaryImage.item.field.name}",
+        )
+
+    def new(self, start, end):
+        items = (
+            self.get_queryset()
+            .filter(
+                is_published=True,
+                category__is_published=True,
+                created__range=[start, end],
+            )
+            .select_related(
+                Item.category.field.name,
+                Item.main_image.related.name,
+            )
+            .prefetch_related(
+                django.db.models.Prefetch(
+                    Item.tags.field.name,
+                    queryset=Tag.objects.filter(is_published=True).only(
+                        Tag.name.field.name,
+                    ),
+                ),
+            )
+        )
+        return items.only(
+            Item.name.field.name,
+            Item.text.field.name,
+            f"{Item.category.field.name}__{Category.name.field.name}",
+            f"{Item.tags.field.name}__{Tag.name.field.name}",
+            f"{Item.main_image.related.name}__{ItemMainImage.item.field.name}",
+        )
+
+    def friday(self):
+        items = (
+            self.get_queryset()
+            .filter(
+                is_published=True,
+                category__is_published=True,
+                updated__iso_week_day=5,
+            )
+            .select_related(
+                Item.category.field.name,
+                Item.main_image.related.name,
+            )
+            .prefetch_related(
+                django.db.models.Prefetch(
+                    Item.tags.field.name,
+                    queryset=Tag.objects.filter(is_published=True).only(
+                        Tag.name.field.name,
+                    ),
+                ),
+            )
+        )
+        return items.only(
+            Item.name.field.name,
+            Item.text.field.name,
+            Item.updated.field.name,
+            f"{Item.category.field.name}__{Category.name.field.name}",
+            f"{Item.tags.field.name}__{Tag.name.field.name}",
+            f"{Item.main_image.related.name}__{ItemMainImage.item.field.name}",
+        )
+
+    def unverified(self):
+        items = (
+            self.get_queryset()
+            .filter(
+                is_published=True,
+                category__is_published=True,
+                created=django.db.models.F("updated"),
+            )
+            .select_related(
+                Item.category.field.name,
+                Item.main_image.related.name,
+            )
+            .prefetch_related(
+                django.db.models.Prefetch(
+                    Item.tags.field.name,
+                    queryset=Tag.objects.filter(is_published=True).only(
+                        Tag.name.field.name,
+                    ),
+                ),
+            )
+        )
+        return items.only(
+            Item.name.field.name,
+            Item.text.field.name,
+            f"{Item.category.field.name}__{Category.name.field.name}",
+            f"{Item.tags.field.name}__{Tag.name.field.name}",
+            f"{Item.main_image.related.name}__{ItemMainImage.item.field.name}",
         )
 
 
