@@ -1,7 +1,10 @@
 [flake8]
 exclude = .git,__pycache__,.venv,venv,*/migrations/
-application_import_names = about, catalog, core, download, homepage, lyceum
+application_import_names = about, catalog, core, download, feedback, homepage, lyceum
 max-line-length=79
 import-order-style = google
 literal-inline-quotes = double
 inline-quotes = double
+max-cognitive-complexity = 5
+max-complexity = 5
+ignore-django-orm-queries-complexity=true
