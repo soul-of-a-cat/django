@@ -24,7 +24,8 @@ class FormTests(TestCase):
 
     def test_create_task(self):
         form_data = {
-            "text": "test",
+            "name": "test_name",
+            "text": "test_text",
             "mail": "sgadfh@mail.ru",
         }
 
