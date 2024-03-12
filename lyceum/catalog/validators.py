@@ -17,6 +17,7 @@ class ValidateMustContain:
     def __call__(self, value):
         if re.findall(self.pattern, value, re.IGNORECASE):
             return
+
         str_words = " ".join(self.words)
         raise ValidationError(
             f"Должно содержаться одно из слов: {str_words}",
