@@ -22,7 +22,7 @@ class FormTests(TestCase):
         name_help_text = self.form.fields["text"].help_text
         self.assertEqual(name_help_text, "Напишите текст сообщения")
 
-    def test_create_task(self):
+    def test_redirect(self):
         form_data = {
             "name": "test_name",
             "text": "test_text",
