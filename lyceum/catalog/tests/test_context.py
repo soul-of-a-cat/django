@@ -101,6 +101,7 @@ class ContextTest(TestCase):
                 items,
                 f"{field} not expected in context items",
             )
+
         self.assertIn("name", tags)
 
         for field in unnecessary_fields:
@@ -109,5 +110,6 @@ class ContextTest(TestCase):
                 items,
                 f"{field} was found in context items",
             )
+
         self.assertNotIn("is_published", tags)
         self.assertNotIn("slug", tags)
