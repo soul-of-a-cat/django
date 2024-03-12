@@ -6,6 +6,10 @@ __all__ = [
 
 
 class FeedbackForm(forms.Form):
+    name = forms.CharField(
+        label="Имя пользователя",
+        help_text="Напишите своё имя",
+    )
     text = forms.CharField(
         label="Текст",
         help_text="Напишите текст сообщения",
