@@ -43,5 +43,5 @@ class ReverseResponseMiddleware:
 
         rev_content = reverse_words(content)
 
-        response.content = rev_content
+        response.content = rev_content.encode()
         return response
