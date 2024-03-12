@@ -40,6 +40,7 @@ class BaseModel(django.db.models.Model):
                     self.__class__.name.field.name: "Такое имя уже имеется",
                 },
             )
+
         self.normalized_name = normalized
 
     class Meta:
@@ -82,6 +83,7 @@ class ImageModel(django.db.models.Model):
             return mark_safe(
                 f'<img scr="{self.get_image_300x300().url}">',
             )
+
         return "Нет изображения"
 
     image_tmb.short_description = "превью"
