@@ -16,12 +16,14 @@ def feedback(request):
     form = FeedbackForm(request.POST or None)
 
     if form.is_valid():
+        name = form.cleaned_data.get("name")
         text = form.cleaned_data.get("text")
         user_mail = form.cleaned_data.get("mail")
         django_mail = settings.EMAIL_HOST_USER
+        message = f"Name: {name}\nMessage: {text}"
         send_mail(
             "Subject here",
-            text,
+            message,
             django_mail,
             [user_mail],
         )

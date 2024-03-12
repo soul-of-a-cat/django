@@ -1,7 +1,6 @@
 from datetime import date, timedelta
 import random
 
-import django.db.models
 from django.shortcuts import get_object_or_404, render
 
 import catalog.models
@@ -52,16 +51,15 @@ def new(request):
     start_date = end_date - timedelta(days=7)
 
     items_all = list(
-        catalog.models.Item.objects.published()
-        .filter(created__range=[start_date, end_date])
-        .order_by("category__name"),
+        catalog.models.Item.objects.new(start_date, end_date),
     )
 
     if len(items_all) > 5:
         items = random.sample(items_all, 5)
-        items = sorted(items, key=lambda x: x.category.name)
     else:
         items = items_all
+
+    items = sorted(items, key=lambda x: x.category.name)
 
     context = {"items": items}
 
@@ -75,11 +73,9 @@ def new(request):
 def friday(request):
     template = "catalog/friday.html"
 
-    items = (
-        catalog.models.Item.objects.published()
-        .filter(updated__iso_week_day=5)
-        .order_by("category__name", "updated")
-    )
+    items = catalog.models.Item.objects.friday()
+
+    items = sorted(items, key=lambda x: (x.category.name, x.updated))
 
     if len(items) > 5:
         context = {
@@ -102,11 +98,9 @@ def friday(request):
 def unverified(request):
     template = "catalog/unverified.html"
 
-    items = (
-        catalog.models.Item.objects.published()
-        .filter(created=django.db.models.F("updated"))
-        .order_by("category__name")
-    )
+    items = catalog.models.Item.objects.unverified()
+
+    items = sorted(items, key=lambda x: x.category.name)
 
     if len(items) > 0:
         context = {
