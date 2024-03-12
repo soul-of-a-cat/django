@@ -82,6 +82,7 @@ class DBItemTests(TestCase):
             self.item.tags.add(self.tag)
             self.item.full_clean()
             self.item.save()
+
         self.assertEqual(
             catalog.models.Item.objects.count(),
             item_count,
@@ -137,6 +138,7 @@ class DBTagTests(TestCase):
         with self.assertRaises(ValidationError):
             self.tag.full_clean()
             self.tag.save()
+
         self.assertEqual(
             catalog.models.Tag.objects.count(),
             tag_count,
@@ -198,6 +200,7 @@ class DBCategoryTests(TestCase):
         with self.assertRaises(ValidationError):
             self.category.full_clean()
             self.category.save()
+
         self.assertEqual(
             catalog.models.Category.objects.count(),
             category_count,
@@ -277,6 +280,7 @@ class DBNormalizeNameTests(TestCase):
         with self.assertRaises(ValidationError):
             self.tag.full_clean()
             self.tag.save()
+
         self.assertEqual(
             catalog.models.Tag.objects.count(),
             tag_count,
