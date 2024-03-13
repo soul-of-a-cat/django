@@ -1,3 +1,4 @@
+from django import forms
 import django.core.exceptions
 import django.core.validators
 import django.db.models
@@ -5,7 +6,6 @@ from mdeditor.fields import MDTextField
 
 import catalog.validators
 from core.models import AbstractModel, BaseModel, ImageModel
-from django import forms
 
 __all__ = [
     "Category",
@@ -326,6 +326,4 @@ class ItemForm(forms.ModelForm):
             Item.name.field.name: "Название",
         }
 
-        help_texts = {
-            Item.name.field.name: "Это название товара"
-        }
+        help_texts = {Item.name.field.name: "Это название товара"}

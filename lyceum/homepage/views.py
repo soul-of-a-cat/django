@@ -55,6 +55,7 @@ def echo(request: HttpResponse) -> HttpResponse:
             template,
             context,
         )
+
     return HttpResponseNotAllowed(["GET"])
 
 
@@ -66,4 +67,5 @@ def echo_submit(request):
             text,
             content_type="text/plain",
         )
+
     return HttpResponseNotAllowed(["POST"])
