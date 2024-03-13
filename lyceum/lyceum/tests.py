@@ -3,6 +3,7 @@ from django.urls import reverse
 import parameterized
 
 from lyceum.middleware import reverse_words
+from django.conf import settings
 
 __all__ = [
     "ReverseResponseMiddlewareTests",
@@ -33,7 +34,10 @@ class ReverseResponseMiddlewareTests(TestCase):
         url = reverse("homepage:coffee")
         contents = [Client().get(url).content.decode() for _ in range(20)]
         msg1 = "No reversed responses by default"
-        self.assertNotIn("Я кинйач", contents, msg1)
+        if settings.ALLOW_REVERSE:
+            self.assertIn("Я кинйач", contents, msg1)
+        else:
+            self.assertNotIn("Я кинйач", contents, msg1)
 
     @parameterized.parameterized.expand(
         [
