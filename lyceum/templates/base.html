@@ -2,20 +2,20 @@
 {% load i18n %}
 <html lang="ru">
 <head>
-  {% load static %}
-  <meta charset="UTF-8">
-  <link rel="icon" href="{% static 'favicon/favicon.ico' %}" type="image">
-  <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
-  <link rel="stylesheet" type="text/css" href="{% static 'css/my_css.css' %}">
+		{% load static %}
+		<meta charset="UTF-8">
+		<link rel="icon" href="{% static 'favicon/favicon.ico' %}" type="image">
+		<link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+		<link rel="stylesheet" type="text/css" href="{% static 'css/my_css.css' %}">
 
-  <title>
-    {% block title %}{% trans "Заголовок" %}{% endblock %}
-  </title>
+		<title>
+				{% block title %}{% trans "Заголовок" %}{% endblock %}
+		</title>
 </head>
 <body>
 {% include "includes/header.html" %}
 <main>
-  {% block content %}{% trans "Контент" %}{% endblock %}
+		{% block content %}{% trans "Контент" %}{% endblock %}
 </main>
 {% include "includes/footer.html" %}
 </body>
