@@ -39,6 +39,43 @@ class ReverseResponseMiddlewareTests(TestCase):
         else:
             self.assertNotIn("Я кинйач", contents, msg1)
 
+    @override_settings(ALLOW_REVERSE=True)
+    def test_reverse_russian_words_enabled_echo(self):
+        form_data = {
+            "text": "Привет, этo почтi-почти Pуcский текст@,"
+            " просто≈ Как-то со спецü символами:) ¡сорри∑!"
+            " Hу ещё раз ¡сорри! Ёжика не видели?",
+        }
+        contents = {}
+        for _ in range(10):
+            content = (
+                Client()
+                .post(
+                    reverse("homepage:echo-submit"),
+                    form_data,
+                    follow=True,
+                )
+                .content.decode()
+            )
+            contents[content] = contents.get(content, 0) + 1
+
+        self.assertEqual(
+            contents[
+                "Привет, этo почтi-почти Pуcский"
+                " текст@, просто≈ Как-то со спецü символами:)"
+                " ¡сорри∑! Hу ещё раз ¡сорри! Ёжика не видели?"
+            ],
+            9,
+        )
+        self.assertEqual(
+            contents[
+                "тевирП, этo почтi-итчоп Pуcский тскет@, отсорп≈"
+                " каК-от ос спецü ималовмис:) ¡иррос∑! Hу ёще зар"
+                " ¡иррос! акижЁ ен иледив?"
+            ],
+            1,
+        )
+
     @parameterized.parameterized.expand(
         [
             ("Я чайник", "Я кинйач"),
@@ -49,6 +86,6 @@ class ReverseResponseMiddlewareTests(TestCase):
         ],
     )
     def test_reverse_worlds(self, word, rev_word):
-        rev_words = reverse_words(word)
+        rev_words = reverse_words(word).decode()
         self.assertEqual(rev_words, rev_word)
         self.assertEqual(rev_words, rev_word)
