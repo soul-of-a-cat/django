@@ -1,5 +1,5 @@
-from django.db import models
 from django import forms
+from django.db import models
 
 __all__ = [
     "Feedback",
@@ -68,7 +68,7 @@ class FeedbackForm(forms.ModelForm):
 
         widgets = {
             Feedback.text.field.name: forms.Textarea(
-                attrs={"class": "my-field"}
+                attrs={"class": "my-field"},
             ),
         }
 

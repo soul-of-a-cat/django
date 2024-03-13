@@ -1,9 +1,9 @@
+from django.conf import settings
 from django.test import Client, override_settings, TestCase
 from django.urls import reverse
 import parameterized
 
 from lyceum.middleware import reverse_words
-from django.conf import settings
 
 __all__ = [
     "ReverseResponseMiddlewareTests",

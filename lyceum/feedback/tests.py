@@ -2,7 +2,6 @@ from django.test import Client, TestCase
 from django.urls import reverse
 
 import feedback.models
-
 from feedback.models import Feedback
 
 __all__ = [
@@ -66,7 +65,7 @@ class FormTests(TestCase):
             "text": "test_text",
             "mail": "sgadfh@mail.ru",
         }
-        response = Client().post(
+        Client().post(
             reverse("feedback:feedback"),
             form_data,
             follow=True,
