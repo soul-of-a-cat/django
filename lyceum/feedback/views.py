@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.core.mail import send_mail
 from django.shortcuts import redirect, render
 
-from feedback.forms import FeedbackForm
+from feedback.models import FeedbackForm
 
 
 __all__ = [
@@ -15,7 +15,7 @@ def feedback(request):
     template = "feedback/feedback.html"
     form = FeedbackForm(request.POST or None)
 
-    if form.is_valid():
+    if form.is_valid() and request.method == "POST":
         name = form.cleaned_data.get("name")
         text = form.cleaned_data.get("text")
         user_mail = form.cleaned_data.get("mail")
@@ -27,6 +27,8 @@ def feedback(request):
             django_mail,
             [user_mail],
         )
+
+        form.save()
 
         messages.success(request, "Форма успешно отправлена!")
 
