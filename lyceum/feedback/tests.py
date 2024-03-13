@@ -1,7 +1,9 @@
 from django.test import Client, TestCase
 from django.urls import reverse
 
-import feedback.forms
+import feedback.models
+
+from feedback.models import Feedback
 
 __all__ = [
     "FormTests",
@@ -12,7 +14,7 @@ class FormTests(TestCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.form = feedback.forms.FeedbackForm()
+        cls.form = feedback.models.FeedbackForm()
 
     def test_name_label(self):
         name_label = self.form.fields["text"].label
@@ -39,6 +41,7 @@ class FormTests(TestCase):
 
     def test_form_errors(self) -> None:
         data = {"text": "some text", "mail": "wrong email"}
+        feedback_count = Feedback.objects.count()
         response = self.client.post(
             reverse("feedback:feedback"),
             data=data,
@@ -49,4 +52,27 @@ class FormTests(TestCase):
             "form",
             "mail",
             "Введите правильный адрес электронной почты.",
+        )
+        self.assertEqual(
+            Feedback.objects.count(),
+            feedback_count,
+            "Feedback created while validation failed",
+        )
+
+    def test_form_add_db(self):
+        feedback_count = Feedback.objects.count()
+        form_data = {
+            "name": "test_name",
+            "text": "test_text",
+            "mail": "sgadfh@mail.ru",
+        }
+        response = Client().post(
+            reverse("feedback:feedback"),
+            form_data,
+            follow=True,
+        )
+        self.assertEqual(
+            Feedback.objects.count(),
+            feedback_count + 1,
+            "Feedback created while validation failed",
         )
