@@ -36,3 +36,17 @@ class FormTests(TestCase):
         )
 
         self.assertRedirects(response, reverse("feedback:feedback"))
+
+    def test_form_errors(self) -> None:
+        data = {"text": "some text", "mail": "wrong email"}
+        response = self.client.post(
+            reverse("feedback:feedback"),
+            data=data,
+            follow=True,
+        )
+        self.assertFormError(
+            response,
+            "form",
+            "mail",
+            "Введите правильный адрес электронной почты.",
+        )
