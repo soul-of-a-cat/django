@@ -7,6 +7,11 @@ __all__ = [
 
 
 class Feedback(models.Model):
+    class Status(models.IntegerChoices):
+        RECEIVED = 0, "Получено"
+        PROCESSING = 1, "В обработке"
+        ANSWER = 2, "Ответ дан"
+
     name = models.CharField(
         "имя",
         help_text="Напишите своё имя",
@@ -32,7 +37,8 @@ class Feedback(models.Model):
         verbose_name="status",
         help_text="Статус",
         max_length=100,
-        null=True,
+        choices=Status.choices,
+        default=Status.RECEIVED,
     )
 
     class Meta:
@@ -46,7 +52,10 @@ class FeedbackForm(forms.ModelForm):
     class Meta:
         model = Feedback
 
-        exclude = [Feedback.created_on.field.name]
+        exclude = [
+            Feedback.created_on.field.name,
+            Feedback.status.field.name,
+        ]
 
         fields = (
             Feedback.name.field.name,
@@ -67,7 +76,7 @@ class FeedbackForm(forms.ModelForm):
         }
 
         widgets = {
-            Feedback.text.field.name: forms.Textarea(
+            Feedback.text.field.name: forms.TextInput(
                 attrs={"class": "my-field"},
             ),
         }
@@ -77,9 +86,9 @@ class FeedbackForm(forms.ModelForm):
                 "required": "Please enter your name",
             },
             Feedback.text.field.name: {
-                "required": "Please enter your name",
+                "required": "Please enter text",
             },
             Feedback.mail.field.name: {
-                "required": "Please enter your name",
+                "required": "Please enter your email",
             },
         }
