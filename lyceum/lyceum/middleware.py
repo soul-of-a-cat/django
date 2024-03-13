@@ -9,12 +9,17 @@ __all__ = [
 
 
 def reverse_words(text):
-    for m in re.finditer(r"\b[а-яёА-ЯЁ]+\b", text):
+    pattern = re.compile(
+        r"\b[а-яё]+\b",
+        re.IGNORECASE,
+    )
+
+    for m in re.finditer(string=text, pattern=pattern):
         s = m.start()
         e = m.end()
         text = text[:s] + text[s:e][::-1] + text[e:]
 
-    return text.encode()
+    return text
 
 
 class ReverseResponseMiddleware:
@@ -39,9 +44,9 @@ class ReverseResponseMiddleware:
             return self.get_response(request)
 
         response = self.get_response(request)
-        content = response.content.decode()
+        content = response.content.decode("utf-8")
 
-        rev_content = reverse_words(content)
+        rev_content = reverse_words(content).encode("utf-8")
 
-        response.content = rev_content.decode()
+        response.content = rev_content
         return response
