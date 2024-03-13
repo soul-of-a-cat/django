@@ -86,6 +86,6 @@ class ReverseResponseMiddlewareTests(TestCase):
         ],
     )
     def test_reverse_worlds(self, word, rev_word):
-        rev_words = reverse_words(word).decode()
+        rev_words = reverse_words(word)
         self.assertEqual(rev_words, rev_word)
         self.assertEqual(rev_words, rev_word)
