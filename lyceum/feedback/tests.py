@@ -1,8 +1,8 @@
 from django.test import Client, TestCase
 from django.urls import reverse
 
+from feedback.forms import Feedback
 import feedback.models
-from feedback.models import Feedback
 
 __all__ = [
     "FormTests",
@@ -13,7 +13,7 @@ class FormTests(TestCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.form = feedback.models.FeedbackForm()
+        cls.form = feedback.forms.FeedbackForm()
 
     def test_name_label(self):
         name_label = self.form.fields["text"].label
