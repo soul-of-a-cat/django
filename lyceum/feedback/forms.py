@@ -8,6 +8,11 @@ __all__ = [
 
 
 class FeedbackForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.visible_fields():
+            field.field.widget.attrs["class"] = "my-field"
+
     class Meta:
         model = Feedback
 
@@ -35,7 +40,7 @@ class FeedbackForm(forms.ModelForm):
         }
 
         widgets = {
-            Feedback.text.field.name: forms.TextInput(
+            Feedback.text.field.name: forms.Textarea(
                 attrs={"class": "my-field"},
             ),
         }
