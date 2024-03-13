@@ -14,7 +14,7 @@ def reverse_words(text):
         e = m.end()
         text = text[:s] + text[s:e][::-1] + text[e:]
 
-    return text
+    return text.encode()
 
 
 class ReverseResponseMiddleware:
@@ -43,5 +43,5 @@ class ReverseResponseMiddleware:
 
         rev_content = reverse_words(content)
 
-        response.content = rev_content.encode()
+        response.content = rev_content.decode()
         return response
