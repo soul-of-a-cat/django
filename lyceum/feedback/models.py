@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.db import models
 
 __all__ = [
@@ -45,3 +46,17 @@ class Feedback(models.Model):
 
     def __str__(self):
         return self.text[:10]
+
+
+class StatusLog(models.Model):
+    user = models.ForeignKey(
+        User,
+        on_delete=models.SET_NULL,
+        null=True,
+    )
+    timestamp = models.DateTimeField(
+        verbose_name="создано",
+        help_text="Дата и время создания",
+        auto_now_add=True,
+        null=True,
+    )
