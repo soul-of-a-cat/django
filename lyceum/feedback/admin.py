@@ -2,6 +2,10 @@ from django.contrib import admin
 
 import feedback.models
 
+__all__ = [
+    "FeedbackAdmin",
+]
+
 
 @admin.register(feedback.models.Feedback)
 class FeedbackAdmin(admin.ModelAdmin):
