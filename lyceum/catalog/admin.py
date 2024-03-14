@@ -107,18 +107,12 @@ class FeedbackAdmin(admin.ModelAdmin):
         feedback.models.Feedback.created_on.field.name,
         feedback.models.Feedback.mail.field.name,
     )
-    fieldsets = (
-        (None,
-         {
-             'fields': (
-                 feedback.models.Feedback.name.field.name,
-                 feedback.models.Feedback.text.field.name,
-                 feedback.models.Feedback.mail.field.name,
-                 feedback.models.Feedback.status.field.name,
-                 feedback.models.Feedback.created_on.field.name,
-             )
-         }
-         ),
+    fields = (
+        feedback.models.Feedback.name.field.name,
+        feedback.models.Feedback.text.field.name,
+        feedback.models.Feedback.mail.field.name,
+        feedback.models.Feedback.status.field.name,
+        feedback.models.Feedback.created_on.field.name,
     )
 
     def save_model(self, request, obj, form, change):
