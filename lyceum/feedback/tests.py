@@ -1,5 +1,6 @@
 from django.test import Client, TestCase
 from django.urls import reverse
+from parameterized import parameterized
 
 from feedback.forms import Feedback
 import feedback.models
@@ -41,7 +42,7 @@ class FormTests(TestCase):
     def test_form_errors(self) -> None:
         data = {"text": "some text", "mail": "wrong email"}
         feedback_count = Feedback.objects.count()
-        response = self.client.post(
+        response = Client().post(
             reverse("feedback:feedback"),
             data=data,
             follow=True,
@@ -74,4 +75,26 @@ class FormTests(TestCase):
             Feedback.objects.count(),
             feedback_count + 1,
             "Feedback created while validation failed",
+        )
+
+    @parameterized.expand(
+        [
+            ({"text": "some text", "name": "", "mail": "test@test.com"},),
+            ({"text": "some text", "name": "Vasya", "mail": "test@test.com"},),
+        ],
+    )
+    def test_form(self, data: dict[str, str]) -> None:
+        Client().post(
+            reverse("feedback:feedback"),
+            data=data,
+            follow=True,
+        )
+
+        self.assertTrue(
+            Feedback.objects.filter(
+                mail=data["mail"],
+                name=data["name"] or None,
+                text=data["text"],
+            ).exists(),
+            "Uncorrect feedback created",
         )
