@@ -6,17 +6,19 @@ __all__ = [
 ]
 
 
-class Feedback(models.Model):
-    class Status(models.IntegerChoices):
-        RECEIVED = 0, "Получено"
-        PROCESSING = 1, "В обработке"
-        ANSWER = 2, "Ответ дан"
+class Status(models.TextChoices):
+    RECEIVED = "Получено"
+    PROCESSING = "В обработке"
+    ANSWER = "Ответ дан"
 
+
+class Feedback(models.Model):
     name = models.CharField(
         "имя",
         help_text="Напишите своё имя",
         max_length=100,
         null=True,
+        blank=True,
     )
     text = models.CharField(
         "текст",
@@ -43,6 +45,8 @@ class Feedback(models.Model):
 
     class Meta:
         app_label = "feedback"
+        verbose_name = "обратная связь"
+        verbose_name_plural = "обратные связи"
 
     def __str__(self):
         return self.text[:10]
@@ -53,10 +57,27 @@ class StatusLog(models.Model):
         User,
         on_delete=models.SET_NULL,
         null=True,
+        verbose_name="пользователь",
     )
     timestamp = models.DateTimeField(
         verbose_name="создано",
         help_text="Дата и время создания",
         auto_now_add=True,
         null=True,
+    )
+    from_status = models.CharField(
+        verbose_name="status",
+        help_text="Статус",
+        max_length=100,
+        choices=Status.choices,
+        null=True,
+        db_column="from",
+    )
+    to_status = models.CharField(
+        verbose_name="status",
+        help_text="Статус",
+        max_length=100,
+        choices=Status.choices,
+        null=True,
+        db_column="to",
     )
