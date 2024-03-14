@@ -12,6 +12,7 @@ class FeedbackForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         for field in self.visible_fields():
             field.field.widget.attrs["class"] = "my-field"
+        self.fields["name"].required = False
 
     class Meta:
         model = Feedback
@@ -19,7 +20,6 @@ class FeedbackForm(forms.ModelForm):
         exclude = [
             Feedback.created_on.field.name,
             Feedback.status.field.name,
-            Feedback.name.field.name,
         ]
 
         fields = (
