@@ -312,18 +312,3 @@ class ItemSecondaryImage(ImageModel):
     class Meta:
         verbose_name = "дополнительное изображение"
         verbose_name_plural = "дополнительные изображения"
-
-
-class ItemForm(forms.ModelForm):
-    class Meta:
-        model = Item
-
-        exclude = [Item.is_on_main.field.name]
-
-        fields = (Item.name.field.name,)
-
-        labels = {
-            Item.name.field.name: "Название",
-        }
-
-        help_texts = {Item.name.field.name: "Это название товара"}
