@@ -1,4 +1,4 @@
-from django.contrib.auth.models import User
+from django.conf import settings
 from django.db import models
 
 __all__ = [
@@ -54,7 +54,7 @@ class Feedback(models.Model):
 
 class StatusLog(models.Model):
     user = models.ForeignKey(
-        User,
+        settings.AUTH_USER_MODEL,
         on_delete=models.SET_NULL,
         null=True,
         verbose_name="пользователь",
@@ -73,7 +73,7 @@ class StatusLog(models.Model):
         null=True,
         db_column="from",
     )
-    to_status = models.CharField(
+    to = models.CharField(
         verbose_name="status",
         help_text="Статус",
         max_length=100,
