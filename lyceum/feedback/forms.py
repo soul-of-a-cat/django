@@ -19,6 +19,7 @@ class FeedbackForm(forms.ModelForm):
         exclude = [
             Feedback.created_on.field.name,
             Feedback.status.field.name,
+            Feedback.name.field.name,
         ]
 
         fields = (
