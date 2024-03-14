@@ -10,17 +10,17 @@
 {% load static %}
 
 <div>
-		{% for item in items %}
-		{% ifchanged item.category %}
-		<h2 align="left">{{ item.category }}</h2>
-		<br clear="all"/>
-		{% endifchanged %}
-		{% include "includes/item_card.html" %}
-		{% empty %}
-		<p>
-				{% trans "Пока ничего нет!" %}
-		</p>
-		{% endfor %}
+	{% for item in items %}
+	{% ifchanged item.category %}
+	<h2 align="left">{{ item.category }}</h2>
+	<br clear="all"/>
+	{% endifchanged %}
+	{% include "includes/item_card.html" %}
+	{% empty %}
+	<p>
+		{% trans "Пока ничего нет!" %}
+	</p>
+	{% endfor %}
 </div>
 
 
