@@ -64,11 +64,13 @@ class StatusLog(models.Model):
         db_column="from",
         max_length=11,
         verbose_name="с",
+        null=True,
     )
     to = models.CharField(
         choices=Status.choices,
         max_length=11,
         verbose_name="на",
+        null=True,
     )
 
     class Meta:
