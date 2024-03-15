@@ -1,5 +1,6 @@
 from pathlib import Path
 import re
+import uuid
 
 import django.db.models
 from django.utils.safestring import mark_safe
@@ -11,6 +12,11 @@ __all__ = [
     "BaseModel",
     "normalize_name",
 ]
+
+
+def get_path_image(instance, filename):
+    ext = filename.split(".")[-1]
+    return f"catalog/{uuid.uuid4()}.{ext}"
 
 
 def normalize_name(name):
@@ -65,9 +71,8 @@ class AbstractModel(django.db.models.Model):
 
 class ImageModel(django.db.models.Model):
     image = sorl.thumbnail.ImageField(
-        verbose_name="картинка",
-        help_text="Будет приведено к 300x300",
-        upload_to="catalog/items//%Y/%m/%d",
+        upload_to=get_path_image,
+        verbose_name="изображение",
     )
 
     def get_image_300x300(self):
@@ -78,13 +83,28 @@ class ImageModel(django.db.models.Model):
             quality=51,
         )
 
+    def get_image_413x413(self):
+        return sorl.thumbnail.get_thumbnail(
+            self.image,
+            "413x413",
+            crop="center",
+            quality=51,
+        )
+
+    def get_image_108x108(self):
+        return sorl.thumbnail.get_thumbnail(
+            self.image,
+            "108x108",
+            crop="center",
+            quality=51,
+        )
+
     def image_tmb(self):
         if self.image:
-            return mark_safe(
-                f'<img scr="{self.get_image_300x300().url}">',
-            )
+            tag = f'<img src="{self.get_image_300x300().url}">'
+            return mark_safe(tag)
 
-        return "Нет изображения"
+        return "изображение отсутствует"
 
     image_tmb.short_description = "превью"
     image_tmb.allow_tags = True
