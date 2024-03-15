@@ -4,21 +4,21 @@
 {% load static %}
 
 <div class="item_block">
-	{% if item.main_image.image %}
-	<img src="{{ item.main_image.image.url }}">
-	{% else %}
-	<img src="{% static 'img/default.png' %}">
-	{% endif %}
-	<p>Имя: {{ item.name }}</p>
-	<p>Описание: {{ item.text|truncatewords_html:10 }}</p>
-	<p>Теги:</p>
-	{% for tag in item.tags.all %}
-	<ul>
-		<li>
-			{{ tag.name }}
-		</li>
-	</ul>
-	{% endfor %}
+  {% if item.main_image.image %}
+  <img src="{{ item.main_image.image.url }}">
+  {% else %}
+  <img src="{% static 'img/default.png' %}">
+  {% endif %}
+  <p>Имя: {{ item.name }}</p>
+  <p>Описание: {{ item.text|truncatewords_html:10 }}</p>
+  <p>Теги:</p>
+  {% for tag in item.tags.all %}
+  <ul>
+    <li>
+      {{ tag.name }}
+    </li>
+  </ul>
+  {% endfor %}
 </div>
 
 
