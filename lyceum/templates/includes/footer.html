@@ -5,9 +5,9 @@
       let date_local = new Date();
       let diff = Math.abs((date_now - date_local) / 1000 * 60 * 60);
       if (diff < 24) {
-      				document.getElementById('date').innerHTML = date_local.getFullYear();
+              document.getElementById('date').innerHTML = date_local.getFullYear();
       } else {
-      				document.getElementById('date').innerHTML = {% now "Y" %};
+              document.getElementById('date').innerHTML = {% now "Y" %};
       }
     </script>
     <noscript>
