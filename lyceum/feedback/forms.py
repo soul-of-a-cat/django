@@ -1,60 +1,62 @@
-from django import forms
+import django.forms
 
-from feedback.models import Feedback
+import feedback.models
 
 __all__ = [
     "FeedbackForm",
+    "FeedbackAuthorForm",
+    "FeedbackFileForm",
 ]
 
 
-class FeedbackForm(forms.ModelForm):
+class FeedbackForm(django.forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for field in self.visible_fields():
-            field.field.widget.attrs["class"] = "my-field"
-
-        self.fields["name"].required = False
+            field.field.widget.attrs["class"] = "form-control"
 
     class Meta:
-        model = Feedback
-
+        model = feedback.models.Feedback
         exclude = [
-            Feedback.created_on.field.name,
-            Feedback.status.field.name,
+            feedback.models.Feedback.created_on.field.name,
+            feedback.models.Feedback.status.field.name,
         ]
 
-        fields = (
-            Feedback.name.field.name,
-            Feedback.text.field.name,
-            Feedback.mail.field.name,
-        )
 
-        labels = {
-            Feedback.name.field.name: "Имя",
-            Feedback.text.field.name: "Текст",
-            Feedback.mail.field.name: "Почта",
-        }
+class FeedbackAuthorForm(django.forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.visible_fields():
+            field.field.widget.attrs["class"] = "form-control"
 
-        help_texts = {
-            Feedback.name.field.name: "Напишите своё имя",
-            Feedback.text.field.name: "Напишите текст сообщения",
-            Feedback.mail.field.name: "Почтовый адрес",
-        }
+    class Meta:
+        model = feedback.models.FeedbackAuthor
+        exclude = [
+            feedback.models.FeedbackAuthor.feedback.field.name,
+        ]
 
-        widgets = {
-            Feedback.text.field.name: forms.Textarea(
-                attrs={"class": "my-field"},
-            ),
-        }
 
-        error_messages = {
-            Feedback.name.field.name: {
-                "required": "Please enter your name",
-            },
-            Feedback.text.field.name: {
-                "required": "Please enter text",
-            },
-            Feedback.mail.field.name: {
-                "required": "Please enter your email",
-            },
-        }
+class MultipleFileInput(django.forms.ClearableFileInput):
+    allow_multiple_selected = True
+
+
+class MultipleFileField(django.forms.FileField):
+    def __init__(self, *args, **kwargs):
+        kwargs.setdefault("widget", MultipleFileInput())
+        super().__init__(*args, **kwargs)
+
+    def clean(self, data, initial=None):
+        single_file_clean = super().clean
+        if isinstance(data, (list, tuple)):
+            return [single_file_clean(d, initial) for d in data]
+
+        return single_file_clean(data, initial)
+
+
+class FeedbackFileForm(django.forms.Form):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.visible_fields():
+            field.field.widget.attrs["class"] = "form-control"
+
+    files = MultipleFileField(required=False, label="Файлы")
