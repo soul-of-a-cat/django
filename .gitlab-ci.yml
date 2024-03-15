@@ -24,7 +24,5 @@ unit-test-job:
     - python -m pip install -r requirements/dev.txt -r requirements/prod.txt
     - cp .env.example .env
     - cd lyceum
-    - python manage.py makemigrations
-    - python manage.py migrate
     - python manage.py test
     - deactivate
