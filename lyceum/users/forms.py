@@ -1,5 +1,7 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm, UserModel
+from django.contrib.auth.forms import UserChangeForm, UserCreationForm
+from django.contrib.auth.models import User
+
 import users.models
 
 __all__ = [
@@ -31,10 +33,10 @@ class ProfileForm(forms.ModelForm):
         fields = [
             model.birthday.field.name,
             model.image.field.name,
-            model.coffe_count.field.name,
+            model.coffee_count.field.name,
         ]
         widgets = {
-            model.coffe_count.field.name: forms.NumberInput(
+            model.coffee_count.field.name: forms.NumberInput(
                 attrs={
                     "readonly": "readonly",
                     "disabled": "disabled",
@@ -47,15 +49,17 @@ class ProfileForm(forms.ModelForm):
         }
 
 
-class UserForm(forms.ModelForm):
-    def __init__(self, *args, **kwargs):
+class UserForm(UserChangeForm):
+    password = None
+
+    def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
         for field in self.visible_fields():
             field.field.widget.attrs["class"] = "form-control"
 
-    class Meta:
-        model = UserModel
-        fields = (
-            UserModel.email.field.name,
-            UserModel.username.field.name,
-        )
+    class Meta(UserChangeForm.Meta):
+        model = User
+        fields = [
+            User.email.field.name,
+            User.first_name.field.name,
+        ]

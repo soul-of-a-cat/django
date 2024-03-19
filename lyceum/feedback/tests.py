@@ -48,12 +48,12 @@ class FormTests(TestCase):
 
     @parameterized.expand(
         [
-            ("content", FeedbackForm),
-            ("author", FeedbackAuthorForm),
-            ("files", FeedbackFileForm),
+            ("form", FeedbackForm),
+            ("author_form", FeedbackAuthorForm),
+            ("files_form", FeedbackFileForm),
         ],
     )
-    def test_correct_context(
+    def test_feedback_show_correct_context(
         self,
         form_name,
         form_type,
@@ -104,7 +104,7 @@ class FormTests(TestCase):
         )
         self.assertFormError(
             response,
-            "author",
+            "author_form",
             "mail",
             "Введите правильный адрес электронной почты.",
         )
