@@ -167,3 +167,4 @@ cython_debug/
 .DS_Store
 /lyceum/send_mail/
 /lyceum/media/uploads/
+/lyceum/media/users/
