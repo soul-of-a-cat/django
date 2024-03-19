@@ -1,8 +1,8 @@
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
+import django.contrib.auth.urls
 from django.urls import include, path
-
 
 urlpatterns = [
     path("", include("homepage.urls")),
@@ -13,6 +13,8 @@ urlpatterns = [
     path("mdeditor/", include("mdeditor.urls")),
     path("download/", include("download.urls")),
     path("i18n/", include("django.conf.urls.i18n")),
+    path("auth/", include("users.urls")),
+    path("auth/", include(django.contrib.auth.urls)),
 ]
 
 urlpatterns.extend(
