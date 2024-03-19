@@ -33,7 +33,7 @@ class Profile(models.Model):
         help_text="загрузите автарку",
         upload_to=get_path_image,
     )
-    coffe_count = models.PositiveIntegerField(
+    coffee_count = models.PositiveIntegerField(
         "количество переходов по /coffee/",
         help_text="сколько раз пользователь пытался сварить кофе ",
         default=0,
