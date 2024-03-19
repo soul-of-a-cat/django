@@ -7,6 +7,7 @@ from django.contrib.auth.forms import (
 )
 import django.forms
 from django.urls import path, reverse_lazy
+
 import users.views
 
 __all__ = []
@@ -108,10 +109,5 @@ urlpatterns = [
         "user_detail/<int:num>/",
         users.views.user_detail,
         name="user-detail",
-    ),
-    path(
-        "profile/",
-        users.views.profile,
-        name="profile",
     ),
 ]

@@ -8,4 +8,5 @@ urlpatterns = [
     path("coffee/", homepage.views.coffee, name="coffee"),
     path("echo/", homepage.views.echo, name="echo"),
     path("echo/submit/", homepage.views.echo_submit, name="echo-submit"),
+    path("profile/", homepage.views.profile, name="profile"),
 ]
