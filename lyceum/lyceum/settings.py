@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "sorl.thumbnail",
     "django_cleanup.apps.CleanupConfig",
     "mdeditor",
+    "users.apps.UsersConfig",
 ]
 
 MIDDLEWARE = [
@@ -136,25 +137,27 @@ LANGUAGES = [
     ("de", gettext_lazy("German")),
     ("fr", gettext_lazy("French")),
 ]
-
 LOCALE_PATHS = ("locale",)
 
 STATIC_URL = "/static/"
-
 STATICFILES_DIRS = [
     BASE_DIR / "static_dev",
 ]
-
 STATIC_ROOT = BASE_DIR / "static"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 MEDIA_ROOT = BASE_DIR / "media"
-
 MEDIA_URL = "/media/"
 
 EMAIL_HOST_USER = os.getenv("DJANGO_MAIL", default="django@mail.ru")
-
 EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
-
 EMAIL_FILE_PATH = BASE_DIR / "send_mail"
+
+LOGIN_URL = "/auth/login/"
+LOGIN_REDIRECT_URL = "/"
+LOGOUT_REDIRECT_URL = "/auth/login/"
+
+DEFAULT_USER_IS_ACTIVE = os.getenv(
+    "DEFAULT_USER_IS_ACTIVE", default=True if DEBUG else False
+)
