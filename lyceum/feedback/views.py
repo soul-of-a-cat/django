@@ -44,8 +44,8 @@ def feedback(request):
         return redirect(request.path)
 
     context = {
-        "author": author_form,
-        "content": content_form,
-        "files": files_form,
+        "author_form": author_form,
+        "form": content_form,
+        "files_form": files_form,
     }
     return render(request, "feedback/feedback.html", context)
