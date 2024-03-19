@@ -15,12 +15,15 @@
 <body>
 {% include "includes/header.html" %}
 <main>
+
 	{% if messages %}
-	{% for message in messages %}
-	<div class="alert alert-success" role="alert">
-		{{ message }}
+	<div class="messages">
+		{% for message in messages %}
+		<div class="alert {% if message.tags %}alert-{{ message.tags }}" {% endif %}>
+			{{ message }}
+		</div>
+		{% endfor %}
 	</div>
-	{% endfor %}
 	{% endif %}
 
 	{% block content %}{% trans "Контент" %}{% endblock %}
