@@ -94,7 +94,9 @@ urlpatterns = [
     path("activate/<str:username>/", users.views.activate, name="activate"),
     path("user_list/", users.views.user_list, name="user-list"),
     path(
-        "user_detail/<int:num>/", users.views.user_detail, name="user-detail"
+        "user_detail/<int:num>/",
+        users.views.user_detail,
+        name="user-detail",
     ),
     path("profile/", users.views.profile, name="profile"),
 ]

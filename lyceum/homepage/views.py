@@ -5,7 +5,6 @@ from django.shortcuts import render
 
 import catalog.models
 from homepage.forms import HomepageForm
-import users.models
 
 __all__ = [
     "home",
