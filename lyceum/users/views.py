@@ -3,6 +3,7 @@ import datetime
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import get_user_model
+import django.contrib.auth.decorators
 from django.core.mail import send_mail
 from django.shortcuts import get_object_or_404, redirect, render
 from django.template.loader import render_to_string
@@ -70,10 +71,36 @@ def user_detail(request, num):
         get_user_model().objects.filter(
             is_active=True,
             id=num,
-        )
+        ),
     )
     return render(
         request,
         "users/user_detail.html",
         {"user_item": user},
+    )
+
+
+@django.contrib.auth.decorators.login_required
+def profile(request):
+    profile_form = users.forms.ProfileForm(
+        request.POST or None,
+        instance=request.user.profile,
+    )
+    user_form = users.forms.UserForm(
+        request.POST or None,
+        instance=request.user,
+    )
+    if request.method == "POST":
+        if all((profile_form.is_valid(), user_form.is_valid())):
+            profile_form.save()
+            user_form.save()
+
+    return render(
+        request,
+        "users/profile.html",
+        {
+            "profile_form": profile_form,
+            "user_form": user_form,
+            "user": request.user,
+        },
     )

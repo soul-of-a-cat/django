@@ -1,27 +1,21 @@
 from http import HTTPStatus
 
-from django.contrib import messages
-import django.contrib.auth.decorators
 from django.http import HttpResponse, HttpResponseNotAllowed
 from django.shortcuts import render
 
 import catalog.models
 from homepage.forms import HomepageForm
-import users.forms
+import users.models
 
 __all__ = [
     "home",
     "coffee",
     "echo",
     "echo_submit",
-    "profile",
 ]
 
 
 def home(request):
-    if not request.user.is_active:
-        messages.error(request, "Вы не зарегистрированы!")
-
     template = "homepage/main.html"
     items = catalog.models.Item.objects.on_main().order_by("name")
 
@@ -36,6 +30,11 @@ def home(request):
 
 
 def coffee(request):
+    if request.user.is_active:
+        profile = users.models.Profile.objects.get(user_id=request.user.id)
+        profile.coffee_count += 1
+        profile.save()
+
     return HttpResponse(
         "Я чайник",
         status=HTTPStatus.IM_A_TEAPOT,
@@ -64,29 +63,3 @@ def echo_submit(request):
         return HttpResponse(text)
 
     return HttpResponseNotAllowed(["POST"])
-
-
-@django.contrib.auth.decorators.login_required
-def profile(request):
-    profile_form = users.forms.ProfileForm(
-        request.POST or None,
-        instance=request.user.profile,
-    )
-    user_form = users.forms.UserForm(
-        request.POST or None,
-        instance=request.user,
-    )
-    if request.method == "POST":
-        if all((profile_form.is_valid(), user_form.is_valid())):
-            profile_form.save()
-            user_form.save()
-
-    return render(
-        request,
-        "users/profile.html",
-        {
-            "profile_form": profile_form,
-            "user_form": user_form,
-            "user": request.user,
-        },
-    )

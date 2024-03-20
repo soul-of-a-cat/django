@@ -90,24 +90,11 @@ urlpatterns = [
         ),
         name="password_reset_complite ",
     ),
+    path("signup/", users.views.signup, name="signup"),
+    path("activate/<str:username>/", users.views.activate, name="activate"),
+    path("user_list/", users.views.user_list, name="user-list"),
     path(
-        "signup/",
-        users.views.signup,
-        name="signup",
+        "user_detail/<int:num>/", users.views.user_detail, name="user-detail"
     ),
-    path(
-        "activate/<str:username>/",
-        users.views.activate,
-        name="activate",
-    ),
-    path(
-        "user_list/",
-        users.views.user_list,
-        name="user-list",
-    ),
-    path(
-        "user_detail/<int:num>/",
-        users.views.user_detail,
-        name="user-detail",
-    ),
+    path("profile/", users.views.profile, name="profile"),
 ]
