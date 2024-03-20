@@ -30,8 +30,8 @@ def home(request):
 
 
 def coffee(request):
-    if request.user.is_active:
-        profile = users.models.Profile.objects.get(user_id=request.user.id)
+    if request.user.is_authenticated:
+        profile = request.user.profile
         profile.coffee_count += 1
         profile.save()
 
