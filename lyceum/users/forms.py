@@ -10,6 +10,8 @@ __all__ = [
     "UserForm",
 ]
 
+User._meta.get_field("email")._unique = True
+
 
 class SignUpForm(UserCreationForm):
     def __init__(self, *args, **kwargs) -> None:
@@ -63,3 +65,4 @@ class UserForm(UserChangeForm):
             User.email.field.name,
             User.first_name.field.name,
         ]
+        unique_together = ("email",)
