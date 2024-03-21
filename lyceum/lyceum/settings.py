@@ -165,3 +165,8 @@ DEFAULT_USER_IS_ACTIVE = os.getenv(
 )
 
 AUTH_USER_EMAIL_UNIQUE = True
+
+AUTHENTICATION_BACKENDS = [
+    "users.backends.UserModelBackend",
+    "django.contrib.auth.backends.ModelBackend",
+]
