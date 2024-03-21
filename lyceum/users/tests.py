@@ -70,3 +70,24 @@ class TestUsers(TestCase):
             },
         )
         self.assertFalse(User.objects.exists())
+
+    def test_user_signup(self):
+        self.client.post(
+            reverse("users:signup"),
+            data={
+                "username": "test_username1",
+                "email": "qwerty@mail.ru",
+                "password1": "VeryStr0ngPa$$",
+                "password2": "VeryStr0ngPa$$",
+            },
+        )
+        self.client.post(
+            reverse("users:signup"),
+            data={
+                "username": "test_username2",
+                "email": "qwerty@mail.ru",
+                "password1": "VeryStr0ngPa$$",
+                "password2": "VeryStr0ngPa$$",
+            },
+        )
+        self.assertEqual(User.objects.count(), 1)
