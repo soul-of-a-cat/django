@@ -1,16 +1,20 @@
 from pathlib import Path
+import sys
 from typing import cast
 import uuid
 
 from django.conf import settings
 from django.contrib.auth import get_user_model
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User as AuthUser
 from django.db import models
 
 
 __all__ = [
     "Profile",
 ]
+
+if "makemigrations" not in sys.argv and "migrate" not in sys.argv:
+    AuthUser._meta.get_field("email")._unique = True
 
 
 def get_path_image(instance, filename):
@@ -53,7 +57,7 @@ class UserProxyManager(models.Manager):
             super()
             .get_queryset()
             .select_related(
-                User.profile.related.name,
+                AuthUser.profile.related.name,
             )
         )
 
@@ -61,10 +65,10 @@ class UserProxyManager(models.Manager):
         return self.get_queryset().filter(is_active=True)
 
     def by_mail(self, mail: str) -> "User | None":
-        return cast(User | None, self.get_queryset().get(email=mail))
+        return cast(AuthUser | None, self.get_queryset().get(email=mail))
 
 
-class UserProxy(get_user_model()):
+class User(get_user_model()):
     objects = UserProxyManager()
 
     class Meta:
