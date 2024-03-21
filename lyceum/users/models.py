@@ -1,7 +1,10 @@
 from pathlib import Path
+from typing import cast
 import uuid
 
 from django.conf import settings
+from django.contrib.auth import get_user_model
+from django.contrib.auth.models import User
 from django.db import models
 
 
@@ -42,3 +45,27 @@ class Profile(models.Model):
     class Meta:
         verbose_name = "дополнительное поле пользователя"
         verbose_name_plural = "дополнительные поля пользователей"
+
+
+class UserProxyManager(models.Manager):
+    def get_queryset(self) -> models.query.QuerySet:
+        return (
+            super()
+            .get_queryset()
+            .select_related(
+                User.profile.related.name,
+            )
+        )
+
+    def active(self) -> models.query.QuerySet:
+        return self.get_queryset().filter(is_active=True)
+
+    def by_mail(self, mail: str) -> "User | None":
+        return cast(User | None, self.get_queryset().get(email=mail))
+
+
+class UserProxy(get_user_model()):
+    objects = UserProxyManager()
+
+    class Meta:
+        proxy = True
