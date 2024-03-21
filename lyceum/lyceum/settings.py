@@ -56,6 +56,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "lyceum.middleware.ReverseResponseMiddleware",
+    "lyceum.middleware.UserMiddleware",
     "django.middleware.locale.LocaleMiddleware",
 ]
 
@@ -162,3 +163,5 @@ DEFAULT_USER_IS_ACTIVE = os.getenv(
     "DEFAULT_USER_IS_ACTIVE",
     default=True if DEBUG else False,
 )
+
+AUTH_USER_EMAIL_UNIQUE = True
