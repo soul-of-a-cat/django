@@ -2,6 +2,8 @@ import re
 
 from django.conf import settings
 
+from users.models import UserProxy
+
 __all__ = [
     "ReverseResponseMiddleware",
     "reverse_words",
@@ -50,3 +52,9 @@ class ReverseResponseMiddleware:
 
         response.content = rev_content
         return response
+
+
+class UserMiddleware:
+    def process_request(self, request):
+        if hasattr(request, "user") and request.user.is_authenticated():
+            request.user.__class__ = UserProxy
