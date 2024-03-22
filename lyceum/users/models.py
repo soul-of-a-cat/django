@@ -51,7 +51,7 @@ class Profile(models.Model):
         verbose_name_plural = "дополнительные поля пользователей"
 
 
-class UserProxyManager(models.Manager):
+class UserManager(models.Manager):
     def get_queryset(self) -> models.query.QuerySet:
         return (
             super()
@@ -69,7 +69,7 @@ class UserProxyManager(models.Manager):
 
 
 class User(get_user_model()):
-    objects = UserProxyManager()
+    objects = UserManager()
 
     class Meta:
         proxy = True
