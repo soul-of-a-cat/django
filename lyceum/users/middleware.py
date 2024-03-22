@@ -6,18 +6,11 @@ __all__ = [
 
 
 class UserMiddleware:
-    def __init__(self, get_response):
+    def __init__(self, get_response: Callable[[HttpRequest], HttpResponse]):
         self.get_response = get_response
 
-    @staticmethod
-    def authenticate(request):
-        if request.user.is_authenticated:
-            return True
-
-        return False
-
-    def __call__(self, request):
-        if hasattr(request, "user") and self.authenticate(request):
-            request.user.__class__ = User
+    def __call__(self, request: HttpRequest) -> HttpResponse:
+        if hasattr(request, "user") and request.user.is_authenticated:
+            request.user = User.objects.get(id=request.user.id)
 
         return self.get_response(request)
