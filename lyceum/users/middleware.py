@@ -1,3 +1,7 @@
+from typing import Callable
+
+from django.http import HttpRequest, HttpResponse
+
 from users.models import User
 
 __all__ = [
