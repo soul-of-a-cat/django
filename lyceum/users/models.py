@@ -1,54 +1,52 @@
-from pathlib import Path
 import sys
-from typing import cast
-import uuid
+from typing import cast, Optional
 
-from django.conf import settings
 from django.contrib.auth import get_user_model
-from django.contrib.auth.models import User as AuthUser
+from django.contrib.auth.models import User
+from django.core.validators import MinValueValidator
 from django.db import models
 
 
-__all__ = [
-    "Profile",
-]
+__all__ = []
 
 if "makemigrations" not in sys.argv and "migrate" not in sys.argv:
-    AuthUser._meta.get_field("email")._unique = True
-
-
-def get_path_image(instance, filename):
-    ext = Path(filename).suffix
-    return f"users/{uuid.uuid4()}{ext}"
+    User._meta.get_field("email")._unique = True
 
 
 class Profile(models.Model):
-    user = models.OneToOneField(
-        settings.AUTH_USER_MODEL,
-        verbose_name="пользователь",
-        help_text="укажите пользователя",
-        on_delete=models.CASCADE,
+    def upload_to(self, filename):
+        return f"uploads/{self.image}/{filename}"
+
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    bio = models.TextField(
+        "Биография",
+        blank=True,
+        null=True,
     )
     birthday = models.DateField(
-        "день рождения",
-        help_text="укажите дату рождения",
-        null=True,
+        "Дата рождения",
         blank=True,
-    )
-    image = models.ImageField(
-        "аватарка",
-        help_text="загрузите автарку",
-        upload_to=get_path_image,
+        null=True,
+        help_text="Введите дату рождения пользователя",
     )
     coffee_count = models.PositiveIntegerField(
-        "количество переходов по /coffee/",
-        help_text="сколько раз пользователь пытался сварить кофе ",
+        "Сколько раз пользователь пил кофе",
         default=0,
+        validators=[MinValueValidator(0)],
+        help_text="Количество переходов по /coffee/",
+    )
+    image = models.ImageField(
+        "Аватар",
+        default=None,
+        blank=True,
+        null=True,
+        help_text="Аватар пользователя",
+        upload_to=upload_to,
     )
 
     class Meta:
-        verbose_name = "дополнительное поле пользователя"
-        verbose_name_plural = "дополнительные поля пользователей"
+        verbose_name = "Дополнительное поле"
+        verbose_name_plural = "Дополнительные поля"
 
 
 class UserManager(models.Manager):
@@ -57,7 +55,7 @@ class UserManager(models.Manager):
             super()
             .get_queryset()
             .select_related(
-                AuthUser.profile.related.name,
+                User.profile.related.name,
             )
         )
 
@@ -65,7 +63,7 @@ class UserManager(models.Manager):
         return self.get_queryset().filter(is_active=True)
 
     def by_mail(self, mail: str) -> "User | None":
-        return cast(AuthUser | None, self.get_queryset().get(email=mail))
+        return cast(Optional[User], self.get_queryset().get(email=mail))
 
 
 class User(get_user_model()):

@@ -1,32 +1,27 @@
 from django.contrib import admin
-from django.contrib.auth import get_user_model
-from django.contrib.auth.admin import UserAdmin
+from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
+from django.contrib.auth.models import User
 
 import users.models
 
-__all__ = [
-    "UserProfileAdmin",
-]
 
-User = get_user_model()
+__all__ = []
 
 
-class ProfileInline(admin.StackedInline):
+class ProfileInLine(admin.StackedInline):
     model = users.models.Profile
+    can_delete = False
     fields = [
         users.models.Profile.birthday.field.name,
+        users.models.Profile.bio.field.name,
         users.models.Profile.image.field.name,
-        users.models.Profile.coffee_count.field.name,
     ]
     readonly_fields = (users.models.Profile.coffee_count.field.name,)
-    can_delete = False
 
 
-class UserProfileAdmin(UserAdmin):
-    inlines = [
-        ProfileInline,
-    ]
+class UserAdmin(BaseUserAdmin):
+    inlines = (ProfileInLine,)
 
 
 admin.site.unregister(User)
-admin.site.register(User, UserProfileAdmin)
+admin.site.register(User, UserAdmin)

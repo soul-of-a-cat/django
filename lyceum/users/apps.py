@@ -1,8 +1,7 @@
 from django.apps import AppConfig
 
-__all__ = [
-    "UsersConfig",
-]
+
+__all__ = []
 
 
 class UsersConfig(AppConfig):

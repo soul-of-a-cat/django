@@ -1,68 +1,65 @@
-from django import forms
-from django.contrib.auth.forms import UserChangeForm, UserCreationForm
-from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
+import django.forms
 
 import users.models
 
-__all__ = [
-    "ProfileForm",
-    "SignUpForm",
-    "UserForm",
-]
 
-User._meta.get_field("email")._unique = True
+__all__ = []
 
 
-class SignUpForm(UserCreationForm):
-    def __init__(self, *args, **kwargs) -> None:
-        super().__init__(*args, **kwargs)
-        for field in self.visible_fields():
-            field.field.widget.attrs["class"] = "form-control"
+def custom_auth_form(form):
+    class CustomForm(form):
+        def __init__(self, *args, **kwargs) -> None:
+            super().__init__(*args, **kwargs)
+            for field in self.visible_fields():
+                if isinstance(field.field.widget, django.forms.CheckboxInput):
+                    field.field.widget.attrs["class"] = "form-check-input"
+                else:
+                    field.field.widget.attrs["class"] = "form-control"
 
-    class Meta(UserCreationForm.Meta):
-        fields = ("username", "email")
+    return CustomForm
 
 
-class ProfileForm(forms.ModelForm):
+class BootstrapModelForm(django.forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-
         for field in self.visible_fields():
             field.field.widget.attrs["class"] = "form-control"
 
-    class Meta:
+
+class ProfileForm(BootstrapModelForm):
+    class Meta(UserCreationForm.Meta):
         model = users.models.Profile
         fields = [
             model.birthday.field.name,
             model.image.field.name,
             model.coffee_count.field.name,
         ]
+
         widgets = {
-            model.coffee_count.field.name: forms.NumberInput(
+            model.coffee_count.field.name: django.forms.NumberInput(
                 attrs={
                     "readonly": "readonly",
                     "disabled": "disabled",
                 },
             ),
-            model.birthday.field.name: forms.DateInput(
-                format="%Y-%m-%d",
-                attrs={"type": "date"},
-            ),
         }
 
 
-class UserForm(UserChangeForm):
-    password = None
+class CustomUserChangeForm(
+    django.contrib.auth.forms.UserChangeForm,
+    BootstrapModelForm,
+):
+    class Meta(django.contrib.auth.forms.UserChangeForm.Meta):
+        fields = (
+            "email",
+            "username",
+            "first_name",
+            "last_name",
+        )
 
-    def __init__(self, *args, **kwargs) -> None:
-        super().__init__(*args, **kwargs)
-        for field in self.visible_fields():
-            field.field.widget.attrs["class"] = "form-control"
 
-    class Meta(UserChangeForm.Meta):
-        model = User
-        fields = [
-            User.email.field.name,
-            User.first_name.field.name,
-        ]
-        unique_together = ("email",)
+class SignUpForm(UserCreationForm):
+
+    class Meta(UserCreationForm.Meta):
+        fields = ("username", "email")

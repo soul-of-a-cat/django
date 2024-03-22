@@ -1,20 +1,17 @@
-from typing import Callable
+import users.models
 
-from django.http import HttpRequest, HttpResponse
 
-from users.models import User
-
-__all__ = [
-    "UserMiddleware",
-]
+__all__ = []
 
 
 class UserMiddleware:
-    def __init__(self, get_response: Callable[[HttpRequest], HttpResponse]):
+    def __init__(self, get_response):
         self.get_response = get_response
 
-    def __call__(self, request: HttpRequest) -> HttpResponse:
+    def __call__(self, request):
         if hasattr(request, "user") and request.user.is_authenticated:
-            request.user = User.objects.get(id=request.user.id)
+            request.user = users.models.User.objects.get(
+                pk=request.user.id,
+            )
 
         return self.get_response(request)
