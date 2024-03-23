@@ -11,11 +11,6 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-        migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ("auth", "0005_alter_user_email"),
-    ]
-
     operations = [
         migrations.CreateModel(
             name="User",
