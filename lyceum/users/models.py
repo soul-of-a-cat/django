@@ -18,11 +18,6 @@ class Profile(models.Model):
         return f"uploads/{self.image}/{filename}"
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    bio = models.TextField(
-        "Биография",
-        blank=True,
-        null=True,
-    )
     birthday = models.DateField(
         "Дата рождения",
         blank=True,

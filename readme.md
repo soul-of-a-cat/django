@@ -8,6 +8,10 @@
 
 ![ER_feedback.jpg](ER_feedback.jpg)
 
+***Структура базы данных профиля пользователя описана в файле ER_profile.jpg***
+
+![ER_profile.jpg](ER_profile.jpg)
+
 + Для создания файлов перевода:\
 ***django-admin compilemessages***
 + Некоторые переменные должны быть сохранены в файл **.env**\

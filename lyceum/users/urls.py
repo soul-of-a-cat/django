@@ -5,12 +5,24 @@ from django.contrib.auth.forms import (
     PasswordResetForm,
     SetPasswordForm,
 )
+import django.forms
 from django.urls import path, reverse_lazy
-
-import users.forms
 import users.views
 
 __all__ = []
+
+
+def custom_auth_form(form):
+    class CustomForm(form):
+        def __init__(self, *args, **kwargs) -> None:
+            super().__init__(*args, **kwargs)
+            for field in self.visible_fields():
+                if isinstance(field.field.widget, django.forms.CheckboxInput):
+                    field.field.widget.attrs["class"] = "form-check-input"
+                else:
+                    field.field.widget.attrs["class"] = "form-control"
+
+    return CustomForm
 
 
 app_name = "users"
@@ -20,9 +32,7 @@ urlpatterns = [
         "login/",
         views.LoginView.as_view(
             template_name="users/login.html",
-            authentication_form=users.forms.custom_auth_form(
-                AuthenticationForm,
-            ),
+            authentication_form=custom_auth_form(AuthenticationForm),
         ),
         name="login",
     ),
@@ -32,35 +42,10 @@ urlpatterns = [
         name="logout",
     ),
     path(
-        "signup/",
-        users.views.signup,
-        name="signup",
-    ),
-    path(
-        "profile/",
-        users.views.profile,
-        name="profile",
-    ),
-    path(
-        "user_list/",
-        users.views.user_list,
-        name="user_list",
-    ),
-    path(
-        "user_list/<int:ide>/",
-        users.views.user_detail,
-        name="user_detail",
-    ),
-    path(
-        "activate/<username>/",
-        users.views.activate,
-        name="activate",
-    ),
-    path(
         "password_change/",
         views.PasswordChangeView.as_view(
             template_name="users/password_change.html",
-            form_class=users.forms.custom_auth_form(PasswordChangeForm),
+            form_class=custom_auth_form(PasswordChangeForm),
         ),
         name="password_change",
     ),
@@ -76,7 +61,7 @@ urlpatterns = [
         views.PasswordResetView.as_view(
             template_name="users/password_reset.html",
             email_template_name="users/password_reset_email.html",
-            form_class=users.forms.custom_auth_form(PasswordResetForm),
+            form_class=custom_auth_form(PasswordResetForm),
             success_url=reverse_lazy("users:password_reset_done"),
         ),
         name="password_reset",
@@ -91,17 +76,42 @@ urlpatterns = [
     path(
         "password_reset_confirm/<uidb64>/<token>/",
         views.PasswordResetConfirmView.as_view(
-            form_class=users.forms.custom_auth_form(SetPasswordForm),
+            form_class=custom_auth_form(SetPasswordForm),
             template_name="users/password_reset_confirm.html",
-            success_url=reverse_lazy("users:password_reset_confirm_complite"),
+            success_url=reverse_lazy("users:password_reset_confirm_complete"),
         ),
         name="password_reset_confirm",
     ),
     path(
-        "password_reset_complete/",
+        "password_reset_complite/",
         views.PasswordResetCompleteView.as_view(
             template_name="users/password_reset_complete.html",
         ),
-        name="password_reset_complete",
+        name="password_reset_complite ",
+    ),
+    path(
+        "signup/",
+        users.views.signup,
+        name="signup",
+    ),
+    path(
+        "activate/<str:username>/",
+        users.views.activate,
+        name="activate",
+    ),
+    path(
+        "user_list/",
+        users.views.user_list,
+        name="user-list",
+    ),
+    path(
+        "user_detail/<int:num>/",
+        users.views.user_detail,
+        name="user-detail",
+    ),
+    path(
+        "profile/",
+        users.views.profile,
+        name="profile",
     ),
 ]

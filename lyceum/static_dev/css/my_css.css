@@ -9,6 +9,10 @@
   overflow: hidden;
 }
 
+.item_block_link {
+  color: #000000;
+}
+
 .header {
   overflow: hidden;
   background: #b2b8b2;

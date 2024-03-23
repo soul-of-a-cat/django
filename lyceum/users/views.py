@@ -29,8 +29,8 @@ def signup(request):
         user.save()
         send_mail(
             subject="User",
-            message=render_to_string("users/signup_email.html"),
-            from_email=settings.EMAIL_HOST,
+            message=render_to_string("users/signup_email.html", {"user": user}),
+            from_email=settings.EMAIL_HOST_USER,
             recipient_list=[form.cleaned_data["email"]],
         )
         username = form.cleaned_data.get("username")
@@ -38,7 +38,9 @@ def signup(request):
             request,
             f"Пользователь {username} был успешно создан!",
         )
-        return redirect(reverse("homepage:main"))
+        if user.is_active:
+            return redirect(reverse("homepage:home"))
+        return redirect(reverse("users:activate", args=[user.username]))
 
     return render(request, template, context)
 
@@ -48,12 +50,37 @@ def activate(request, username):
         get_user_model().objects,
         username=username,
     )
-    if timezone.now() > user.date_joined + datetime.timedelta(hours=12):
-        messages.success(request, "Сообщение успешно отправлено!")
+    if timezone.now() < user.date_joined + datetime.timedelta(hours=12):
+        messages.success(request, "Активация прошла успешно!")
+        user.is_active = True
+        user.save()
     else:
-        messages.error(request, "Сообщение не отправлено!")
+        messages.error(request, "Ошибка активации!")
 
-    return redirect(reverse("homepage:main"))
+    return redirect(reverse("homepage:home"))
+
+
+def user_list(request):
+    users = get_user_model().objects.filter(is_active=True)
+    return render(
+        request,
+        "users/user_list.html",
+        {"users": users},
+    )
+
+
+def user_detail(request, num):
+    user = get_object_or_404(
+        get_user_model().objects.filter(
+            is_active=True,
+            id=num,
+        )
+    )
+    return render(
+        request,
+        "users/user_detail.html",
+        {"user_item": user},
+    )
 
 
 @login_required
@@ -62,7 +89,7 @@ def profile(request):
         request.POST or None,
         instance=request.user.profile,
     )
-    user_form = users.forms.CustomUserChangeForm(
+    user_form = users.forms.UserForm(
         request.POST or None,
         instance=request.user,
     )
@@ -81,28 +108,3 @@ def profile(request):
         },
     )
 
-
-def user_list(request):
-    users = get_user_model().objects.filter(is_active=True)
-    return render(
-        request,
-        "users/user_list.html",
-        {"users": users},
-    )
-
-
-def user_detail(request, ide):
-    user = get_object_or_404(
-        get_user_model(),
-        pk=ide,
-    )
-    try:
-        profile = user.profile
-    except users.models.Profile.DoesNotExist:
-        profile = None
-
-    return render(
-        request,
-        "users/user_detail.html",
-        {"user": user, "profile": profile},
-    )
