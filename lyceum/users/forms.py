@@ -1,25 +1,13 @@
-from django import forms
-from django.contrib.auth.forms import UserCreationForm, UserModel
+from django.contrib.auth.forms import UserCreationForm
+import django.forms
+
 import users.models
 
-__all__ = [
-    "ProfileForm",
-    "SignUpForm",
-    "UserForm",
-]
+
+__all__ = []
 
 
-class SignUpForm(UserCreationForm):
-    def __init__(self, *args, **kwargs) -> None:
-        super().__init__(*args, **kwargs)
-        for field in self.visible_fields():
-            field.field.widget.attrs["class"] = "form-control"
-
-    class Meta(UserCreationForm.Meta):
-        fields = ("username", "email")
-
-
-class ProfileForm(forms.ModelForm):
+class ProfileForm(django.forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
@@ -34,20 +22,20 @@ class ProfileForm(forms.ModelForm):
             model.coffee_count.field.name,
         ]
         widgets = {
-            model.coffee_count.field.name: forms.NumberInput(
+            model.coffee_count.field.name: django.forms.NumberInput(
                 attrs={
                     "readonly": "readonly",
                     "disabled": "disabled",
                 },
             ),
-            model.birthday.field.name: forms.DateInput(
+            model.birthday.field.name: django.forms.DateInput(
                 format="%Y-%m-%d",
                 attrs={"type": "date"},
             ),
         }
 
 
-class UserForm(forms.ModelForm):
+class CustomUserChangeForm(django.contrib.auth.forms.UserChangeForm):
     password = None
 
     def __init__(self, *args, **kwargs):
@@ -55,9 +43,19 @@ class UserForm(forms.ModelForm):
         for field in self.visible_fields():
             field.field.widget.attrs["class"] = "form-control"
 
-    class Meta:
-        model = UserModel
+    class Meta(django.contrib.auth.forms.UserChangeForm.Meta):
         fields = (
-            UserModel.email.field.name,
-            UserModel.username.field.name,
+            "first_name",
+            "last_name",
+            "email",
         )
+
+
+class SignUpForm(UserCreationForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.visible_fields():
+            field.field.widget.attrs["class"] = "form-control"
+
+    class Meta(UserCreationForm.Meta):
+        fields = ("username", "email")

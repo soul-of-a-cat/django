@@ -1,4 +1,6 @@
 import sys
+import uuid
+from pathlib import Path
 from typing import cast, Optional
 
 from django.contrib.auth import get_user_model
@@ -13,10 +15,12 @@ if "makemigrations" not in sys.argv and "migrate" not in sys.argv:
     User._meta.get_field("email")._unique = True
 
 
-class Profile(models.Model):
-    def upload_to(self, filename):
-        return f"uploads/{self.image}/{filename}"
+def get_path_image(instance, filename):
+    ext = Path(filename).suffix
+    return f"users/{uuid.uuid4()}{ext}"
 
+
+class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     birthday = models.DateField(
         "Дата рождения",
@@ -29,14 +33,15 @@ class Profile(models.Model):
         default=0,
         validators=[MinValueValidator(0)],
         help_text="Количество переходов по /coffee/",
+        null=True,
+        blank=True,
     )
     image = models.ImageField(
-        "Аватар",
-        default=None,
-        blank=True,
+        "аватарка",
+        help_text="Загрузите автарку",
+        upload_to=get_path_image,
         null=True,
-        help_text="Аватар пользователя",
-        upload_to=upload_to,
+        blank=True,
     )
 
     class Meta:
@@ -59,6 +64,9 @@ class UserManager(models.Manager):
 
     def by_mail(self, mail: str) -> "User | None":
         return cast(Optional[User], self.get_queryset().get(email=mail))
+
+    def normalize_email(self, mail):
+        return mail
 
 
 class User(get_user_model()):

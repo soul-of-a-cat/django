@@ -27,6 +27,7 @@ def signup(request):
         user = form.save(commit=True)
         user.is_active = settings.DEFAULT_USER_IS_ACTIVE
         user.save()
+        users.models.Profile(user_id=user.id).save()
         send_mail(
             subject="User",
             message=render_to_string("users/signup_email.html", {"user": user}),
@@ -57,7 +58,7 @@ def activate(request, username):
     else:
         messages.error(request, "Ошибка активации!")
 
-    return redirect(reverse("homepage:home"))
+    return redirect(reverse("homepage:main"))
 
 
 def user_list(request):
@@ -89,7 +90,7 @@ def profile(request):
         request.POST or None,
         instance=request.user.profile,
     )
-    user_form = users.forms.UserForm(
+    user_form = users.forms.CustomUserChangeForm(
         request.POST or None,
         instance=request.user,
     )
@@ -107,4 +108,3 @@ def profile(request):
             "user": request.user,
         },
     )
-
