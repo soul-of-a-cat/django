@@ -30,7 +30,9 @@ def signup(request):
         users.models.Profile(user_id=user.id).save()
         send_mail(
             subject="User",
-            message=render_to_string("users/signup_email.html", {"user": user}),
+            message=render_to_string(
+                "users/signup_email.html", {"user": user}
+            ),
             from_email=settings.EMAIL_HOST_USER,
             recipient_list=[form.cleaned_data["email"]],
         )
@@ -41,6 +43,7 @@ def signup(request):
         )
         if user.is_active:
             return redirect(reverse("homepage:home"))
+
         return redirect(reverse("users:activate", args=[user.username]))
 
     return render(request, template, context)

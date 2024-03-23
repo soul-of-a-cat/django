@@ -1,7 +1,7 @@
-import sys
-import uuid
 from pathlib import Path
+import sys
 from typing import cast, Optional
+import uuid
 
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import User
