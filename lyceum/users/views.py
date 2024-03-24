@@ -28,10 +28,14 @@ def signup(request):
         user.is_active = settings.DEFAULT_USER_IS_ACTIVE
         user.save()
         users.models.Profile(user_id=user.id).save()
+        context = {
+            "user": user,
+            "url": request.META["HTTP_ORIGIN"],
+        }
         send_mail(
             subject="User",
             message=render_to_string(
-                "users/signup_email.html", {"user": user}
+                "users/signup_email.html", context
             ),
             from_email=settings.EMAIL_HOST_USER,
             recipient_list=[form.cleaned_data["email"]],
@@ -41,10 +45,7 @@ def signup(request):
             request,
             f"Пользователь {username} был успешно создан!",
         )
-        if user.is_active:
-            return redirect(reverse("homepage:home"))
-
-        return redirect(reverse("users:activate", args=[user.username]))
+        return redirect(reverse("homepage:home"))
 
     return render(request, template, context)
 
@@ -61,7 +62,7 @@ def activate(request, username):
     else:
         messages.error(request, "Ошибка активации!")
 
-    return redirect(reverse("homepage:main"))
+    return redirect(reverse("homepage:home"))
 
 
 def user_list(request):
