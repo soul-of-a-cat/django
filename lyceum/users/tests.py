@@ -7,7 +7,14 @@ from django.urls import reverse
 from django.utils import timezone
 
 
-__all__ = []
+__all__ = [
+    "test_login_email_or_username",
+    "test_user_activation_negative",
+    "test_user_activation_positive",
+    "test_user_signup_identical_emails",
+    "test_user_signup_negative",
+    "test_user_signup_positive",
+]
 
 
 @override_settings(DEFAULT_USER_IS_ACTIVE=False)
