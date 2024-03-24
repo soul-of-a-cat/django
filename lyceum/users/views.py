@@ -14,7 +14,13 @@ import users.forms
 import users.models
 
 
-__all__ = []
+__all__ = [
+    "signup",
+    "profile",
+    "user_list",
+    "user_detail",
+    "activate",
+]
 
 
 def signup(request):
@@ -31,12 +37,11 @@ def signup(request):
         context = {
             "user": user,
             "url": request.META["HTTP_ORIGIN"],
+            "site_name": request.META["HTTP_HOST"],
         }
         send_mail(
             subject="User",
-            message=render_to_string(
-                "users/signup_email.html", context
-            ),
+            message=render_to_string("users/signup_email.html", context),
             from_email=settings.EMAIL_HOST_USER,
             recipient_list=[form.cleaned_data["email"]],
         )
