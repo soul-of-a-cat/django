@@ -2,7 +2,6 @@
 {% autoescape off %}
 {% blocktranslate %}Automatic mailing from the site: {{ site_name }}.{% endblocktranslate %}
 {% translate "We welcome a new user to our site and hope you enjoy it here." %}
-{{ request.META.PATH_INFO }}
 {% if not user.is_active %}
 {% trans "Unfortunately, your account has not been activated." %}
 {{ url }}{% url 'users:activate' user.username %}
