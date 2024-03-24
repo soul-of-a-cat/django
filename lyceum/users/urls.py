@@ -10,7 +10,9 @@ from django.urls import path, reverse_lazy
 
 import users.views
 
-__all__ = []
+__all__ = [
+    "custom_auth_form",
+]
 
 
 def custom_auth_form(form):
@@ -79,16 +81,16 @@ urlpatterns = [
         views.PasswordResetConfirmView.as_view(
             form_class=custom_auth_form(SetPasswordForm),
             template_name="users/password_reset_confirm.html",
-            success_url=reverse_lazy("users:password_reset_confirm_complete"),
+            success_url=reverse_lazy("users:password_reset_complete"),
         ),
         name="password_reset_confirm",
     ),
     path(
-        "password_reset_complite/",
+        "password_reset_complete/",
         views.PasswordResetCompleteView.as_view(
             template_name="users/password_reset_complete.html",
         ),
-        name="password_reset_complite ",
+        name="password_reset_complete",
     ),
     path(
         "signup/",
