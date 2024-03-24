@@ -1,30 +1,26 @@
-import django.contrib.auth.backends
+from django.contrib.auth.backends import ModelBackend, get_user_model
+from django.core.exceptions import MultipleObjectsReturned
+from django.db.models import Q
 
-import users.models
-
-__all__ = [
-    "UserModelBackend",
-]
+UserModel = get_user_model()
 
 
-class UserModelBackend(django.contrib.auth.backends.ModelBackend):
+class UserModelBackend(ModelBackend):
     def authenticate(self, request, username=None, password=None, **kwargs):
-        user_model = users.models.User
+        try:
+            user = UserModel.objects.get(Q(username=username) | Q(email__iexact=username))
+        except UserModel.DoesNotExist:
+            return None
+        except MultipleObjectsReturned:
+            return UserModel.objects.filter(email=username).order_by('id').first()
+        else:
+            if user.check_password(password) and self.user_can_authenticate(user):
+                return user
 
-        user = user_model.objects.get(username=username)
-
-        if not user:
+    def get_user(self, user_id):
+        try:
+            user = UserModel.objects.get(pk=user_id)
+        except UserModel.DoesNotExist:
             return None
 
-        if user.check_password(password) and self.user_can_authenticate(user):
-            if hasattr(user, "profile"):
-                user.profile.auth_attempts = 0
-                user.profile.save()
-
-            return user
-
-        if hasattr(user, "profile"):
-            user.profile.auth_attempts += 1
-            user.profile.save()
-
-        return None
+        return user if self.user_can_authenticate(user) else None
