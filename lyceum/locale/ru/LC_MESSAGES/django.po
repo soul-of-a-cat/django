@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-09 15:18+0300\n"
+"POT-Creation-Date: 2024-03-24 17:06+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,19 +20,23 @@ msgstr ""
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
 
-#: .\lyceum\settings.py:132
+#: .\feedback\tests.py:42
+msgid "почтовый адрес"
+msgstr "почтовый адрес"
+
+#: .\lyceum\settings.py:136
 msgid "Russian"
 msgstr "Русский"
 
-#: .\lyceum\settings.py:133
+#: .\lyceum\settings.py:137
 msgid "English"
 msgstr "Английский"
 
-#: .\lyceum\settings.py:134
+#: .\lyceum\settings.py:138
 msgid "German"
 msgstr "Немецкий"
 
-#: .\lyceum\settings.py:135
+#: .\lyceum\settings.py:139
 msgid "French"
 msgstr "Французский"
 
@@ -40,7 +44,8 @@ msgstr "Французский"
 msgid "Описание"
 msgstr "Описание"
 
-#: .\templates\about\about.html:9 .\templates\includes\header.html:16
+#: .\templates\about\about.html:9 .\templates\includes\header.html:24
+#: .\templates\includes\header.html:28
 msgid "О проекте"
 msgstr "О проекте"
 
@@ -60,7 +65,7 @@ msgstr "Скорее всего я её не доделаю"
 msgid "Заголовок"
 msgstr "Заголовок"
 
-#: .\templates\base.html:18
+#: .\templates\base.html:29
 msgid "Контент"
 msgstr "Контент"
 
@@ -69,7 +74,8 @@ msgstr "Контент"
 msgid "Товары"
 msgstr "Товары"
 
-#: .\templates\catalog\friday.html:9 .\templates\includes\header.html:34
+#: .\templates\catalog\friday.html:9 .\templates\includes\header.html:60
+#: .\templates\includes\header.html:64
 msgid "Пятница"
 msgstr "Пятница"
 
@@ -94,17 +100,29 @@ msgstr "Категория:"
 msgid "Теги:"
 msgstr "Теги:"
 
-#: .\templates\catalog\item_list.html:9 .\templates\includes\header.html:22
+#: .\templates\catalog\item_list.html:9 .\templates\includes\header.html:36
+#: .\templates\includes\header.html:40
 msgid "Список товаров"
 msgstr "Список товаров"
 
-#: .\templates\catalog\new.html:9 .\templates\includes\header.html:28
+#: .\templates\catalog\new.html:9 .\templates\includes\header.html:48
+#: .\templates\includes\header.html:52
 msgid "Новинки"
 msgstr "Новинки"
 
-#: .\templates\catalog\unverified.html:9 .\templates\includes\header.html:40
+#: .\templates\catalog\unverified.html:9 .\templates\includes\header.html:72
+#: .\templates\includes\header.html:76
 msgid "Непроверенное"
 msgstr "Непроверенное"
+
+#: .\templates\feedback\feedback.html:6 .\templates\includes\header.html:84
+#: .\templates\includes\header.html:88
+msgid "Обратная связь"
+msgstr "Обратная связь"
+
+#: .\templates\feedback\feedback.html:121
+msgid "Отправить"
+msgstr "Отправить"
 
 #: .\templates\homepage\main.html:5
 msgid "Главная"
@@ -134,18 +152,172 @@ msgstr ""
 msgid "ТОЛЬКО НЕ ЗАБУДЬ ЗАПЛАТИТЬ!!!"
 msgstr "ТОЛЬКО НЕ ЗАБУДЬ ЗАПЛАТИТЬ!!!"
 
-#: .\templates\includes\header.html:10
+#: .\templates\includes\header.html:12 .\templates\includes\header.html:16
+#: .\templates\users\password_change_done.html:13
+#: .\templates\users\password_reset_complete.html:12
+#: .\templates\users\password_reset_done.html:12
 msgid "На главную"
 msgstr "На главную"
 
-#: .\templates\includes\header.html:46
+#: .\templates\includes\header.html:95
 msgid "Администрирование"
 msgstr "Администрирование"
 
-#: .\templates\includes\header.html:54
+#: .\templates\includes\header.html:123 .\templates\includes\header.html:127
+msgid "Профиль"
+msgstr "Профиль"
+
+#: .\templates\includes\header.html:136
 msgid "Язык"
 msgstr "Язык"
 
-#: .\templates\includes\header.html:65
+#: .\templates\includes\header.html:147
 msgid "Изменить"
 msgstr "Изменить"
+
+#: .\templates\users\login.html:5 .\templates\users\login.html:12
+msgid "Авторизоваться"
+msgstr "Авторизоваться"
+
+#: .\templates\users\login.html:14
+msgid "Забыли пароль?"
+msgstr "Забыли пароль?"
+
+#: .\templates\users\logout.html:5 .\templates\users\logout.html:12
+msgid "Выход из системы"
+msgstr "Выход из системы"
+
+#: .\templates\users\password_change.html:5
+#: .\templates\users\password_change.html:12
+msgid "Смена пароля"
+msgstr "Смена пароля"
+
+#: .\templates\users\password_change_done.html:5
+msgid "Смена пароля завершена"
+msgstr "Смена пароля завершена"
+
+#: .\templates\users\password_change_done.html:12
+msgid "Пароль успешно изменён"
+msgstr "Пароль успешно изменён"
+
+#: .\templates\users\password_reset.html:5
+#: .\templates\users\password_reset.html:12
+msgid "Сброс пароля"
+msgstr "Сброс пароля"
+
+#: .\templates\users\password_reset_complete.html:5
+#: .\templates\users\password_reset_complete.html:11
+msgid "Сброс пароля завершен"
+msgstr "Сброс пароля завершен"
+
+#: .\templates\users\password_reset_confirm.html:5
+#: .\templates\users\password_reset_confirm.html:12
+msgid "Подтверждение сброса пароля"
+msgstr "Подтверждение сброса пароля"
+
+#: .\templates\users\password_reset_done.html:5
+#: .\templates\users\password_reset_done.html:11
+msgid "Сброс пароля выполнен"
+msgstr "Сброс пароля выполнен"
+
+#: .\templates\users\password_reset_email.html:3
+msgid ""
+"You're receiving this email because you requested a password reset for your "
+"user account at "
+msgstr ""
+"Вы получаете это электронное письмо, потому что запросили сброс пароля для "
+"своей учетной записи пользователя по адресу "
+
+#: .\templates\users\password_reset_email.html:4
+msgid "Please go to the following page and choose a new password:"
+msgstr "Пожалуйста, перейдите на следующую страницу и выберите новый пароль:"
+
+#: .\templates\users\password_reset_email.html:8
+msgid "Your username, in case you’ve forgotten:"
+msgstr "Ваше имя пользователя, на случай, если вы забыли:"
+
+#: .\templates\users\password_reset_email.html:9
+#: .\templates\users\signup_email.html:9
+msgid "Thanks for using our site!"
+msgstr "Спасибо, что воспользовались нашим сайтом!"
+
+#: .\templates\users\password_reset_email.html:10
+#: .\templates\users\signup_email.html:10
+#, python-format
+msgid "The %(site_name)s team"
+msgstr "Команда сайта %(site_name)s"
+
+#: .\templates\users\profile.html:7
+#, fuzzy
+#| msgid "Изменить"
+msgid "Изменить профиль"
+msgstr "Изменить"
+
+#: .\templates\users\profile.html:85
+msgid "Выпить кофе"
+msgstr "Выпить кофе"
+
+#: .\templates\users\profile.html:86
+#, fuzzy
+#| msgid "Изменить"
+msgid "Сменить пароль"
+msgstr "Изменить"
+
+#: .\templates\users\profile.html:87
+msgid "Сохранить изменения"
+msgstr "Сохранить изменения"
+
+#: .\templates\users\signup.html:5
+msgid "Регистрация"
+msgstr "Регистрация"
+
+#: .\templates\users\signup_email.html:3
+#, python-format
+msgid "Automatic mailing from the site: %(site_name)s."
+msgstr "Автоматическая рассылка с сайта: %(site_name)s."
+
+#: .\templates\users\signup_email.html:4
+msgid "We welcome a new user to our site and hope you enjoy it here."
+msgstr ""
+"Мы приветствуем нового пользователя на нашем сайте и надеемся, что вам здесь "
+"понравится."
+
+#: .\templates\users\signup_email.html:6
+msgid "Unfortunately, your account has not been activated."
+msgstr "К сожалению, ваша учетная запись не была активирована."
+
+#: .\templates\users\user_detail.html:6
+msgid "Пользователь"
+msgstr "Пользователь"
+
+#: .\templates\users\user_detail.html:27
+msgid "Имя:"
+msgstr "Имя:"
+
+#: .\templates\users\user_detail.html:33 .\templates\users\user_detail.html:46
+msgid "Не указано"
+msgstr "Не указано"
+
+#: .\templates\users\user_detail.html:40
+msgid "Фамилия:"
+msgstr "Фамилия:"
+
+#: .\templates\users\user_detail.html:53
+msgid "Email:"
+msgstr "Электронная почта:"
+
+#: .\templates\users\user_detail.html:62
+msgid "День рождения:"
+msgstr "День рождения:"
+
+#: .\templates\users\user_detail.html:71
+msgid "Кофе выпито:"
+msgstr "Кофе выпито:"
+
+#: .\templates\users\user_list.html:6
+msgid "Список пользователей"
+msgstr "Список товаров"
+
+#: .\templates\users\user_list.html:19
+msgid "Нет активных пользователей."
+msgstr "Нет активных пользователей."
