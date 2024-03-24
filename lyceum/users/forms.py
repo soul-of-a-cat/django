@@ -4,7 +4,11 @@ import django.forms
 import users.models
 
 
-__all__ = []
+__all__ = [
+    "ProfileForm",
+    "SignUpForm",
+    "CustomUserChangeForm",
+]
 
 
 class ProfileForm(django.forms.ModelForm):

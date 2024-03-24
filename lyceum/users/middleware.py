@@ -1,7 +1,9 @@
 import users.models
 
 
-__all__ = []
+__all__ = [
+    "UserMiddleware",
+]
 
 
 class UserMiddleware:
