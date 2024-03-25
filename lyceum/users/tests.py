@@ -151,7 +151,8 @@ class UserTests(TestCase):
             )
 
         self.assertEqual(
-            users.models.Profile.objects.first().attempts_count, 11,
+            users.models.Profile.objects.first().attempts_count,
+            11,
         )
         now_time = timezone.now().strftime("%d/%m/%Y %H:%M")
         profile = users.models.Profile.objects.first()
