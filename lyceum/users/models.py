@@ -1,3 +1,5 @@
+import sys
+
 import django.contrib.auth.models
 from django.contrib.auth.models import User as AuthUser
 from django.db import models
@@ -9,8 +11,8 @@ __all__ = [
     "User",
     "UserManager",
 ]
-
-AuthUser._meta.get_field("email")._unique = True
+if "makemigrations" not in sys.argv and "migrate" not in sys.argv:
+    AuthUser._meta.get_field("email")._unique = True
 
 
 class Profile(models.Model):
@@ -94,7 +96,8 @@ class UserManager(django.contrib.auth.models.UserManager):
             domain_part = cls.CANONICAL_DOMAINS.get(domain_part, domain_part)
 
             email_name = email_name.replace(
-                ".", cls.DOTS.get(domain_part, "."),
+                ".",
+                cls.DOTS.get(domain_part, "."),
             )
         except ValueError:
             pass
