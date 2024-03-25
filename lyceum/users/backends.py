@@ -1,36 +1,46 @@
-from django.contrib.auth.backends import get_user_model, ModelBackend
-from django.core.exceptions import MultipleObjectsReturned
-from django.db.models import Q
+from django.conf import settings
+from django.contrib.auth.backends import ModelBackend
+from django.core.mail import send_mail
+from django.urls import reverse
+from django.utils import timezone
+
+import users.models
 
 __all__ = [
     "UserModelBackend",
 ]
 
-UserModel = get_user_model()
-
 
 class UserModelBackend(ModelBackend):
     def authenticate(self, request, username=None, password=None, **kwargs):
         try:
-            user = UserModel.objects.get(
-                Q(username=username) | Q(email__iexact=username)
-            )
-        except UserModel.DoesNotExist:
+            if "@" in username:
+                user = users.models.User.objects.by_mail(username)
+            else:
+                user = users.models.User.objects.get(username=username)
+        except users.models.User.DoesNotExist:
             return None
-        except MultipleObjectsReturned:
-            return (
-                UserModel.objects.filter(email=username).order_by("id").first()
-            )
         else:
-            if user.check_password(password) and self.user_can_authenticate(
-                user
-            ):
+            if user.check_password(password):
+                user.profile.attempts_count = 0
+                user.profile.save()
                 return user
 
-    def get_user(self, user_id):
-        try:
-            user = UserModel.objects.get(pk=user_id)
-        except UserModel.DoesNotExist:
-            return None
+            user.profile.attempts_count += 1
+            if user.profile.attempts_count >= settings.MAX_AUTH_ATTEMPTS:
+                user.is_active = False
+                user.profile.block_date = timezone.now()
+                user.save()
+                send_mail(
+                    "Activate account!",
+                    request.build_absolute_uri(
+                        reverse("users:reactivate", kwargs={"pk": user.id}),
+                    ),
+                    settings.EMAIL_HOST_USER,
+                    [user.email],
+                    fail_silently=False,
+                )
 
-        return user if self.user_can_authenticate(user) else None
+            user.profile.save()
+
+        return None
