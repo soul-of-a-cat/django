@@ -11,7 +11,7 @@ class UserMiddleware:
         self.get_response = get_response
 
     def __call__(self, request):
-        if hasattr(request, "user") and request.user.is_authenticated:
+        if request.user and request.user.id:
             request.user = users.models.User.objects.get(
                 pk=request.user.id,
             )
