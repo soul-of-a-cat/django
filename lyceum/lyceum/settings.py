@@ -170,3 +170,5 @@ AUTHENTICATION_BACKENDS = [
     "users.backends.UserModelBackend",
     "django.contrib.auth.backends.ModelBackend",
 ]
+
+MAX_AUTH_ATTEMPTS = int(os.getenv("MAX_AUTH_ATTEMPTS", default=5))
