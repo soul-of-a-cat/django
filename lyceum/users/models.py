@@ -94,7 +94,7 @@ class UserManager(django.contrib.auth.models.UserManager):
             domain_part = cls.CANONICAL_DOMAINS.get(domain_part, domain_part)
 
             email_name = email_name.replace(
-                ".", cls.DOTS.get(domain_part, ".")
+                ".", cls.DOTS.get(domain_part, "."),
             )
         except ValueError:
             pass

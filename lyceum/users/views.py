@@ -90,7 +90,7 @@ def user_detail(request, num):
         get_user_model().objects.filter(
             is_active=True,
             id=num,
-        )
+        ),
     )
     return render(
         request,
