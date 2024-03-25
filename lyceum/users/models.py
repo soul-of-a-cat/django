@@ -11,6 +11,7 @@ __all__ = [
     "User",
     "UserManager",
 ]
+
 if "makemigrations" not in sys.argv and "migrate" not in sys.argv:
     AuthUser._meta.get_field("email")._unique = True
 
