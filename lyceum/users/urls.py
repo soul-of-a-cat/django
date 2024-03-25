@@ -98,7 +98,7 @@ urlpatterns = [
         name="signup",
     ),
     path(
-        "activate/<str:username>/",
+        "activate/<pk>/",
         users.views.activate,
         name="activate",
     ),
@@ -116,5 +116,10 @@ urlpatterns = [
         "profile/",
         users.views.profile,
         name="profile",
+    ),
+    path(
+        "reactivate/<pk>/",
+        users.views.reactivate,
+        name="reactivate",
     ),
 ]
