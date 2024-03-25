@@ -6,7 +6,6 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
 from django.shortcuts import get_object_or_404, redirect, render
-from django.template.loader import render_to_string
 from django.urls import reverse
 from django.utils import timezone
 
@@ -34,16 +33,14 @@ def signup(request):
         user.is_active = settings.DEFAULT_USER_IS_ACTIVE
         user.save()
         users.models.Profile(user_id=user.id).save()
-        context = {
-            "user": user,
-            "url": request.META["HTTP_ORIGIN"],
-            "site_name": request.META["HTTP_HOST"],
-        }
         send_mail(
-            subject="User",
-            message=render_to_string("users/signup_email.html", context),
-            from_email=settings.EMAIL_HOST_USER,
-            recipient_list=[form.cleaned_data["email"]],
+            "Activate account!",
+            request.build_absolute_uri(
+                reverse("users:activate", kwargs={"pk": user.id}),
+            ),
+            settings.EMAIL_HOST_USER,
+            [user.email],
+            fail_silently=False,
         )
         username = form.cleaned_data.get("username")
         messages.success(
@@ -55,12 +52,21 @@ def signup(request):
     return render(request, template, context)
 
 
-def activate(request, username):
-    user = get_object_or_404(
-        get_user_model().objects,
-        username=username,
-    )
+def activate(request, pk: int):
+    user = users.models.User.objects.get(id=pk)
     if timezone.now() < user.date_joined + datetime.timedelta(hours=12):
+        messages.success(request, "Активация прошла успешно!")
+        user.is_active = True
+        user.save()
+    else:
+        messages.error(request, "Ошибка активации!")
+
+    return redirect(reverse("homepage:home"))
+
+
+def reactivate(request, pk: int):
+    user = users.models.User.objects.get(id=pk)
+    if timezone.now() < user.date_joined + datetime.timedelta(days=7):
         messages.success(request, "Активация прошла успешно!")
         user.is_active = True
         user.save()
@@ -97,9 +103,10 @@ def user_detail(request, num):
 def profile(request):
     profile_form = users.forms.ProfileForm(
         request.POST or None,
+        request.FILES or None,
         instance=request.user.profile,
     )
-    user_form = users.forms.CustomUserChangeForm(
+    user_form = users.forms.UserForm(
         request.POST or None,
         instance=request.user,
     )
@@ -107,6 +114,8 @@ def profile(request):
         if all((profile_form.is_valid(), user_form.is_valid())):
             profile_form.save()
             user_form.save()
+            messages.success(request, "Изменения сохранены!")
+            return redirect(reverse("homepage:home"))
 
     return render(
         request,
