@@ -7,7 +7,7 @@ import users.models
 __all__ = [
     "ProfileForm",
     "SignUpForm",
-    "CustomUserChangeForm",
+    "UserForm",
 ]
 
 
@@ -18,6 +18,9 @@ class ProfileForm(django.forms.ModelForm):
         for field in self.visible_fields():
             field.field.widget.attrs["class"] = "form-control"
 
+        coffee = users.models.Profile.coffee_count.field.name
+        self.fields[coffee].disabled = True
+
     class Meta:
         model = users.models.Profile
         fields = [
@@ -26,12 +29,6 @@ class ProfileForm(django.forms.ModelForm):
             model.coffee_count.field.name,
         ]
         widgets = {
-            model.coffee_count.field.name: django.forms.NumberInput(
-                attrs={
-                    "readonly": "readonly",
-                    "disabled": "disabled",
-                },
-            ),
             model.birthday.field.name: django.forms.DateInput(
                 format="%Y-%m-%d",
                 attrs={"type": "date"},
@@ -39,7 +36,7 @@ class ProfileForm(django.forms.ModelForm):
         }
 
 
-class CustomUserChangeForm(django.contrib.auth.forms.UserChangeForm):
+class UserForm(django.contrib.auth.forms.UserChangeForm):
     password = None
 
     def __init__(self, *args, **kwargs):
