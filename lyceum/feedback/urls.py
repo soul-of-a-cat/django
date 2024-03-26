@@ -4,5 +4,5 @@ import feedback.views
 
 app_name = "feedback"
 urlpatterns = [
-    path("", feedback.views.feedback, name="feedback"),
+    path("", feedback.views.FeedbackView.as_view(), name="feedback"),
 ]

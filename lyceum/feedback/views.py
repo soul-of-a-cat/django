@@ -1,31 +1,28 @@
 from django.conf import settings
 from django.contrib import messages
 from django.core.mail import send_mail
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect
+from django.urls import reverse_lazy, reverse
+from django.views import generic
 
-from feedback.forms import (
-    FeedbackAuthorForm,
-    FeedbackFileForm,
-    FeedbackForm,
-)
+from feedback.forms import FeedbackMultiForm
 from feedback.models import FeedbackFile
 
 __all__ = [
-    "feedback",
+    "FeedbackView",
 ]
 
 
-def feedback(request):
-    author_form = FeedbackAuthorForm(request.POST or None)
-    content_form = FeedbackForm(request.POST or None)
-    files_form = FeedbackFileForm(request.POST or None, request.FILES or None)
+class FeedbackView(generic.CreateView):
+    template_name = "feedback/feedback.html"
+    form_class = FeedbackMultiForm
+    success_url = reverse_lazy("feedback:feedback")
 
-    if (
-        request.method == "POST"
-        and author_form.is_valid()
-        and content_form.is_valid()
-        and files_form.is_valid()
-    ):
+    def form_valid(self, form):
+        author_form = form["author"]
+        content_form = form["content"]
+        files_form = form["files"]
+
         feedback_instance = content_form.save(commit=True)
         author_form.instance.feedback = feedback_instance
         author_form.save(commit=True)
@@ -40,12 +37,5 @@ def feedback(request):
             from_email=settings.EMAIL_HOST_USER,
             recipient_list=[author_form.cleaned_data["mail"]],
         )
-        messages.success(request, "Форма успешно отправлена!")
-        return redirect(request.path)
-
-    context = {
-        "author_form": author_form,
-        "form": content_form,
-        "files_form": files_form,
-    }
-    return render(request, "feedback/feedback.html", context)
+        messages.success(self.request, "Форма успешно отправлена!")
+        return redirect(reverse("feedback:feedback"))

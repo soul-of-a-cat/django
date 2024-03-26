@@ -5,8 +5,8 @@ import download.views
 app_name = "download"
 urlpatterns = [
     path(
-        "<int:main_image_id>/",
-        download.views.download_main_image,
+        "<int:pk>/",
+        download.views.DownloadView.as_view(),
         name="download-main-image",
     ),
 ]

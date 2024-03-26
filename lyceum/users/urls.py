@@ -94,32 +94,32 @@ urlpatterns = [
     ),
     path(
         "signup/",
-        users.views.signup,
+        users.views.Signup.as_view(),
         name="signup",
     ),
     path(
         "activate/<pk>/",
-        users.views.activate,
+        users.views.Activate.as_view(),
         name="activate",
     ),
     path(
+        "reactivate/<pk>/",
+        users.views.Reactivate.as_view(),
+        name="reactivate",
+    ),
+    path(
         "user_list/",
-        users.views.user_list,
+        users.views.UserListView.as_view(),
         name="user-list",
     ),
     path(
-        "user_detail/<int:num>/",
-        users.views.user_detail,
+        "user_detail/<int:pk>/",
+        users.views.UserDetailView.as_view(),
         name="user-detail",
     ),
     path(
         "profile/",
-        users.views.profile,
+        users.views.ProfileView.as_view(),
         name="profile",
-    ),
-    path(
-        "reactivate/<pk>/",
-        users.views.reactivate,
-        name="reactivate",
     ),
 ]

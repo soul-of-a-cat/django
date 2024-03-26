@@ -9,37 +9,37 @@ app_name = "catalog"
 urlpatterns = [
     path(
         "",
-        catalog.views.item_list,
+        catalog.views.ItemListView.as_view(),
         name="item-list",
     ),
     re_path(
-        r"^re/(?P<num>[1-9]\d*)/$",
-        catalog.views.item_detail,
+        r"^re/(?P<pk>[1-9]\d*)/$",
+        catalog.views.ItemDetailView.as_view(),
         name="item-detail",
     ),
     path(
-        "converter/<pint:num>/",
-        catalog.views.item_detail,
+        "converter/<pint:pk>/",
+        catalog.views.ItemDetailView.as_view(),
         name="item-detail",
     ),
     path(
-        "<int:num>/",
-        catalog.views.item_detail,
+        "<int:pk>/",
+        catalog.views.ItemDetailView.as_view(),
         name="item-detail",
     ),
     path(
         "new/",
-        catalog.views.new,
+        catalog.views.ItemListNewView.as_view(),
         name="new",
     ),
     path(
         "friday/",
-        catalog.views.friday,
+        catalog.views.ItemListFridayView.as_view(),
         name="friday",
     ),
     path(
         "unverified/",
-        catalog.views.unverified,
+        catalog.views.ItemListUnverifiedView.as_view(),
         name="unverified",
     ),
 ]

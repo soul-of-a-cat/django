@@ -1,116 +1,77 @@
-from datetime import date, timedelta
+from datetime import timedelta
 import random
 
-from django.shortcuts import get_object_or_404, render
+from django.utils import timezone
+from django.views import generic
 
 import catalog.models
 
 __all__ = [
-    "item_list",
-    "item_detail",
-    "friday",
-    "new",
-    "unverified",
+    "ItemListView",
+    "ItemDetailView",
+    "ItemListNewView",
+    "ItemListFridayView",
+    "ItemListUnverifiedView",
 ]
 
 
-def item_list(request):
-    template = "catalog/item_list.html"
-    items = catalog.models.Item.objects.published().order_by("category__name")
-
-    context = {
-        "items": items,
-    }
-    return render(
-        request,
-        template,
-        context,
+class ItemListView(generic.ListView):
+    template_name = "catalog/item_list.html"
+    context_object_name = "items"
+    queryset = catalog.models.Item.objects.published().order_by(
+        "category__name"
     )
 
 
-def item_detail(request, num):
-    template = "catalog/item.html"
-    item = get_object_or_404(
-        catalog.models.Item.objects.item_detail(),
-        id=num,
-    )
-
-    context = {
-        "item": item,
-    }
-    return render(
-        request,
-        template,
-        context,
-    )
+class ItemDetailView(generic.DetailView):
+    template_name = "catalog/item.html"
+    context_object_name = "item"
+    queryset = catalog.models.Item.objects.item_detail()
 
 
-def new(request):
-    template = "catalog/new.html"
-    end_date = date.today()
-    start_date = end_date - timedelta(days=7)
+class ItemListNewView(generic.ListView):
+    template_name = "catalog/new.html"
+    context_object_name = "items"
+    model = catalog.models.Item
 
-    items_all = list(
-        catalog.models.Item.objects.new(start_date, end_date),
-    )
+    def get_queryset(self):
+        end_date = timezone.now()
+        start_date = end_date - timedelta(days=7)
 
-    if len(items_all) > 5:
-        items = random.sample(items_all, 5)
-    else:
-        items = items_all
+        items_all = list(
+            self.model.objects.new(start_date, end_date),
+        )
 
-    items = sorted(items, key=lambda x: x.category.name)
+        if len(items_all) > 5:
+            items = random.sample(items_all, 5)
+        else:
+            items = items_all
 
-    context = {"items": items}
-
-    return render(
-        request,
-        template,
-        context,
-    )
+        return sorted(items, key=lambda x: x.category.name)
 
 
-def friday(request):
-    template = "catalog/friday.html"
+class ItemListFridayView(generic.ListView):
+    template_name = "catalog/friday.html"
+    context_object_name = "items"
+    model = catalog.models.Item
 
-    items = catalog.models.Item.objects.friday()
+    def get_queryset(self):
+        items = self.model.objects.friday()
 
-    items = sorted(items, key=lambda x: (x.category.name, x.updated))
+        items = sorted(items, key=lambda x: (x.category.name, x.updated))
 
-    if len(items) > 5:
-        context = {
-            "items": items[-5::],
-        }
-    elif 0 < len(items) <= 5:
-        context = {
-            "items": items,
-        }
-    else:
-        context = {}
+        if len(items) > 5:
+            return items[-5::]
 
-    return render(
-        request,
-        template,
-        context,
-    )
+        return items
 
 
-def unverified(request):
-    template = "catalog/unverified.html"
+class ItemListUnverifiedView(generic.ListView):
+    template_name = "catalog/unverified.html"
+    context_object_name = "items"
+    model = catalog.models.Item
 
-    items = catalog.models.Item.objects.unverified()
-
-    items = sorted(items, key=lambda x: x.category.name)
-
-    if len(items) > 0:
-        context = {
-            "items": items,
-        }
-    else:
-        context = {}
-
-    return render(
-        request,
-        template,
-        context,
-    )
+    def get_queryset(self):
+        return sorted(
+            self.model.objects.unverified(), key=lambda x: x.category.name
+        )

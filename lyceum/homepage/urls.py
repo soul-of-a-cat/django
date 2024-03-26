@@ -4,8 +4,12 @@ import homepage.views
 
 app_name = "homepage"
 urlpatterns = [
-    path("", homepage.views.home, name="home"),
-    path("coffee/", homepage.views.coffee, name="coffee"),
-    path("echo/", homepage.views.echo, name="echo"),
-    path("echo/submit/", homepage.views.echo_submit, name="echo-submit"),
+    path("", homepage.views.HomeView.as_view(), name="home"),
+    path("coffee/", homepage.views.CoffeeView.as_view(), name="coffee"),
+    path("echo/", homepage.views.EchoView.as_view(), name="echo"),
+    path(
+        "echo/submit/",
+        homepage.views.EchoSubmitView.as_view(),
+        name="echo-submit",
+    ),
 ]
