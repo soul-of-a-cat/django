@@ -1,3 +1,4 @@
+from betterforms.multiform import MultiModelForm
 from django.contrib.auth.forms import UserCreationForm
 import django.forms
 
@@ -8,6 +9,7 @@ __all__ = [
     "ProfileForm",
     "SignUpForm",
     "UserForm",
+    "UserProfileForm",
 ]
 
 
@@ -60,3 +62,10 @@ class SignUpForm(UserCreationForm):
 
     class Meta(UserCreationForm.Meta):
         fields = ("username", "email")
+
+
+class UserProfileForm(MultiModelForm):
+    form_classes = {
+        "user": UserForm,
+        "profile": ProfileForm,
+    }
