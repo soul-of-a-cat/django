@@ -29,12 +29,6 @@ DEBUG = DEBUG_ENV in ("yes", "true", "y", "1", "t")
 ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "*").split(",")
 
 INSTALLED_APPS = [
-    "about.apps.AboutConfig",
-    "catalog.apps.CatalogConfig",
-    "core.apps.CoreConfig",
-    "download.apps.DownloadConfig",
-    "feedback.apps.FeedbackConfig",
-    "homepage.apps.HomepageConfig",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -42,9 +36,16 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "sorl.thumbnail",
-    "django_cleanup.apps.CleanupConfig",
     "mdeditor",
+    "about.apps.AboutConfig",
+    "catalog.apps.CatalogConfig",
+    "core.apps.CoreConfig",
+    "download.apps.DownloadConfig",
+    "feedback.apps.FeedbackConfig",
+    "homepage.apps.HomepageConfig",
+    "rating.apps.RatingConfig",
     "users.apps.UsersConfig",
+    "django_cleanup.apps.CleanupConfig",
 ]
 
 MIDDLEWARE = [

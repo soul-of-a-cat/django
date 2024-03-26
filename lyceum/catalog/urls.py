@@ -13,18 +13,18 @@ urlpatterns = [
         name="item-list",
     ),
     re_path(
-        r"^re/(?P<num>[1-9]\d*)/$",
-        catalog.views.item_detail,
+        r"^re/(?P<pk>[1-9]\d*)/$",
+        catalog.views.ItemDetailView.as_view(),
         name="item-detail",
     ),
     path(
-        "converter/<pint:num>/",
-        catalog.views.item_detail,
+        "converter/<pint:pk>/",
+        catalog.views.ItemDetailView.as_view(),
         name="item-detail",
     ),
     path(
-        "<int:num>/",
-        catalog.views.item_detail,
+        "<int:pk>/",
+        catalog.views.ItemDetailView.as_view(),
         name="item-detail",
     ),
     path(

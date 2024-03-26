@@ -284,7 +284,7 @@ class Item(AbstractModel):
         verbose_name_plural = "товары"
 
     def __str__(self):
-        return self.text[:15]
+        return self.name[:15]
 
 
 class ItemMainImage(ImageModel):
