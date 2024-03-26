@@ -5,22 +5,47 @@
 {% trans "Товары" %}
 {% endblock %}
 
+{% block links %}
+<div class="cat_links">
+	<ul class="nav nav-pills">
+		<li class="nav-item">
+			<a class="nav-link {% if view_name == 'catalog:new' %}active{% endif %}"
+				 href="{% url 'catalog:new' %}">
+				{% trans "Новинки" %}
+			</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link {% if view_name == 'catalog:friday' %}active{% endif %}"
+				 href="{% url 'catalog:friday' %}">
+				{% trans "Пятница" %}
+			</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link {% if view_name == 'catalog:unverified' %}active{% endif %}"
+				 href="{% url 'catalog:unverified' %}">
+				{% trans "Непроверенное" %}
+			</a>
+		</li>
+	</ul>
+</div>
+{% endblock %}
+
 {% block content %}
 <h1>{% trans "Список товаров" %}</h1>
 {% load static %}
 
 <div>
-  {% for item in items %}
-  {% ifchanged item.category %}
-  <h2 align="left">{{ item.category }}</h2>
-  <br clear="all"/>
-  {% endifchanged %}
-  {% include "includes/item_card.html" %}
-  {% empty %}
-  <p>
-    {% trans "Пока ничего нет!" %}
-  </p>
-  {% endfor %}
+	{% for item in items %}
+	{% ifchanged item.category %}
+	<h2 align="left">{{ item.category }}</h2>
+	<br clear="all"/>
+	{% endifchanged %}
+	{% include "includes/item_card.html" %}
+	{% empty %}
+	<p>
+		{% trans "Пока ничего нет!" %}
+	</p>
+	{% endfor %}
 </div>
 
 {% endblock %}
