@@ -13,57 +13,25 @@
 	<form method="post" enctype="multipart/form-data">
 		{% csrf_token %}
 
-		{% for hidden_field in user_form.hidden_fields %}
+		{% for hidden_field in form.hidden_fields %}
 		{{ hidden_field }}
 		{% endfor %}
 
 		{% if user_form.non_field_errors %}
 		<div class="alert alert-danger" role="alert">
-			{% for error in user_form.non_field_errors %}
+			{% for error in form.non_field_errors %}
 			<div>{{ error }}</div>
 			{% endfor %}
 		</div>
 		{% endif %}
 
-		{% for field in user_form.visible_fields %}
+		{% for field in form.visible_fields %}
 		<div class="mb-3 {% if field.widget_type == 'checkbox' %}form-check{% endif %}">
 			<label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
 
 			<p>{{ field }}</p>
 
-			{% if user_form.is_bound and field.errors %}
-			{% for error in field.errors %}
-			<div class="invalid-feedback d-block">
-				{{ error }}
-			</div>
-			{% endfor %}
-			{% endif %}
-
-			{% if field.help_text %}
-			<div class="form-text">{{ field.help_text }}</div>
-			{% endif %}
-		</div>
-		{% endfor %}
-
-		{% for hidden_field in profile_form.hidden_fields %}
-		{{ hidden_field }}
-		{% endfor %}
-
-		{% if profile_form.non_field_errors %}
-		<div class="alert alert-danger" role="alert">
-			{% for error in profile_form.non_field_errors %}
-			<div>{{ error }}</div>
-			{% endfor %}
-		</div>
-		{% endif %}
-
-		{% for field in profile_form.visible_fields %}
-		<div class="mb-3 {% if field.widget_type == 'checkbox' %}form-check{% endif %}">
-			<label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
-
-			<p>{{ field }}</p>
-
-			{% if profile_form.is_bound and field.errors %}
+			{% if form.is_bound and field.errors %}
 			{% for error in field.errors %}
 			<div class="invalid-feedback d-block">
 				{{ error }}
