@@ -115,8 +115,8 @@ class UserTests(TestCase):
             },
         )
         self.assertEqual(
-            timezone.now().strftime("%d/%m/%Y %H:%M:%S"),
-            User.objects.first().last_login.strftime("%d/%m/%Y %H:%M:%S"),
+            timezone.now().strftime("%d/%m/%Y %H:%M"),
+            User.objects.first().last_login.strftime("%d/%m/%Y %H:%M"),
         )
         self.client.get(reverse("users:logout"))
         self.client.post(
