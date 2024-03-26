@@ -19,3 +19,9 @@ exclude = '''
                      # the root of the project
 )
 '''
+extend-exclude = '''
+/(
+  | venv
+  | migrations
+)/
+'''
