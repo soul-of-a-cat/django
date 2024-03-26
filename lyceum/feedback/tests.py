@@ -8,7 +8,7 @@ from django.urls import reverse
 from django.utils.translation import gettext
 from parameterized import parameterized
 
-from feedback.forms import FeedbackAuthorForm, FeedbackFileForm, FeedbackForm
+from feedback.forms import FeedbackMultiForm
 from feedback.models import Feedback
 
 
@@ -24,33 +24,35 @@ class FormTests(TestCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.form = FeedbackForm()
-        cls.form_author = FeedbackAuthorForm()
+        cls.form = FeedbackMultiForm()
+
+    @classmethod
+    def tearDownClass(cls):
+        super().setUpClass()
+        shutil.rmtree(MEDIA_TEST)
 
     def test_mail_label(self):
-        mail_label = FormTests.form_author.fields["mail"].label
+        mail_label = FormTests.form["author"].fields["mail"].label
         self.assertEqual(mail_label, "Почта")
 
     def test_text_label(self):
-        text_label = FormTests.form.fields["text"].label
+        text_label = FormTests.form["content"].fields["text"].label
         self.assertEqual(text_label, "Текст")
 
     def test_mail_help_text(self):
-        mail_help_text = FormTests.form_author.fields["mail"].help_text
+        mail_help_text = FormTests.form["author"].fields["mail"].help_text
         self.assertEqual(
             mail_help_text,
             gettext("почтовый адрес"),
         )
 
     def test_text_help_text(self):
-        text_help_text = FormTests.form.fields["text"].help_text
+        text_help_text = FormTests.form["content"].fields["text"].help_text
         self.assertEqual(text_help_text, "напишите текст сообщения")
 
     @parameterized.expand(
         [
-            ("form", FeedbackForm),
-            ("author_form", FeedbackAuthorForm),
-            ("files_form", FeedbackFileForm),
+            ("form", FeedbackMultiForm),
         ],
     )
     def test_feedback_show_correct_context(
@@ -78,7 +80,7 @@ class FormTests(TestCase):
                 data=data,
                 follow=True,
             )
-
+            # print(response.method)
             self.assertRedirects(response, reverse("feedback:feedback"))
             self.assertEqual(
                 Feedback.objects.count(),
@@ -104,8 +106,8 @@ class FormTests(TestCase):
         )
         self.assertFormError(
             response,
-            "author_form",
-            "mail",
+            "form",
+            "author-mail",
             "Введите правильный адрес электронной почты.",
         )
         self.assertEqual(
@@ -134,7 +136,6 @@ class FormTests(TestCase):
             format="multipart",
             follow=True,
         )
-
         self.assertRedirects(response, reverse("feedback:feedback"))
         self.assertEqual(
             Feedback.objects.count(),
@@ -149,8 +150,3 @@ class FormTests(TestCase):
         self.assertEqual(len(files), 1, "Wrong count of files created")
         with (MEDIA_TEST / files[0].file.name).open("rb") as f:
             self.assertEqual(f.read(), content, "Wrong file content")
-
-    @classmethod
-    def tearDownClass(cls):
-        super().setUpClass()
-        shutil.rmtree(MEDIA_TEST)
