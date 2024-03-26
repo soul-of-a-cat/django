@@ -44,10 +44,10 @@ class ItemDetailView(DetailView, ModelFormMixin):
             item=self.get_object(),
         )
         average_rating = ratings.aggregate(avg_rating=Avg("rating"))[
-            "avg_rating",
+            "avg_rating"
         ]
         num_ratings = ratings.aggregate(num_ratings=Count("rating"))[
-            "num_ratings",
+            "num_ratings"
         ]
 
         context["average_rating"] = average_rating
