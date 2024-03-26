@@ -1,3 +1,4 @@
+from betterforms.multiform import MultiModelForm
 import django.forms
 
 import feedback.models
@@ -6,6 +7,7 @@ __all__ = [
     "FeedbackForm",
     "FeedbackAuthorForm",
     "FeedbackFileForm",
+    "FeedbackMultiForm",
 ]
 
 
@@ -34,6 +36,11 @@ class FeedbackAuthorForm(django.forms.ModelForm):
         exclude = [
             feedback.models.FeedbackAuthor.feedback.field.name,
         ]
+        error_messages = {
+            feedback.models.FeedbackAuthor.mail.field.name: {
+                "required": "Введите правильный адрес электронной почты."
+            }
+        }
 
 
 class MultipleFileInput(django.forms.ClearableFileInput):
@@ -60,3 +67,11 @@ class FeedbackFileForm(django.forms.Form):
             field.field.widget.attrs["class"] = "form-control"
 
     files = MultipleFileField(required=False, label="Файлы")
+
+
+class FeedbackMultiForm(MultiModelForm):
+    form_classes = {
+        "content": FeedbackForm,
+        "author": FeedbackAuthorForm,
+        "files": FeedbackFileForm,
+    }
