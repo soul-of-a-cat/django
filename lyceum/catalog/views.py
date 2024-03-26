@@ -1,10 +1,10 @@
 from datetime import timedelta
 import random
 
+from django.db.models import Avg, Count
+from django.shortcuts import redirect
 from django.utils import timezone
 from django.views import generic
-from django.db.models import Avg, Count
-from django.shortcuts import redirect, render
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import ModelFormMixin
 

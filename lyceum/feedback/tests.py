@@ -80,7 +80,6 @@ class FormTests(TestCase):
                 data=data,
                 follow=True,
             )
-            # print(response.method)
             self.assertRedirects(response, reverse("feedback:feedback"))
             self.assertEqual(
                 Feedback.objects.count(),
