@@ -1,11 +1,9 @@
-from django.conf import settings
 from django.contrib import messages
 from django.core.mail import send_mail
-from django.shortcuts import redirect
-from django.urls import reverse, reverse_lazy
+from django.shortcuts import redirect, render
 from django.views import generic
 
-from feedback.forms import FeedbackMultiForm
+from feedback.forms import FeedbackAuthorForm, FeedbackFileForm, FeedbackForm
 from feedback.models import FeedbackFile
 
 __all__ = [
@@ -13,29 +11,57 @@ __all__ = [
 ]
 
 
-class FeedbackView(generic.CreateView):
+class FeedbackView(generic.View):
     template_name = "feedback/feedback.html"
-    form_class = FeedbackMultiForm
-    success_url = reverse_lazy("feedback:feedback")
 
-    def form_valid(self, form):
-        author_form = form["author"]
-        content_form = form["content"]
-        files_form = form["files"]
+    def get(self, request):
+        feedback_form = FeedbackForm()
+        author_form = FeedbackAuthorForm()
+        files_form = FeedbackFileForm()
+        context = {
+            "form": feedback_form,
+            "author_form": author_form,
+            "files_form": files_form,
+        }
+        return render(request, self.template_name, context)
 
-        feedback_instance = content_form.save(commit=True)
-        author_form.instance.feedback = feedback_instance
-        author_form.save(commit=True)
+    def post(self, request):
+        feedback_form = FeedbackForm(request.POST)
+        author_form = FeedbackAuthorForm(request.POST)
+        files_form = FeedbackFileForm(request.POST, request.FILES)
 
-        files = files_form.cleaned_data["files"]
-        for file in files:
-            FeedbackFile(file=file, feedback=feedback_instance).save()
+        if (
+            feedback_form.is_valid()
+            and author_form.is_valid()
+            and files_form.is_valid()
+        ):
+            mail = author_form.cleaned_data["mail"]
+            name = author_form.cleaned_data["name"]
+            text = feedback_form.cleaned_data["text"]
 
-        send_mail(
-            subject="Feedback",
-            message=content_form.cleaned_data["text"],
-            from_email=settings.EMAIL_HOST_USER,
-            recipient_list=[author_form.cleaned_data["mail"]],
-        )
-        messages.success(self.request, "Форма успешно отправлена!")
-        return redirect(reverse("feedback:feedback"))
+            feedback = feedback_form.save()
+            author = author_form.save(commit=False)
+            author.feedback = feedback
+            author.save()
+
+            files = files_form.cleaned_data["files"]
+            for file in files:
+                FeedbackFile.objects.create(
+                    file=file,
+                    feedback=feedback,
+                )
+
+            email_dear = "feedback__email__dear"
+            email_text = "feedback__email__text"
+            send_mail(
+                "feedback__email__title",
+                (f"{email_dear} {name},\n\n" if name else "")
+                + f"{email_text}\n{text}",
+                None,
+                [mail],
+                fail_silently=False,
+            )
+            messages.success(request, "feedback__email__success")
+            return redirect("feedback:feedback")
+
+        return None
