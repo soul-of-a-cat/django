@@ -17,7 +17,6 @@
   overflow: hidden;
   background: #b2b8b2;
   border: 1px solid #181a18;
-  margin: 0px 0px 10px 0px;
 }
 
 .feedback {
@@ -34,4 +33,14 @@
 
 .body_context {
   margin: 10px;
+}
+
+.lan_spinner {
+  margin-left: 10px;
+}
+
+.cat_links {
+  overflow: hidden;
+  background: #e6e6e6;
+  border: 1px solid #cccccc;
 }
