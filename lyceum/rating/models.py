@@ -22,20 +22,19 @@ class Rating(django.db.models.Model):
         verbose_name="пользователь",
         on_delete=django.db.models.CASCADE,
     )
-
     item = django.db.models.ForeignKey(
         catalog.models.Item,
         verbose_name="товар",
         on_delete=django.db.models.CASCADE,
+        related_name="rating",
+        related_query_name="rating",
     )
-
     rating = django.db.models.IntegerField(
         verbose_name="оценка",
         choices=RATING_CHOICES,
         null=True,
         blank=True,
     )
-
     updated = django.db.models.DateTimeField(
         auto_now=True,
         null=True,
