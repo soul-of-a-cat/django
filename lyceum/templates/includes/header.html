@@ -114,12 +114,32 @@
 		{% if birthday_users %}
     <div>
       <h3>Сегодня день рождения у следующих пользователей:</h3>
-      <ul>
-        {% for user in birthday_users %}
-          <li> {{ user.username }} </li>
-        {% endfor %}
-      </ul>
+      <ul id="birthdayList"></ul>
     </div>
 		{% endif %}
 	</div>
+	<script>
+		var dayLocal = new Date().getDate();
+    var monthLocal = new Date().getMonth();
+    const data = [
+      {% for user in birthday_users %}
+        {
+          username: "{{ user.username }}",
+          birthday: "{{ user.profile.birthday|date:'Y-m-d' }}",
+        },
+      {% endfor %}
+    ];
+		const list = document.getElementById('birthdayList');
+    data.forEach(user => {
+      const userBirthday = new Date(user.birthday)
+      var birthdayDay = userBirthday.getDate();
+      var birthdayMonth = userBirthday.getMonth();
+
+      if (dayLocal === birthdayDay && monthLocal === birthdayMonth) {
+        let newElement = document.createElement('li');
+        newElement.textContent = user.username;
+        list.appendChild(newElement);
+      }
+    });
+	</script>
 </header>
