@@ -12,6 +12,10 @@
 
 ![ER_profile.jpg](ER_profile.jpg)
 
+***Структура базы данных рейтинга описана в файле ER_rating.jpg***
+
+![ER_rating.jpg](ER_rating.jpg)
+
 + Для создания файлов перевода:\
 ***django-admin compilemessages***
 + Некоторые переменные должны быть сохранены в файл **.env**\
