@@ -44,3 +44,14 @@
   background: #e6e6e6;
   border: 1px solid #cccccc;
 }
+
+.statistics_user {
+  display:inline-block;
+}
+
+.statistics_items {
+  display:inline-block;
+  padding: 20px;
+  background: #bde0ff;
+  border: 1px solid #9999ff;
+}
