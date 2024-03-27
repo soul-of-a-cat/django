@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "feedback.apps.FeedbackConfig",
     "homepage.apps.HomepageConfig",
     "rating.apps.RatingConfig",
+    "statistics_rating.apps.StatisticsRatingConfig",
     "users.apps.UsersConfig",
     "django_cleanup.apps.CleanupConfig",
 ]

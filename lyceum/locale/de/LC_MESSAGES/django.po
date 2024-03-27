@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-24 17:08+0300\n"
+"POT-Creation-Date: 2024-03-27 21:50+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,23 +18,23 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: .\feedback\tests.py:42
+#: .\feedback\tests.py:40
 msgid "почтовый адрес"
 msgstr "Postanschrift"
 
-#: .\lyceum\settings.py:136
+#: .\lyceum\settings.py:138
 msgid "Russian"
 msgstr "Russisch"
 
-#: .\lyceum\settings.py:137
+#: .\lyceum\settings.py:139
 msgid "English"
 msgstr "Englisch"
 
-#: .\lyceum\settings.py:138
+#: .\lyceum\settings.py:140
 msgid "German"
 msgstr "Deutsch"
 
-#: .\lyceum\settings.py:139
+#: .\lyceum\settings.py:141
 msgid "French"
 msgstr "französisch"
 
@@ -63,7 +63,7 @@ msgstr "Wahrscheinlich werde ich es nicht beenden"
 msgid "Заголовок"
 msgstr "Überschrift"
 
-#: .\templates\base.html:29
+#: .\templates\base.html:32
 msgid "Контент"
 msgstr "Inhalt"
 
@@ -72,13 +72,15 @@ msgstr "Inhalt"
 msgid "Товары"
 msgstr "Güter"
 
-#: .\templates\catalog\friday.html:9 .\templates\includes\header.html:60
-#: .\templates\includes\header.html:64
+#: .\templates\catalog\friday.html:9 .\templates\catalog\item_list.html:20
 msgid "Пятница"
 msgstr "Freitag"
 
-#: .\templates\catalog\friday.html:21 .\templates\catalog\item_list.html:21
+#: .\templates\catalog\friday.html:21 .\templates\catalog\item_list.html:46
 #: .\templates\catalog\new.html:21 .\templates\catalog\unverified.html:21
+#: .\templates\statistics\item_list_ratings.html:63
+#: .\templates\statistics\items_rating.html:67
+#: .\templates\statistics\user_ratings.html:65
 msgid "Пока ничего нет!"
 msgstr "Noch ist nichts da!"
 
@@ -86,35 +88,29 @@ msgstr "Noch ist nichts da!"
 msgid "Товар"
 msgstr "Ware"
 
-#: .\templates\catalog\item.html:19
-msgid "Текст:"
-msgstr "Der Text:"
-
-#: .\templates\catalog\item.html:20
+#: .\templates\catalog\item.html:15
 msgid "Категория:"
 msgstr "Kategorie:"
 
-#: .\templates\catalog\item.html:21
-msgid "Теги:"
-msgstr "Kennungen:"
+#: .\templates\catalog\item.html:16
+msgid "Текст:"
+msgstr "Der Text:"
 
-#: .\templates\catalog\item_list.html:9 .\templates\includes\header.html:36
+#: .\templates\catalog\item_list.html:14 .\templates\catalog\new.html:9
+msgid "Новинки"
+msgstr "Neuheiten"
+
+#: .\templates\catalog\item_list.html:26 .\templates\catalog\unverified.html:9
+msgid "Непроверенное"
+msgstr "Unbestaetigtes"
+
+#: .\templates\catalog\item_list.html:34 .\templates\includes\header.html:36
 #: .\templates\includes\header.html:40
 msgid "Список товаров"
 msgstr "Warenverzeichnis"
 
-#: .\templates\catalog\new.html:9 .\templates\includes\header.html:48
+#: .\templates\feedback\feedback.html:6 .\templates\includes\header.html:48
 #: .\templates\includes\header.html:52
-msgid "Новинки"
-msgstr "Neuheiten"
-
-#: .\templates\catalog\unverified.html:9 .\templates\includes\header.html:72
-#: .\templates\includes\header.html:76
-msgid "Непроверенное"
-msgstr "Unbestaetigtes"
-
-#: .\templates\feedback\feedback.html:6 .\templates\includes\header.html:84
-#: .\templates\includes\header.html:88
 msgid "Обратная связь"
 msgstr "Feedback"
 
@@ -157,21 +153,64 @@ msgstr "VERGISS NICHT ZU BEZAHLEN!!!"
 msgid "На главную"
 msgstr "Auf der Hauptseite"
 
-#: .\templates\includes\header.html:95
+#: .\templates\includes\header.html:60 .\templates\includes\header.html:64
+#: .\templates\statistics\item_list_ratings.html:5
+#: .\templates\statistics\items_rating.html:5
+#: .\templates\statistics\user_ratings.html:5
+msgid "Статистика"
+msgstr "Statistik"
+
+#: .\templates\includes\header.html:71
 msgid "Администрирование"
 msgstr "Administration"
 
-#: .\templates\includes\header.html:123 .\templates\includes\header.html:127
+#: .\templates\includes\header.html:99 .\templates\includes\header.html:103
 msgid "Профиль"
 msgstr "Profil"
 
-#: .\templates\includes\header.html:136
+#: .\templates\includes\header.html:113
 msgid "Язык"
 msgstr "Sprache"
 
-#: .\templates\includes\header.html:147
+#: .\templates\includes\header.html:124
 msgid "Изменить"
 msgstr "Ändern"
+
+#: .\templates\statistics\item_list_ratings.html:16
+#: .\templates\statistics\item_list_ratings.html:20
+#: .\templates\statistics\items_rating.html:16
+#: .\templates\statistics\items_rating.html:20
+#: .\templates\statistics\user_ratings.html:16
+#: .\templates\statistics\user_ratings.html:20
+#: .\templates\statistics\user_ratings.html:54
+#, fuzzy
+#| msgid "Список товаров"
+msgid "Статистика пользователя"
+msgstr "Warenverzeichnis"
+
+#: .\templates\statistics\item_list_ratings.html:28
+#: .\templates\statistics\item_list_ratings.html:32
+#: .\templates\statistics\item_list_ratings.html:54
+#: .\templates\statistics\items_rating.html:28
+#: .\templates\statistics\items_rating.html:32
+#: .\templates\statistics\user_ratings.html:28
+#: .\templates\statistics\user_ratings.html:32
+#, fuzzy
+#| msgid "Список товаров"
+msgid "Статистика товаров"
+msgstr "Warenverzeichnis"
+
+#: .\templates\statistics\item_list_ratings.html:40
+#: .\templates\statistics\item_list_ratings.html:44
+#: .\templates\statistics\items_rating.html:40
+#: .\templates\statistics\items_rating.html:44
+#: .\templates\statistics\items_rating.html:54
+#: .\templates\statistics\user_ratings.html:40
+#: .\templates\statistics\user_ratings.html:44
+#, fuzzy
+#| msgid "Список товаров"
+msgid "Статистика по товарам"
+msgstr "Warenverzeichnis"
 
 #: .\templates\users\login.html:5 .\templates\users\login.html:12
 msgid "Авторизоваться"
@@ -236,12 +275,10 @@ msgid "Your username, in case you’ve forgotten:"
 msgstr "Ihren Benutzernamen, falls Sie ihn vergessen haben:"
 
 #: .\templates\users\password_reset_email.html:9
-#: .\templates\users\signup_email.html:9
 msgid "Thanks for using our site!"
 msgstr "Vielen Dank für die Nutzung unserer Website!"
 
 #: .\templates\users\password_reset_email.html:10
-#: .\templates\users\signup_email.html:10
 #, python-format
 msgid "The %(site_name)s team"
 msgstr "Das Team von %(site_name)s"
@@ -252,38 +289,23 @@ msgstr "Das Team von %(site_name)s"
 msgid "Изменить профиль"
 msgstr "Ändern"
 
-#: .\templates\users\profile.html:85
+#: .\templates\users\profile.html:53
 msgid "Выпить кофе"
 msgstr "Kaffee trinken"
 
-#: .\templates\users\profile.html:86
+#: .\templates\users\profile.html:54
 #, fuzzy
 #| msgid "Изменить"
 msgid "Сменить пароль"
 msgstr "Ändern"
 
-#: .\templates\users\profile.html:87
+#: .\templates\users\profile.html:55
 msgid "Сохранить изменения"
 msgstr "Änderungen speichern"
 
 #: .\templates\users\signup.html:5
 msgid "Регистрация"
 msgstr "Eintragung"
-
-#: .\templates\users\signup_email.html:3
-#, python-format
-msgid "Automatic mailing from the site: %(site_name)s."
-msgstr "Automatisches Mailing von der Site: %(site_name)s."
-
-#: .\templates\users\signup_email.html:4
-msgid "We welcome a new user to our site and hope you enjoy it here."
-msgstr ""
-"Wir begrüßen einen neuen Benutzer auf unserer Website und hoffen, dass es "
-"Ihnen hier gefällt."
-
-#: .\templates\users\signup_email.html:6
-msgid "Unfortunately, your account has not been activated."
-msgstr "Leider wurde Ihr Konto nicht aktiviert."
 
 #: .\templates\users\user_detail.html:6
 msgid "Пользователь"
