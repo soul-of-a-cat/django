@@ -5,8 +5,8 @@ from django.test import Client, override_settings, TestCase
 from django.urls import reverse
 import parameterized
 
-import users.models
 from lyceum.middleware import reverse_words
+import users.models
 
 __all__ = [
     "ReverseResponseMiddlewareTests",
