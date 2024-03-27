@@ -36,6 +36,11 @@ class Rating(django.db.models.Model):
         blank=True,
     )
 
+    updated = django.db.models.DateTimeField(
+        auto_now=True,
+        null=True,
+    )
+
     class Meta:
         verbose_name = "оценка"
         verbose_name_plural = "оценки"
