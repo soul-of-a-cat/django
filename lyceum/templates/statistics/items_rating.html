@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}
+{% trans "Статистика" %}
+{% endblock %}
+
+{% block links %}
+<div class="cat_links">
+	{% with request.resolver_match.view_name as view_name %}
+	<ul class="nav nav-pills">
+		<li class="nav-item">
+			{% if view_name != 'statistics_rating:user-rating' %}
+			<a class="nav-link {% if view_name == 'statistics_rating:user-rating' %}active{% endif %}"
+				 href="{% url 'statistics_rating:user-rating' %}">
+				{% trans "Статистика пользователя" %}
+			</a>
+			{% else %}
+			<a class="nav-link {% if view_name == 'statistics_rating:user-rating' %}active{% endif %}">
+				{% trans "Статистика пользователя" %}
+			</a>
+			{% endif %}
+		</li>
+		<li class="nav-item">
+			{% if view_name != 'statistics_rating:item-list-rating' %}
+			<a class="nav-link {% if view_name == 'statistics_rating:item-list-rating' %}active{% endif %}"
+				 href="{% url 'statistics_rating:item-list-rating' %}">
+				{% trans "Статистика товаров" %}
+			</a>
+			{% else %}
+			<a class="nav-link {% if view_name == 'statistics_rating:item-list-rating' %}active{% endif %}">
+				{% trans "Статистика товаров" %}
+			</a>
+			{% endif %}
+		</li>
+		<li class="nav-item">
+			{% if view_name != 'statistics_rating:items-rating' %}
+			<a class="nav-link {% if view_name == 'statistics_rating:items-rating' %}active{% endif %}"
+				 href="{% url 'statistics_rating:items-rating' %}">
+				{% trans "Статистика по товарам" %}
+			</a>
+			{% else %}
+			<a class="nav-link {% if view_name == 'statistics_rating:items-rating' %}active{% endif %}">
+				{% trans "Статистика по товарам" %}
+			</a>
+			{% endif %}
+		</li>
+	</ul>
+	{% endwith %}
+</div>
+{% endblock %}
+
+{% block content %}
+<h1>{% trans "Статистика по товарам" %}</h1>
+{% load static %}
+
+<div>
+	{% for key1, value1 in items.items %}
+	<div class="statistics_items">
+		<h5>{{ key1 }}</h5>
+		{% for key2, value2 in value1.items %}
+		<p>{{ key2 }}: {{ value2 }}</p>
+		{% endfor %}
+	</div>
+	{% empty %}
+	<p>
+		{% trans "Пока ничего нет!" %}
+	</p>
+	{% endfor %}
+</div>
+
+{% endblock %}
