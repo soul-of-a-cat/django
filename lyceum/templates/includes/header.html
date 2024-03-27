@@ -138,6 +138,7 @@
         {
           username: "{{ user.username }}",
           birthday: "{{ user.profile.birthday|date:'Y-m-d' }}",
+		  email: "{{ user.email }}",
         },
       {% endfor %}
     ];
@@ -149,7 +150,12 @@
 
       if (dayLocal === birthdayDay && monthLocal === birthdayMonth) {
         let newElement = document.createElement('li');
-        newElement.textContent = user.username;
+        newElement.textContent = "Имя: " + user.username + " Почта: ";
+		if (user.email === "") {
+			newElement.textContent += "*Неуказано*";
+		} else {
+			newElement.textContent += user.email;
+		}
         list.appendChild(newElement);
       }
     });
