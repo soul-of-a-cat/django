@@ -54,7 +54,7 @@
 				{% endif %}
 			</li>
 			<li class="nav-item">
-			{% if view_name != 'statistics_rating:user-rating' %}
+				{% if view_name != 'statistics_rating:user-rating' %}
 				<a class="nav-link {% if view_name == 'statistics_rating:user-rating' %}active{% endif %}"
 					 href="{% url 'statistics_rating:user-rating' %}">
 					{% trans "Статистика" %}
@@ -64,7 +64,7 @@
 					{% trans "Статистика" %}
 				</a>
 				{% endif %}
-		</li>
+			</li>
 			{% if user.is_staff %}
 			<li class="nav-item">
 				<a class="nav-link" href="/admin/">
@@ -123,122 +123,12 @@
 			</select>
 			<input type="submit" value="{% trans 'Изменить' %}">
 		</form>
-			<ul class="nav nav-pills">
-				<li class="nav-item">
-					{% if view_name != "homepage:home" %}
-					<a class="nav-link {% if view_name == 'homepage:home' %}active{% endif %}"
-						 href="{% url 'homepage:home' %}">
-						{% trans "На главную" %}
-					</a>
-					{% else %}
-					<a class="nav-link {% if view_name == 'homepage:home' %}active{% endif %}">
-						{% trans "На главную" %}
-					</a>
-					{% endif %}
-				</li>
-				<li class="nav-item">
-					{% if view_name != "about:description" %}
-					<a class="nav-link {% if view_name == 'about:description' %}active{% endif %}"
-						 href="{% url 'about:description' %}">
-						{% trans "О проекте" %}
-					</a>
-					{% else %}
-					<a class="nav-link {% if view_name == 'about:description' %}active{% endif %}">
-						{% trans "О проекте" %}
-					</a>
-					{% endif %}
-				</li>
-				<li class="nav-item">
-					{% if view_name != 'catalog:item-list' %}
-					<a class="nav-link {% if view_name == 'catalog:item-list' %}active{% endif %}"
-						 href="{% url 'catalog:item-list' %}">
-						{% trans "Список товаров" %}
-					</a>
-					{% else %}
-					<a class="nav-link {% if view_name == 'catalog:item-list' %}active{% endif %}">
-						{% trans "Список товаров" %}
-					</a>
-					{% endif %}
-				</li>
-				<li class="nav-item">
-					{% if view_name != 'feedback:feedback' %}
-					<a class="nav-link {% if view_name == 'feedback:feedback' %}active{% endif %}"
-						 href="{% url 'feedback:feedback' %}">
-						{% trans "Обратная связь" %}
-					</a>
-					{% else %}
-					<a class="nav-link {% if view_name == 'feedback:feedback' %}active{% endif %}">
-						{% trans "Обратная связь" %}
-					</a>
-					{% endif %}
-				</li>
-				{% if user.is_staff %}
-				<li class="nav-item">
-					<a class="nav-link" href="/admin/">
-						{% trans "Администрирование" %}
-					</a>
-				</li>
-				{% endif %}
-				{% if user.is_authenticated %}
-				<li class="nav-item">
-					<a class="nav-link" href="{% url 'users:logout' %}">
-						LogOut
-					</a>
-				</li>
-				{% endif %}
-				{% if not user.is_authenticated %}
-				<li class="nav-item">
-					<a class="nav-link" href="{% url 'users:login' %}">
-						LogIn
-					</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="{% url 'users:signup' %}">
-						SignUp
-					</a>
-				</li>
-				{% endif %}
-				{% if user.is_authenticated %}
-				<li class="nav-item">
-					{% if view_name != 'users:profile' %}
-					<a class="nav-link {% if view_name == 'users:profile' %}active{% endif %}"
-						 href="{% url 'users:profile' %}">
-						{% trans "Профиль" %}
-					</a>
-					{% else %}
-					<a class="nav-link {% if view_name == 'users:profile' %}active{% endif %}">
-						{% trans "Профиль" %}
-					</a>
-					{% endif %}
-				</li>
-				{% endif %}
-			</ul>
-			{% endwith %}
-			<form action="{% url 'set_language' %}" method="post" class="lan_spinner">
-				{% csrf_token %}
-				<input name="next" type="hidden" value="{{ redirect_to }}">
-				{% trans "Язык" %}:
-				<select name="language">
-					{% get_current_language as LANGUAGE_CODE %}
-					{% get_available_languages as LANGUAGES %}
-					{% get_language_info_list for LANGUAGES as languages %}
-					{% for language in languages %}
-					<option value="{{ language.code }}" {% if language.code == LANGUAGE_CODE %} selected{% endif %}>
-						{{ language.name_local }} ({{ language.code }})
-					</option>
-					{% endfor %}
-				</select>
-				<input type="submit" value="{% trans 'Изменить' %}">
-			</form>
 		{% if birthday_users %}
-    <div>
-      <h3>Сегодня день рождения у следующих пользователей:</h3>
-      <ul>
-        {% for user in birthday_users %}
-          <li> {{ user.username }} </li>
-        {% endfor %}
-      </ul>
-    </div>
+		<div class="birthday_context">
+			<b style="color: #0000ff;">Сегодня день рождения у следующих пользователей: </b>
+			<b style="color: #9600d6;">{{ birthday_users }}</b>
+			</ul>
+		</div>
 		{% endif %}
 	</div>
 </header>
