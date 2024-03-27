@@ -1,8 +1,11 @@
+import datetime
+
 from django.conf import settings
 from django.test import Client, override_settings, TestCase
 from django.urls import reverse
 import parameterized
 
+import users.models
 from lyceum.middleware import reverse_words
 
 __all__ = [
@@ -89,3 +92,42 @@ class ReverseResponseMiddlewareTests(TestCase):
         rev_words = reverse_words(word)
         self.assertEqual(rev_words, rev_word)
         self.assertEqual(rev_words, rev_word)
+
+
+class ContextProcessorsTests(TestCase):
+    user_register_data = {
+        "username": "somethingstrange",
+        "email": "abracadabra@ma.ru",
+        "password1": "123123123g",
+        "password2": "123123123g",
+    }
+
+    def test_context_processors_success(self):
+        client = Client()
+
+        test_user = users.models.User.objects.create_user(
+            username=self.user_register_data["username"]
+        )
+        users.models.Profile.objects.create(
+            user=test_user, birthday=datetime.datetime.now().date()
+        )
+
+        response = client.get(reverse("homepage:home"))
+        bithday_users = response.context["birthday_users"]
+        self.assertTrue(bithday_users)
+
+    def test_context_processors_failed(self):
+        client = Client()
+
+        test_user = users.models.User.objects.create_user(
+            username=self.user_register_data["username"]
+        )
+        users.models.Profile.objects.create(
+            user=test_user,
+            birthday=datetime.datetime.now().date()
+            + datetime.timedelta(days=12),
+        )
+
+        response = client.get(reverse("homepage:home"))
+        bithday_users = response.context["birthday_users"]
+        self.assertFalse(bithday_users)
