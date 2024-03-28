@@ -4,7 +4,8 @@ from django.shortcuts import render
 from django.views import generic
 
 import catalog.models
-import rating.models
+from rating.models import Rating
+import users.models
 
 __all__ = [
     "UserRatingView",
@@ -19,7 +20,7 @@ class UserRatingView(generic.View):
             catalog.models.Item.objects.item_list_ratings().prefetch_related(
                 django.db.models.Prefetch(
                     catalog.models.Item.rating.field._related_name,
-                    queryset=rating.models.Rating.objects.filter(
+                    queryset=Rating.objects.filter(
                         user=request.user,
                     ),
                 )
@@ -34,8 +35,14 @@ class UserRatingView(generic.View):
         rating_items = {}
 
         if vals_rating["num_ratings"] > 0:
-            max_rating_item = items.order_by("-rating__rating").first()
-            min_rating_item = items.order_by("rating__rating").first()
+            max_rating_item = items.order_by(
+                f"-{catalog.models.Item.rating.field._related_name}__"
+                f"{Rating.rating.field.name}"
+            ).first()
+            min_rating_item = items.order_by(
+                f"{catalog.models.Item.rating.field._related_name}__"
+                f"{Rating.rating.field.name}"
+            ).first()
 
             rating_items = {
                 "Самый лучший товар": max_rating_item,
@@ -60,13 +67,20 @@ class ItemListRatingsView(generic.View):
             .prefetch_related(
                 django.db.models.Prefetch(
                     catalog.models.Item.rating.field._related_name,
-                    queryset=rating.models.Rating.objects.filter(
+                    queryset=Rating.objects.filter(
                         user=request.user.id,
                     ),
                 ),
             )
             .filter(
-                id=django.db.models.F("rating__item"),
+                id=django.db.models.F(
+                    f"{catalog.models.Item.rating.field._related_name}__"
+                    f"{Rating.item.field.name}"
+                ),
+            )
+            .order_by(
+                f"-{catalog.models.Item.rating.field._related_name}__"
+                f"{Rating.rating.field.name}"
             )
         )
         return render(
@@ -81,32 +95,48 @@ class ItemListRatingsView(generic.View):
 class ItemRatingView(generic.View):
     def get(self, request):
         last_max_rating_user_subquery = (
-            rating.models.Rating.objects.filter(item=OuterRef("id"))
-            .order_by("-rating")
-            .values("user__username")[:1]
+            Rating.objects.filter(item=OuterRef("id"))
+            .order_by(f"-{Rating.rating.field.name}")
+            .values(
+                f"{Rating.user.field.name}__"
+                f"{users.models.User.username.field.name}"
+            )[:1]
         )
         last_min_rating_user_subquery = (
-            rating.models.Rating.objects.filter(item=OuterRef("id"))
-            .order_by("rating")
-            .values("user__username")[:1]
+            Rating.objects.filter(item=OuterRef("id"))
+            .order_by(Rating.rating.field.name)
+            .values(
+                f"{Rating.user.field.name}__"
+                f"{users.models.User.username.field.name}"
+            )[:1]
         )
 
         items = (
             catalog.models.Item.objects.prefetch_related(
                 django.db.models.Prefetch(
                     catalog.models.Item.rating.field._related_name,
-                    queryset=rating.models.Rating.objects.only(
-                        "user__username",
-                        rating.models.Rating.rating.field.name,
+                    queryset=Rating.objects.only(
+                        f"{Rating.user.field.name}__"
+                        f"{users.models.User.username.field.name}",
+                        Rating.rating.field.name,
                     ),
                 ),
             )
             .filter(
-                id=django.db.models.F("rating__item"),
+                id=django.db.models.F(
+                    f"{catalog.models.Item.rating.field._related_name}__"
+                    f"{Rating.item.field.name}"
+                ),
             )
             .annotate(
-                avg_rating=Avg("rating__rating"),
-                num_ratings=Count("rating__rating"),
+                avg_rating=Avg(
+                    f"{catalog.models.Item.rating.field._related_name}__"
+                    f"{Rating.rating.field.name}"
+                ),
+                num_ratings=Count(
+                    f"{catalog.models.Item.rating.field._related_name}__"
+                    f"{Rating.rating.field.name}"
+                ),
                 max_rating_user=Subquery(last_max_rating_user_subquery),
                 min_rating_user=Subquery(last_min_rating_user_subquery),
             )
