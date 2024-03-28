@@ -50,7 +50,7 @@
 		<p> {{ message }} </p>
 		{% endfor %}
 		{% endif %}
-		<p><a href="{% url 'homepage:coffee' %}">{% trans "Выпить кофе" %}</a></p>
+		<p><a href="{% url 'homepage:coffee-profile' %}">{% trans "Выпить кофе" %}</a></p>
 		<p><a href="{% url 'users:password_change' %}">{% trans "Сменить пароль" %}</a></p>
 		<button type="submit" class="btn btn-primary">{% trans "Сохранить изменения" %}</button>
 	</form>
