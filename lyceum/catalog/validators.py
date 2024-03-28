@@ -2,10 +2,9 @@ import re
 
 from django.core.exceptions import ValidationError
 import django.utils.deconstruct
+from django.utils.translation import gettext_lazy as _
 
-__all__ = [
-    "ValidateMustContain",
-]
+__all__ = []
 
 
 @django.utils.deconstruct.deconstructible
@@ -20,5 +19,5 @@ class ValidateMustContain:
 
         str_words = " ".join(self.words)
         raise ValidationError(
-            f"Должно содержаться одно из слов: {str_words}",
+            _(f"Должно содержаться одно из слов: {str_words}"),
         )

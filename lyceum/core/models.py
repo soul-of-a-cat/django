@@ -5,14 +5,13 @@ import uuid
 import django.core.exceptions
 import django.db.models
 from django.utils.safestring import mark_safe
+from django.utils.translation import gettext_lazy as _
 import sorl
 import transliterate
 
-__all__ = [
-    "AbstractModel",
-]
+__all__ = []
 
-ONLY_LETTERS_REGEX = re.compile(r"[^\w]")
+ONLY_LETTERS_REGEX = re.compile(r"\W")
 
 
 def get_path_image(instance, filename):
@@ -23,12 +22,13 @@ def get_path_image(instance, filename):
 class AbstractModel(django.db.models.Model):
     is_published = django.db.models.BooleanField(
         default=True,
-        verbose_name="опубликовано",
+        verbose_name=_("опубликовано"),
+        help_text=_("Опубликовано"),
     )
     name = django.db.models.CharField(
         max_length=150,
-        verbose_name="название",
-        help_text="max 150 символов",
+        verbose_name=_("название"),
+        help_text=_("max 150 символов"),
         unique=True,
     )
 
@@ -37,8 +37,8 @@ class AbstractModel(django.db.models.Model):
         editable=False,
         max_length=150,
         null=True,
-        verbose_name="нормализованное название",
-        help_text="Нормализованное название элемента",
+        verbose_name=_("нормализованное название"),
+        help_text=_("Нормализованное название элемента"),
     )
 
     class Meta:
@@ -58,7 +58,7 @@ class AbstractModel(django.db.models.Model):
             > 0
         ):
             raise django.core.exceptions.ValidationError(
-                "Уже есть такой же элемент",
+                _("Уже есть такой же элемент"),
             )
 
     def _generate_normalized_name(self):
@@ -79,7 +79,7 @@ class AbstractModel(django.db.models.Model):
 class ImageModel(django.db.models.Model):
     image = sorl.thumbnail.ImageField(
         upload_to=get_path_image,
-        verbose_name="изображение",
+        verbose_name=_("изображение"),
     )
 
     def get_image_300x300(self):
@@ -111,9 +111,9 @@ class ImageModel(django.db.models.Model):
             tag = f'<img src="{self.get_image_300x300().url}">'
             return mark_safe(tag)
 
-        return "изображение отсутствует"
+        return _("изображение отсутствует")
 
-    image_tmb.short_description = "превью"
+    image_tmb.short_description = _("превью")
     image_tmb.allow_tags = True
     image_tmb.field_name = "image_tmb"
 

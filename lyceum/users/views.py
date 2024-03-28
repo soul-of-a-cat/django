@@ -7,19 +7,13 @@ from django.core.mail import send_mail
 from django.shortcuts import redirect
 from django.urls import reverse, reverse_lazy
 from django.utils import timezone
+from django.utils.translation import gettext_lazy as _
 from django.views import generic
 
 import users.forms
 import users.models
 
-__all__ = [
-    "Signup",
-    "Activate",
-    "Reactivate",
-    "UserListView",
-    "UserDetailView",
-    "ProfileView",
-]
+__all__ = []
 
 
 class Signup(generic.CreateView):
@@ -44,7 +38,7 @@ class Signup(generic.CreateView):
         username = form.cleaned_data.get("username")
         messages.success(
             self.request,
-            f"Пользователь {username} был успешно создан!",
+            _(f"Пользователь {username} был успешно создан!"),
         )
         return redirect(reverse("homepage:home"))
 
@@ -55,11 +49,11 @@ class Activate(generic.DetailView):
     def get(self, *args, pk):
         user = self.get_object(self.queryset)
         if timezone.now() < user.date_joined + datetime.timedelta(hours=12):
-            messages.success(self.request, "Активация прошла успешно!")
+            messages.success(self.request, _("Активация прошла успешно!"))
             user.is_active = True
             user.save()
         else:
-            messages.error(self.request, "Ошибка активации!")
+            messages.error(self.request, _("Ошибка активации!"))
 
         return redirect(reverse("homepage:home"))
 
@@ -70,11 +64,11 @@ class Reactivate(generic.DetailView):
     def get(self, *args, pk):
         user = self.get_object(self.queryset)
         if timezone.now() < user.date_joined + datetime.timedelta(days=7):
-            messages.success(self.request, "Активация прошла успешно!")
+            messages.success(self.request, _("Активация прошла успешно!"))
             user.is_active = True
             user.save()
         else:
-            messages.error(self.request, "Ошибка активации!")
+            messages.error(self.request, _("Ошибка активации!"))
 
         return redirect(reverse("homepage:home"))
 
@@ -111,5 +105,5 @@ class ProfileView(LoginRequiredMixin, generic.CreateView):
         user_form = form["user"]
         profile_form.save()
         user_form.save()
-        messages.success(self.request, "Изменения сохранены!")
+        messages.success(self.request, _("Изменения сохранены!"))
         return redirect(reverse("homepage:home"))

@@ -5,14 +5,10 @@ from django.contrib.auth.models import User as AuthUser
 from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.utils.translation import gettext_lazy as _
 import sorl.thumbnail
 
-
-__all__ = [
-    "Profile",
-    "User",
-    "UserManager",
-]
+__all__ = []
 
 if "makemigrations" not in sys.argv and "migrate" not in sys.argv:
     AuthUser._meta.get_field("email")._unique = True
@@ -30,28 +26,30 @@ class Profile(models.Model):
 
     user = models.OneToOneField(AuthUser, on_delete=models.CASCADE)
     birthday = models.DateField(
-        "Дата рождения",
+        _("Дата рождения"),
         blank=True,
         null=True,
-        help_text="Введите дату рождения пользователя",
+        help_text=_("Введите дату рождения пользователя"),
     )
     coffee_count = models.PositiveIntegerField(
-        "Сколько раз пользователь пил кофе",
+        _("Сколько раз пользователь пил кофе"),
         default=0,
-        help_text="Количество переходов по /coffee/",
+        help_text=_("Количество переходов по /coffee/"),
     )
     attempts_count = models.PositiveIntegerField(
-        "Попытки входа",
+        _("Попытки входа"),
         default=0,
+        help_text=_("Попытки входа"),
     )
     block_date = models.DateTimeField(
-        "Дата блокировки",
+        _("Дата блокировки"),
         blank=True,
         null=True,
+        help_text=_("Дата блокировки"),
     )
     image = models.ImageField(
-        "аватарка",
-        help_text="Загрузите автарку",
+        _("Аватарка"),
+        help_text=_("Загрузите автарку"),
         upload_to=image_path,
         null=True,
         blank=True,
@@ -66,8 +64,8 @@ class Profile(models.Model):
         )
 
     class Meta:
-        verbose_name = "Дополнительное поле"
-        verbose_name_plural = "Дополнительные поля"
+        verbose_name = _("Дополнительное поле")
+        verbose_name_plural = _("Дополнительные поля")
 
 
 class UserManager(django.contrib.auth.models.UserManager):

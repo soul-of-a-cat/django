@@ -1,36 +1,38 @@
 import django.db.models
+from django.utils.translation import gettext_lazy as _
 
 import catalog.models
 import users.models
 
-__all__ = [
-    "Rating",
-]
+__all__ = []
 
 
 class Rating(django.db.models.Model):
     RATING_CHOICES = [
-        (1, "Ненависть"),
-        (2, "Неприязнь"),
-        (3, "Нейтрально"),
-        (4, "Обожание"),
-        (5, "Любовь"),
+        (1, _("Ненависть")),
+        (2, _("Неприязнь")),
+        (3, _("Нейтрально")),
+        (4, _("Обожание")),
+        (5, _("Любовь")),
     ]
 
     user = django.db.models.ForeignKey(
         users.models.User,
-        verbose_name="пользователь",
+        verbose_name=_("пользователь"),
+        help_text=_("Пользователь"),
         on_delete=django.db.models.CASCADE,
     )
     item = django.db.models.ForeignKey(
         catalog.models.Item,
-        verbose_name="товар",
+        verbose_name=_("товар"),
+        help_text=_("Товар"),
         on_delete=django.db.models.CASCADE,
         related_name="rating",
         related_query_name="rating",
     )
     rating = django.db.models.IntegerField(
-        verbose_name="оценка",
+        verbose_name=_("оценка"),
+        help_text=_("Оценка"),
         choices=RATING_CHOICES,
         null=True,
         blank=True,
@@ -38,10 +40,11 @@ class Rating(django.db.models.Model):
     updated = django.db.models.DateTimeField(
         auto_now=True,
         null=True,
+        help_text=_("Время обновления"),
     )
 
     class Meta:
         ordering = ("-updated",)
         default_related_name = "rating"
-        verbose_name = "оценка"
-        verbose_name_plural = "оценки"
+        verbose_name = _("оценка")
+        verbose_name_plural = _("оценки")

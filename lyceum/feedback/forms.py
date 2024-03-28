@@ -1,14 +1,10 @@
 from betterforms.multiform import MultiModelForm
 import django.forms
+from django.utils.translation import gettext_lazy as _
 
 import feedback.models
 
-__all__ = [
-    "FeedbackForm",
-    "FeedbackAuthorForm",
-    "FeedbackFileForm",
-    "FeedbackMultiForm",
-]
+__all__ = []
 
 
 class FeedbackForm(django.forms.ModelForm):
@@ -38,7 +34,7 @@ class FeedbackAuthorForm(django.forms.ModelForm):
         ]
         error_messages = {
             feedback.models.FeedbackAuthor.mail.field.name: {
-                "required": "Введите правильный адрес электронной почты."
+                "required": _("Введите правильный адрес электронной почты."),
             }
         }
 
@@ -66,7 +62,7 @@ class FeedbackFileForm(django.forms.Form):
         for field in self.visible_fields():
             field.field.widget.attrs["class"] = "form-control"
 
-    files = MultipleFileField(required=False, label="Файлы")
+    files = MultipleFileField(required=False, label=_("Файлы"))
 
 
 class FeedbackMultiForm(MultiModelForm):

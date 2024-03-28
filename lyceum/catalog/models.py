@@ -1,32 +1,24 @@
 import django.core.exceptions
 import django.core.validators
 import django.db.models
+from django.utils.translation import gettext_lazy as _
 from mdeditor.fields import MDTextField
 
 import catalog.validators
 from core.models import AbstractModel, ImageModel
 
-__all__ = [
-    "Category",
-    "Item",
-    "Tag",
-    "ItemManager",
-    "ItemSecondaryImage",
-    "ItemMainImage",
-]
+__all__ = []
 
 
 class Tag(AbstractModel):
     slug = django.db.models.SlugField(
-        max_length=200,
-        unique=True,
-        verbose_name="слаг",
+        max_length=200, unique=True, verbose_name=_("слаг"), help_text="Slug"
     )
 
     class Meta:
         db_table = "catalog_tag"
-        verbose_name = "тег"
-        verbose_name_plural = "теги"
+        verbose_name = _("тег")
+        verbose_name_plural = _("теги")
 
     def __str__(self):
         return self.name[:15]
@@ -36,7 +28,8 @@ class Category(AbstractModel):
     slug = django.db.models.SlugField(
         max_length=200,
         unique=True,
-        verbose_name="слаг",
+        verbose_name=_("слаг"),
+        help_text="Slug",
     )
     weight = django.db.models.IntegerField(
         default=100,
@@ -44,13 +37,14 @@ class Category(AbstractModel):
             django.core.validators.MaxValueValidator(32767),
             django.core.validators.MinValueValidator(1),
         ],
-        verbose_name="вес",
+        verbose_name=_("вес"),
+        help_text=_("Вес"),
     )
 
     class Meta:
         db_table = "catalog_category"
-        verbose_name = "категория"
-        verbose_name_plural = "категории"
+        verbose_name = _("категория")
+        verbose_name_plural = _("категории")
 
     def __str__(self):
         return self.name[:15]
@@ -278,45 +272,54 @@ class Item(AbstractModel):
 
     is_on_main = django.db.models.BooleanField(
         default=False,
-        verbose_name="на главной странице",
+        verbose_name=_("на главной странице"),
+        help_text=_("Товары, расположенные на главной странице"),
     )
     text = MDTextField(
         validators=[
-            catalog.validators.ValidateMustContain("превосходно", "роскошно"),
+            catalog.validators.ValidateMustContain(
+                _("превосходно"), _("роскошно")
+            ),
             django.core.validators.MinLengthValidator(2),
         ],
-        verbose_name="текст",
-        help_text="Описание должно быть больше, чем из 2х слов "
-        "и содержать слова 'превосходно, роскошно'",
+        verbose_name=_("текст"),
+        help_text=_(
+            "Описание должно быть больше, чем из 2х слов "
+            "и содержать слова 'превосходно, роскошно'"
+        ),
     )
     category = django.db.models.ForeignKey(
         Category,
         on_delete=django.db.models.CASCADE,
         related_name="items",
         null=True,
-        verbose_name="категория",
-        help_text="Выберите категорию",
+        verbose_name=_("категория"),
+        help_text=_("Выберите категорию"),
     )
     tags = django.db.models.ManyToManyField(
         Tag,
         related_name="tags",
-        verbose_name="тег",
-        help_text="Удерживайте 'Control' (или 'Command' "
-        "на Mac), чтобы выбрать несколько значений",
+        verbose_name=_("тег"),
+        help_text=_(
+            "Удерживайте 'Control' (или 'Command' "
+            "на Mac), чтобы выбрать несколько значений"
+        ),
     )
     created = django.db.models.DateTimeField(
         auto_now_add=True,
         null=True,
+        help_text=_("Время создания"),
     )
     updated = django.db.models.DateTimeField(
         auto_now=True,
         null=True,
+        help_text=_("Время обновления"),
     )
 
     class Meta:
         db_table = "catalog_item"
-        verbose_name = "товар"
-        verbose_name_plural = "товары"
+        verbose_name = _("товар")
+        verbose_name_plural = _("товары")
 
     def __str__(self):
         return self.name[:15]
@@ -328,11 +331,12 @@ class ItemMainImage(ImageModel):
         on_delete=django.db.models.CASCADE,
         related_name="main_image",
         related_query_name="main_image",
+        help_text=_("Главное изображение"),
     )
 
     class Meta:
-        verbose_name = "главное изображение"
-        verbose_name_plural = "главные изображения"
+        verbose_name = _("главное изображение")
+        verbose_name_plural = _("главные изображения")
 
 
 class ItemSecondaryImage(ImageModel):
@@ -341,8 +345,9 @@ class ItemSecondaryImage(ImageModel):
         on_delete=django.db.models.CASCADE,
         related_name="images",
         related_query_name="images",
+        help_text=_("Дополнительное изображение"),
     )
 
     class Meta:
-        verbose_name = "дополнительное изображение"
-        verbose_name_plural = "дополнительные изображения"
+        verbose_name = _("дополнительное изображение")
+        verbose_name_plural = _("дополнительные изображения")
