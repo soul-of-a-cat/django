@@ -11,4 +11,5 @@ class RatingAdmin(admin.ModelAdmin):
         rating.models.Rating.user.field.name,
         rating.models.Rating.item.field.name,
         rating.models.Rating.rating.field.name,
+        rating.models.Rating.updated.field.name,
     )

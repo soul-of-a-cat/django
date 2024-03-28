@@ -238,8 +238,9 @@ class ItemManager(django.db.models.Manager):
         )
 
     def item_list_ratings(self):
-        items = (
+        return (
             self.get_queryset()
+            .filter(is_published=True, category__is_published=True)
             .select_related(
                 Item.category.field.name,
                 Item.main_image.related.name,
@@ -251,20 +252,15 @@ class ItemManager(django.db.models.Manager):
                         Tag.name.field.name,
                     ),
                 ),
-                django.db.models.Prefetch(
-                    Item.images.field._related_name,
-                    queryset=ItemSecondaryImage.objects.all(),
-                ),
             )
-        )
-        return items.only(
-            Item.name.field.name,
-            Item.text.field.name,
-            f"{Item.category.field.name}__{Category.name.field.name}",
-            f"{Item.main_image.related.name}__"
-            f"{ItemMainImage.item.field.name}",
-            f"{Item.images.field._related_name}__"
-            f"{ItemSecondaryImage.item.field.name}",
+            .only(
+                Item.name.field.name,
+                Item.text.field.name,
+                f"{Item.tags.field.name}__{Tag.name.field.name}",
+                f"{Item.category.field.name}__{Category.name.field.name}",
+                f"{Item.main_image.related.name}__"
+                f"{ItemMainImage.image.field.name}",
+            )
         )
 
     def items_ratings(self, ratings_items):

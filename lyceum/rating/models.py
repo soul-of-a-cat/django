@@ -41,5 +41,7 @@ class Rating(django.db.models.Model):
     )
 
     class Meta:
+        ordering = ("-updated",)
+        default_related_name = "rating"
         verbose_name = "оценка"
         verbose_name_plural = "оценки"
