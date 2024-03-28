@@ -6,3 +6,4 @@ pillow==10.2.0
 python-dotenv==1.0.1
 python-slugify==8.0.4
 sorl-thumbnail==12.10.0
+transliterate==1.10.2

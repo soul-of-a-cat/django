@@ -4,7 +4,7 @@ import django.db.models
 from mdeditor.fields import MDTextField
 
 import catalog.validators
-from core.models import AbstractModel, BaseModel, ImageModel
+from core.models import AbstractModel, ImageModel
 
 __all__ = [
     "Category",
@@ -16,7 +16,7 @@ __all__ = [
 ]
 
 
-class Tag(AbstractModel, BaseModel):
+class Tag(AbstractModel):
     slug = django.db.models.SlugField(
         max_length=200,
         unique=True,
@@ -32,7 +32,7 @@ class Tag(AbstractModel, BaseModel):
         return self.name[:15]
 
 
-class Category(AbstractModel, BaseModel):
+class Category(AbstractModel):
     slug = django.db.models.SlugField(
         max_length=200,
         unique=True,

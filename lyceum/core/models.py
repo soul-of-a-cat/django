@@ -2,55 +2,22 @@ from pathlib import Path
 import re
 import uuid
 
+import django.core.exceptions
 import django.db.models
 from django.utils.safestring import mark_safe
-from slugify import slugify
 import sorl
+import transliterate
 
 __all__ = [
     "AbstractModel",
-    "BaseModel",
-    "normalize_name",
 ]
+
+ONLY_LETTERS_REGEX = re.compile(r"[^\w]")
 
 
 def get_path_image(instance, filename):
     ext = filename.split(".")[-1]
     return f"catalog/{uuid.uuid4()}.{ext}"
-
-
-def normalize_name(name):
-    words = re.findall("[0-9а-яёa-z]+", name.lower())
-    return slugify("".join(words))
-
-
-class BaseModel(django.db.models.Model):
-    normalized_name = django.db.models.CharField(
-        unique=True,
-        editable=False,
-        max_length=150,
-        validators=[
-            django.core.validators.MaxLengthValidator(150),
-        ],
-        null=True,
-    )
-
-    def clean(self) -> None:
-        normalized = normalize_name(self.name)
-        existing = self.__class__.objects.filter(
-            normalized_name=normalized,
-        )
-        if existing:
-            raise django.core.exceptions.ValidationError(
-                {
-                    self.__class__.name.field.name: "Такое имя уже имеется",
-                },
-            )
-
-        self.normalized_name = normalized
-
-    class Meta:
-        abstract = True
 
 
 class AbstractModel(django.db.models.Model):
@@ -65,8 +32,48 @@ class AbstractModel(django.db.models.Model):
         unique=True,
     )
 
+    normalized_name = django.db.models.CharField(
+        unique=True,
+        editable=False,
+        max_length=150,
+        null=True,
+        verbose_name="нормализованное название",
+        help_text="Нормализованное название элемента",
+    )
+
     class Meta:
         abstract = True
+
+    def save(self, *args, **kwargs):
+        self.normalized_name = self._generate_normalized_name()
+        super().save(*args, **kwargs)
+
+    def clean(self):
+        self.normalized_name = self._generate_normalized_name()
+        if (
+            type(self)
+            .objects.filter(normalized_name=self.normalized_name)
+            .exclude(id=self.id)
+            .count()
+            > 0
+        ):
+            raise django.core.exceptions.ValidationError(
+                "Уже есть такой же элемент",
+            )
+
+    def _generate_normalized_name(self):
+        try:
+            transliterated = transliterate.translit(
+                self.name.lower(),
+                reversed=True,
+            )
+        except transliterate.exceptions.LanguageDetectionError:
+            transliterated = self.name.lower()
+
+        return ONLY_LETTERS_REGEX.sub(
+            "",
+            transliterated,
+        )
 
 
 class ImageModel(django.db.models.Model):
