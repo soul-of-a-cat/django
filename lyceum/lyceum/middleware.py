@@ -2,10 +2,7 @@ import re
 
 from django.conf import settings
 
-__all__ = [
-    "ReverseResponseMiddleware",
-    "reverse_words",
-]
+__all__ = []
 
 
 def reverse_words(text):

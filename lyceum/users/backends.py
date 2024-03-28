@@ -6,9 +6,7 @@ from django.utils import timezone
 
 import users.models
 
-__all__ = [
-    "UserModelBackend",
-]
+__all__ = []
 
 
 class UserModelBackend(ModelBackend):

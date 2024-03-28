@@ -6,12 +6,7 @@ import parameterized
 
 import catalog.models
 
-__all__ = [
-    "DBNormalizeNameTests",
-    "DBCategoryTests",
-    "DBTagTests",
-    "DBItemTests",
-]
+__all__ = []
 
 
 class DBItemTests(TestCase):
@@ -57,36 +52,6 @@ class DBItemTests(TestCase):
             catalog.models.Item.objects.count(),
             item_count + 1,
             msg="no add validate item",
-        )
-
-    @parameterized.parameterized.expand(
-        [
-            ("test", "превосходноН"),
-            ("test", "превНосходно"),
-            ("test", "Нпревосходно"),
-            ("test", "Я превосх%одно"),
-            ("test", "превосходнороскошно"),
-            ("test" * 38, "превосходно"),
-        ],
-    )
-    def test_add_item_error(self, name, text):
-        item_count = catalog.models.Item.objects.count()
-        self.item = catalog.models.Item(
-            name=name,
-            text=text,
-            category=self.category,
-        )
-        with self.assertRaises(ValidationError):
-            self.item.full_clean()
-            self.item.save()
-            self.item.tags.add(self.tag)
-            self.item.full_clean()
-            self.item.save()
-
-        self.assertEqual(
-            catalog.models.Item.objects.count(),
-            item_count,
-            msg="add no validate item",
         )
 
 

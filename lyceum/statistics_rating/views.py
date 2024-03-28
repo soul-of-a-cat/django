@@ -7,11 +7,7 @@ import catalog.models
 from rating.models import Rating
 import users.models
 
-__all__ = [
-    "UserRatingView",
-    "ItemListRatingsView",
-    "ItemRatingView",
-]
+__all__ = []
 
 
 class UserRatingView(generic.View):

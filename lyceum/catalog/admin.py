@@ -5,13 +5,7 @@ from sorl.thumbnail.admin import AdminImageMixin
 
 import catalog.models
 
-__all__ = [
-    "CategoryAdmin",
-    "TagAdmin",
-    "ItemAdmin",
-    "ItemMainImageAdmin",
-    "ItemSecondaryImageAdmin",
-]
+__all__ = []
 
 
 class ItemMainImageInline(AdminImageMixin, admin.TabularInline):

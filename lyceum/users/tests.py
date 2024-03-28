@@ -10,9 +10,7 @@ from django.utils import timezone
 import users.models
 
 
-__all__ = [
-    "UserTests",
-]
+__all__ = []
 
 
 class UserTests(TestCase):

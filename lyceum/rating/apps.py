@@ -1,8 +1,6 @@
 from django.apps import AppConfig
 
-__all__ = [
-    "RatingConfig",
-]
+__all__ = []
 
 
 class RatingConfig(AppConfig):

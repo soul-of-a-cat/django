@@ -4,9 +4,7 @@ from django.views import generic
 
 import catalog.models
 
-__all__ = [
-    "DownloadView",
-]
+__all__ = []
 
 
 class DownloadView(generic.DetailView):

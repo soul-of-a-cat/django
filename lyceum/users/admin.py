@@ -4,9 +4,7 @@ from django.contrib.auth.admin import UserAdmin
 
 import users.models
 
-__all__ = [
-    "UserProfileAdmin",
-]
+__all__ = []
 
 User = get_user_model()
 

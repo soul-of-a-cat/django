@@ -10,9 +10,7 @@ from django.urls import path, reverse_lazy
 
 import users.views
 
-__all__ = [
-    "custom_auth_form",
-]
+__all__ = []
 
 
 def custom_auth_form(form):

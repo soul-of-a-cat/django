@@ -6,9 +6,7 @@ from django.views import generic
 from feedback.forms import FeedbackAuthorForm, FeedbackFileForm, FeedbackForm
 from feedback.models import FeedbackFile
 
-__all__ = [
-    "FeedbackView",
-]
+__all__ = []
 
 
 class FeedbackView(generic.View):

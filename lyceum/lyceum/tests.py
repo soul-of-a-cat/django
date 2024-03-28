@@ -8,9 +8,7 @@ import parameterized
 from lyceum.middleware import reverse_words
 import users.models
 
-__all__ = [
-    "ReverseResponseMiddlewareTests",
-]
+__all__ = []
 
 
 class ReverseResponseMiddlewareTests(TestCase):

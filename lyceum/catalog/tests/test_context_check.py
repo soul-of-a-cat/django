@@ -4,9 +4,7 @@ from django.urls import reverse
 
 import catalog.models
 
-__all__ = [
-    "ContextTest",
-]
+__all__ = []
 
 
 class ContextTest(TestCase):
@@ -65,23 +63,23 @@ class ContextTest(TestCase):
         cls.published_item.tags.add(cls.unpublished_tag.id)
 
     def test_homepage_show_correct_context(self):
-        response = Client().get(reverse("homepage:home"))
+        response = Client().get(reverse("catalog:item-list"))
         self.assertIn("items", response.context)
 
     def test_home_count_item(self):
-        response = Client().get(reverse("homepage:home"))
+        response = Client().get(reverse("catalog:item-list"))
         items = response.context["items"]
         self.assertEqual(len(items), 1)
 
     def test_context_items_type(self):
-        response = Client().get(reverse("homepage:home"))
+        response = Client().get(reverse("catalog:item-list"))
         items = response.context["items"]
         expected_type = QuerySet
 
         self.assertIsInstance(items, expected_type)
 
     def test_context_items_field(self):
-        response = Client().get(reverse("homepage:home"))
+        response = Client().get(reverse("catalog:item-list"))
         items = response.context["items"].first().__dict__
         tags = items["_prefetched_objects_cache"]["tags"].first().__dict__
         need_fields = [

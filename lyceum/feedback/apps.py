@@ -1,8 +1,6 @@
 from django.apps import AppConfig
 
-__all__ = [
-    "FeedbackConfig",
-]
+__all__ = []
 
 
 class FeedbackConfig(AppConfig):

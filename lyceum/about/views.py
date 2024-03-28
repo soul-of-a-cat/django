@@ -1,8 +1,6 @@
 from django.views import generic
 
-__all__ = [
-    "AboutView",
-]
+__all__ = []
 
 
 class AboutView(generic.TemplateView):
