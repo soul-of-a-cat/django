@@ -21,7 +21,7 @@ unit-test-job:
   script:
     - python -m venv .venv
     - source .venv/bin/activate
-    - python -m pip install -r requirements/dev.txt -r requirements/prod.txt
+    - python -m pip install -r requirements/dev.txt -r requirements/test.txt
     - cp .env.example .env
     - cd lyceum
     - python manage.py test
