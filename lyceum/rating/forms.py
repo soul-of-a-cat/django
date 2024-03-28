@@ -2,9 +2,7 @@ import django.forms
 
 import rating.models
 
-__all__ = [
-    "RatingForm",
-]
+__all__ = []
 
 
 class RatingForm(django.forms.ModelForm):
@@ -13,9 +11,11 @@ class RatingForm(django.forms.ModelForm):
         for field in self.visible_fields():
             field.field.widget.attrs["class"] = "form-select"
 
-        self.fields["rating"].widget.attrs["onchange"] = "this.form.submit()"
-        self.fields["user"].disabled = True
-        self.fields["item"].disabled = True
+        self.fields[rating.models.Rating.rating.field.name].widget.attrs[
+            "onchange"
+        ] = "this.form.submit()"
+        self.fields[rating.models.Rating.user.field.name].disabled = True
+        self.fields[rating.models.Rating.item.field.name].disabled = True
 
     class Meta:
         model = rating.models.Rating

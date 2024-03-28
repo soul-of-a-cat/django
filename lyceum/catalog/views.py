@@ -12,13 +12,7 @@ import catalog.models
 import rating.forms
 import rating.models
 
-__all__ = [
-    "ItemListView",
-    "ItemDetailView",
-    "ItemListNewView",
-    "ItemListFridayView",
-    "ItemListUnverifiedView",
-]
+__all__ = []
 
 
 class ItemListView(generic.ListView):
@@ -33,6 +27,10 @@ class ItemDetailView(DetailView, ModelFormMixin):
     template_name = "catalog/item.html"
     model = catalog.models.Item
     form_class = rating.forms.RatingForm
+
+    def __init__(self, **kwargs):
+        super().__init__(kwargs)
+        self.object = None
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -117,9 +115,11 @@ class ItemListFridayView(generic.ListView):
     model = catalog.models.Item
 
     def get_queryset(self):
-        items = self.model.objects.friday()
-
-        items = sorted(items, key=lambda x: (x.category.name, x.updated))
+        items = self.model.objects.friday().order_by(
+            f"{catalog.models.Item.category.field.name}__"
+            f"{catalog.models.Category.name.field.name}",
+            catalog.models.Item.updated.field.name,
+        )
 
         if len(items) > 5:
             return items[-5::]
@@ -133,6 +133,7 @@ class ItemListUnverifiedView(generic.ListView):
     model = catalog.models.Item
 
     def get_queryset(self):
-        return sorted(
-            self.model.objects.unverified(), key=lambda x: x.category.name
+        return self.model.objects.unverified().order_by(
+            f"{catalog.models.Item.category.field.name}__"
+            f"{catalog.models.Category.name.field.name}",
         )
