@@ -127,7 +127,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-LANGUAGE_CODE = os.getenv("LANGUAGE", default="ru")
+LANGUAGE_CODE = os.getenv("LANGUAGE"[:2], default="ru")
 
 TIME_ZONE = "UTC"
 
@@ -138,8 +138,6 @@ USE_TZ = True
 LANGUAGES = [
     ("ru", gettext_lazy("Russian")),
     ("en", gettext_lazy("English")),
-    ("de", gettext_lazy("German")),
-    ("fr", gettext_lazy("French")),
 ]
 LOCALE_PATHS = ("locale",)
 
