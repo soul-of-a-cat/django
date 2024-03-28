@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-27 21:47+0300\n"
+"POT-Creation-Date: 2024-03-28 23:22+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,29 +16,342 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
-"%100>=11 && n%100<=14)? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
+#: .\catalog\models.py:15 .\catalog\models.py:31
+msgid "слаг"
+msgstr "слаг"
 
-#: .\feedback\tests.py:40
+#: .\catalog\models.py:20 .\catalog\models.py:302
+msgid "тег"
+msgstr "тег"
+
+#: .\catalog\models.py:21
+msgid "теги"
+msgstr "теги"
+
+#: .\catalog\models.py:40
+msgid "вес"
+msgstr "вес"
+
+#: .\catalog\models.py:41
+msgid "Вес"
+msgstr "Вес"
+
+#: .\catalog\models.py:46 .\catalog\models.py:296
+msgid "категория"
+msgstr "категория"
+
+#: .\catalog\models.py:47
+msgid "категории"
+msgstr "категории"
+
+#: .\catalog\models.py:275
+msgid "на главной странице"
+msgstr "на главной странице"
+
+#: .\catalog\models.py:276
+msgid "Товары, расположенные на главной странице"
+msgstr "Товары, расположенные на главной странице"
+
+#: .\catalog\models.py:281
+msgid "превосходно"
+msgstr "превосходно"
+
+#: .\catalog\models.py:281
+msgid "роскошно"
+msgstr "роскошно"
+
+#: .\catalog\models.py:285 .\feedback\models.py:16
+msgid "текст"
+msgstr "текст"
+
+#: .\catalog\models.py:287
+msgid ""
+"Описание должно быть больше, чем из 2х слов и содержать слова 'превосходно, "
+"роскошно'"
+msgstr ""
+"Описание должно быть больше, чем из 2х слов и содержать слова 'превосходно, "
+"роскошно'"
+
+#: .\catalog\models.py:297
+msgid "Выберите категорию"
+msgstr "Выберите категорию"
+
+#: .\catalog\models.py:304
+msgid ""
+"Удерживайте 'Control' (или 'Command' на Mac), чтобы выбрать несколько "
+"значений"
+msgstr ""
+"Удерживайте 'Control' (или 'Command' на Mac), чтобы выбрать несколько "
+"значений"
+
+#: .\catalog\models.py:311
+msgid "Время создания"
+msgstr "Время создания"
+
+#: .\catalog\models.py:316 .\rating\models.py:43
+msgid "Время обновления"
+msgstr "Время обновления"
+
+#: .\catalog\models.py:321 .\rating\models.py:27
+msgid "товар"
+msgstr "товар"
+
+#: .\catalog\models.py:322
+msgid "товары"
+msgstr "товары"
+
+#: .\catalog\models.py:334
+msgid "Главное изображение"
+msgstr "Главное изображение"
+
+#: .\catalog\models.py:338
+msgid "главное изображение"
+msgstr "главное изображение"
+
+#: .\catalog\models.py:339
+msgid "главные изображения"
+msgstr "главные изображения"
+
+#: .\catalog\models.py:348
+msgid "Дополнительное изображение"
+msgstr "Дополнительное изображение"
+
+#: .\catalog\models.py:352
+msgid "дополнительное изображение"
+msgstr "дополнительное изображение"
+
+#: .\catalog\models.py:353
+msgid "дополнительные изображения"
+msgstr "дополнительные изображения"
+
+#: .\catalog\validators.py:22
+#, python-brace-format
+msgid "Должно содержаться одно из слов: {str_words}"
+msgstr "Должно содержаться одно из слов: {str_words}"
+
+#: .\core\models.py:25
+msgid "опубликовано"
+msgstr "опубликовано"
+
+#: .\core\models.py:26
+msgid "Опубликовано"
+msgstr "Опубликовано"
+
+#: .\core\models.py:30
+msgid "название"
+msgstr "название"
+
+#: .\core\models.py:31
+msgid "max 150 символов"
+msgstr "max 150 символов"
+
+#: .\core\models.py:40
+msgid "нормализованное название"
+msgstr "нормализованное название"
+
+#: .\core\models.py:41
+msgid "Нормализованное название элемента"
+msgstr "Нормализованное название элемента"
+
+#: .\core\models.py:61
+msgid "Уже есть такой же элемент"
+msgstr "Уже есть такой же элемент"
+
+#: .\core\models.py:82
+msgid "изображение"
+msgstr "изображение"
+
+#: .\core\models.py:114
+msgid "изображение отсутствует"
+msgstr "изображение отсутствует"
+
+#: .\core\models.py:116
+msgid "превью"
+msgstr "превью"
+
+#: .\feedback\forms.py:37
+msgid "Введите правильный адрес электронной почты."
+msgstr "Введите правильный адрес электронной почты."
+
+#: .\feedback\forms.py:65 .\feedback\models.py:98
+msgid "Файлы"
+msgstr "Файлы"
+
+#: .\feedback\models.py:9
+msgid "Получено"
+msgstr "Получено"
+
+#: .\feedback\models.py:10
+msgid "В обработке"
+msgstr "В обработке"
+
+#: .\feedback\models.py:11
+msgid "Ответ дан"
+msgstr "Ответ дан"
+
+#: .\feedback\models.py:17
+msgid "напишите текст сообщения"
+msgstr "напишите текст сообщения"
+
+#: .\feedback\models.py:20 .\feedback\models.py:55
+msgid "создано"
+msgstr "создано"
+
+#: .\feedback\models.py:21 .\feedback\models.py:56
+msgid "дата и время создания"
+msgstr "дата и время создания"
+
+#: .\feedback\models.py:29
+msgid "статус"
+msgstr "статус"
+
+#: .\feedback\models.py:30
+msgid "Статус"
+msgstr "Статус"
+
+#: .\feedback\models.py:34 .\feedback\models.py:91
+msgid "обратная связь"
+msgstr "обратная связь"
+
+#: .\feedback\models.py:35
+msgid "обратные связи"
+msgstr "обратные связи"
+
+#: .\feedback\models.py:38
+#, python-brace-format
+msgid "обратная связь ({self.id})"
+msgstr "обратная связь ({self.id})"
+
+#: .\feedback\models.py:46 .\rating\models.py:22
+#: .\templates\users\user_detail.html:6
+msgid "Пользователь"
+msgstr "Пользователь"
+
+#: .\feedback\models.py:52 .\feedback\models.py:123
+#: .\templates\feedback\feedback.html:6 .\templates\includes\header.html:48
+#: .\templates\includes\header.html:52
+msgid "Обратная связь"
+msgstr "Обратная связь"
+
+#: .\feedback\models.py:64 .\feedback\models.py:66
+msgid "с"
+msgstr "с"
+
+#: .\feedback\models.py:71 .\feedback\models.py:73
+msgid "на"
+msgstr "на"
+
+#: .\feedback\models.py:77
+msgid "журнал состояния"
+msgstr "журнал состояния"
+
+#: .\feedback\models.py:78
+msgid "журнал состояний"
+msgstr "журнал состояний"
+
+#: .\feedback\models.py:81
+#, python-brace-format
+msgid "состояние ({self.id})"
+msgstr "состояние ({self.id})"
+
+#: .\feedback\models.py:94
+msgid "файлы"
+msgstr "файлы"
+
+#: .\feedback\models.py:102
+msgid "файлы обратной связи"
+msgstr "файлы обратной связи"
+
+#: .\feedback\models.py:103
+msgid "файлы обратных связей"
+msgstr "файлы обратных связей"
+
+#: .\feedback\models.py:108
+msgid "имя"
+msgstr "имя"
+
+#: .\feedback\models.py:110
+msgid "напишите имя"
+msgstr "напишите имя"
+
+#: .\feedback\models.py:115
+msgid "почта"
+msgstr "почта"
+
+#: .\feedback\models.py:116 .\feedback\tests.py:40
 msgid "почтовый адрес"
 msgstr "почтовый адрес"
 
-#: .\lyceum\settings.py:138
+#: .\feedback\models.py:127
+msgid "данные автора"
+msgstr "данные автора"
+
+#: .\feedback\models.py:128
+msgid "данные авторов"
+msgstr "данные авторов"
+
+#: .\homepage\forms.py:9
+msgid "Текст"
+msgstr "Текст"
+
+#: .\homepage\forms.py:10
+msgid "Напишите текст сообщения"
+msgstr "Напишите текст сообщения"
+
+#: .\homepage\views.py:31
+msgid "Я чайник"
+msgstr "Я чайник"
+
+#: .\lyceum\settings.py:139
 msgid "Russian"
 msgstr "Русский"
 
-#: .\lyceum\settings.py:139
+#: .\lyceum\settings.py:140
 msgid "English"
 msgstr "Английский"
 
-#: .\lyceum\settings.py:140
-msgid "German"
-msgstr "Немецкий"
+#: .\rating\models.py:12
+msgid "Ненависть"
+msgstr "Ненависть"
 
-#: .\lyceum\settings.py:141
-msgid "French"
-msgstr "Французский"
+#: .\rating\models.py:13
+msgid "Неприязнь"
+msgstr "Неприязнь"
+
+#: .\rating\models.py:14
+msgid "Нейтрально"
+msgstr "Нейтрально"
+
+#: .\rating\models.py:15
+msgid "Обожание"
+msgstr "Обожание"
+
+#: .\rating\models.py:16
+msgid "Любовь"
+msgstr "Любовь"
+
+#: .\rating\models.py:21
+msgid "пользователь"
+msgstr "пользователь"
+
+#: .\rating\models.py:28 .\templates\catalog\item.html:5
+msgid "Товар"
+msgstr "Товар"
+
+#: .\rating\models.py:34 .\rating\models.py:49
+msgid "оценка"
+msgstr "оценка"
+
+#: .\rating\models.py:35
+msgid "Оценка"
+msgstr "Оценка"
+
+#: .\rating\models.py:50
+msgid "оценки"
+msgstr "оценки"
 
 #: .\templates\about\about.html:5
 msgid "Описание"
@@ -86,10 +399,6 @@ msgstr "Пятница"
 msgid "Пока ничего нет!"
 msgstr "Пока ничего нет!"
 
-#: .\templates\catalog\item.html:5
-msgid "Товар"
-msgstr "Товар"
-
 #: .\templates\catalog\item.html:15
 msgid "Категория:"
 msgstr "Категория:"
@@ -110,11 +419,6 @@ msgstr "Непроверенное"
 #: .\templates\includes\header.html:40
 msgid "Список товаров"
 msgstr "Список товаров"
-
-#: .\templates\feedback\feedback.html:6 .\templates\includes\header.html:48
-#: .\templates\includes\header.html:52
-msgid "Обратная связь"
-msgstr "Обратная связь"
 
 #: .\templates\feedback\feedback.html:121
 msgid "Отправить"
@@ -185,10 +489,8 @@ msgstr "Изменить"
 #: .\templates\statistics\user_ratings.html:16
 #: .\templates\statistics\user_ratings.html:20
 #: .\templates\statistics\user_ratings.html:54
-#, fuzzy
-#| msgid "Список пользователей"
 msgid "Статистика пользователя"
-msgstr "Список товаров"
+msgstr "Статистика пользователя"
 
 #: .\templates\statistics\item_list_ratings.html:28
 #: .\templates\statistics\item_list_ratings.html:32
@@ -197,10 +499,8 @@ msgstr "Список товаров"
 #: .\templates\statistics\items_rating.html:32
 #: .\templates\statistics\user_ratings.html:28
 #: .\templates\statistics\user_ratings.html:32
-#, fuzzy
-#| msgid "Список товаров"
 msgid "Статистика товаров"
-msgstr "Список товаров"
+msgstr "Статистика товаров"
 
 #: .\templates\statistics\item_list_ratings.html:40
 #: .\templates\statistics\item_list_ratings.html:44
@@ -209,10 +509,8 @@ msgstr "Список товаров"
 #: .\templates\statistics\items_rating.html:54
 #: .\templates\statistics\user_ratings.html:40
 #: .\templates\statistics\user_ratings.html:44
-#, fuzzy
-#| msgid "Список товаров"
 msgid "Статистика по товарам"
-msgstr "Список товаров"
+msgstr "Статистика по товарам"
 
 #: .\templates\users\login.html:5 .\templates\users\login.html:12
 msgid "Авторизоваться"
@@ -264,8 +562,8 @@ msgid ""
 "You're receiving this email because you requested a password reset for your "
 "user account at "
 msgstr ""
-"Вы получаете это электронное письмо, потому что запросили сброс пароля для "
-"своей учетной записи пользователя по адресу "
+"Вы получаете это электронное письмо, потому что запросили сброс пароля для своей "
+"учетной записи пользователя по адресу "
 
 #: .\templates\users\password_reset_email.html:4
 msgid "Please go to the following page and choose a new password:"
@@ -282,23 +580,19 @@ msgstr "Спасибо, что воспользовались нашим сай�
 #: .\templates\users\password_reset_email.html:10
 #, python-format
 msgid "The %(site_name)s team"
-msgstr "Команда сайта %(site_name)s"
+msgstr "Команда %(site_name)s"
 
 #: .\templates\users\profile.html:7
-#, fuzzy
-#| msgid "Изменить"
 msgid "Изменить профиль"
-msgstr "Изменить"
+msgstr "Изменить профиль"
 
 #: .\templates\users\profile.html:53
 msgid "Выпить кофе"
 msgstr "Выпить кофе"
 
 #: .\templates\users\profile.html:54
-#, fuzzy
-#| msgid "Изменить"
 msgid "Сменить пароль"
-msgstr "Изменить"
+msgstr "Сменить пароль"
 
 #: .\templates\users\profile.html:55
 msgid "Сохранить изменения"
@@ -307,10 +601,6 @@ msgstr "Сохранить изменения"
 #: .\templates\users\signup.html:5
 msgid "Регистрация"
 msgstr "Регистрация"
-
-#: .\templates\users\user_detail.html:6
-msgid "Пользователь"
-msgstr "Пользователь"
 
 #: .\templates\users\user_detail.html:27
 msgid "Имя:"
@@ -338,8 +628,65 @@ msgstr "Кофе выпито:"
 
 #: .\templates\users\user_list.html:6
 msgid "Список пользователей"
-msgstr "Список товаров"
+msgstr "Список пользователей"
 
 #: .\templates\users\user_list.html:19
 msgid "Нет активных пользователей."
 msgstr "Нет активных пользователей."
+
+#: .\users\models.py:29
+msgid "Дата рождения"
+msgstr "Дата рождения"
+
+#: .\users\models.py:32
+msgid "Введите дату рождения пользователя"
+msgstr "Введите дату рождения пользователя"
+
+#: .\users\models.py:35
+msgid "Сколько раз пользователь пил кофе"
+msgstr "Сколько раз пользователь пил кофе"
+
+#: .\users\models.py:37
+msgid "Количество переходов по /coffee/"
+msgstr "Количество переходов по /coffee/"
+
+#: .\users\models.py:40 .\users\models.py:42
+msgid "Попытки входа"
+msgstr "Попытки входа"
+
+#: .\users\models.py:45 .\users\models.py:48
+msgid "Дата блокировки"
+msgstr "Дата блокировки"
+
+#: .\users\models.py:51
+msgid "Аватарка"
+msgstr "Аватарка"
+
+#: .\users\models.py:52
+msgid "Загрузите автарку"
+msgstr "Загрузите автарку"
+
+#: .\users\models.py:67
+msgid "Дополнительное поле"
+msgstr "Дополнительное поле"
+
+#: .\users\models.py:68
+msgid "Дополнительные поля"
+msgstr "Дополнительные поля"
+
+#: .\users\views.py:41
+#, python-brace-format
+msgid "Пользователь {username} был успешно создан!"
+msgstr "Пользователь {username} был успешно создан!"
+
+#: .\users\views.py:52 .\users\views.py:67
+msgid "Активация прошла успешно!"
+msgstr "Активация прошла успешно!"
+
+#: .\users\views.py:56 .\users\views.py:71
+msgid "Ошибка активации!"
+msgstr "Ошибка активации!"
+
+#: .\users\views.py:108
+msgid "Изменения сохранены!"
+msgstr "Изменения сохранены!"
