@@ -1,5 +1,5 @@
 import django.db.models
-from django.db.models import Avg, Count, Max, Min, OuterRef, Subquery
+from django.db.models import Avg, Count, OuterRef, Subquery
 from django.shortcuts import render
 from django.views import generic
 
@@ -27,21 +27,15 @@ class UserRatingView(generic.View):
         )
 
         vals_rating = items.aggregate(
-            avg_rating=Avg("rating"),
-            num_ratings=Count("rating"),
-            max_rating=Max("rating"),
-            min_rating=Min("rating"),
+            avg_rating=Avg("rating__rating"),
+            num_ratings=Count("rating__rating"),
         )
 
         rating_items = {}
 
         if vals_rating["num_ratings"] > 0:
-            max_rating_item = items.filter(
-                rating=vals_rating["max_rating"]
-            ).first()
-            min_rating_item = items.filter(
-                rating=vals_rating["min_rating"]
-            ).first()
+            max_rating_item = items.order_by("-rating__rating").first()
+            min_rating_item = items.order_by("rating__rating").first()
 
             rating_items = {
                 "Самый лучший товар": max_rating_item,
@@ -86,12 +80,12 @@ class ItemListRatingsView(generic.View):
 
 class ItemRatingView(generic.View):
     def get(self, request):
-        last_max_rating_subquery = (
+        last_max_rating_user_subquery = (
             rating.models.Rating.objects.filter(item=OuterRef("id"))
             .order_by("-rating")
             .values("user__username")[:1]
         )
-        last_min_rating_subquery = (
+        last_min_rating_user_subquery = (
             rating.models.Rating.objects.filter(item=OuterRef("id"))
             .order_by("rating")
             .values("user__username")[:1]
@@ -113,8 +107,8 @@ class ItemRatingView(generic.View):
             .annotate(
                 avg_rating=Avg("rating__rating"),
                 num_ratings=Count("rating__rating"),
-                max_rating_user=Subquery(last_max_rating_subquery),
-                min_rating_user=Subquery(last_min_rating_subquery),
+                max_rating_user=Subquery(last_max_rating_user_subquery),
+                min_rating_user=Subquery(last_min_rating_user_subquery),
             )
         )
 
