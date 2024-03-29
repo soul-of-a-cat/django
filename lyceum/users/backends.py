@@ -19,6 +19,9 @@ class UserModelBackend(ModelBackend):
         except users.models.User.DoesNotExist:
             return None
         else:
+            if not hasattr(user, f"{users.models.User.profile.related.name}"):
+                users.models.Profile.objects.create(user=user)
+
             if user.check_password(password):
                 user.profile.attempts_count = 0
                 user.profile.save()

@@ -3,8 +3,6 @@ import sys
 import django.contrib.auth.models
 from django.contrib.auth.models import User as AuthUser
 from django.db import models
-from django.db.models.signals import post_save
-from django.dispatch import receiver
 from django.utils.translation import gettext_lazy as _
 import sorl.thumbnail
 
@@ -12,12 +10,6 @@ __all__ = []
 
 if "makemigrations" not in sys.argv and "migrate" not in sys.argv:
     AuthUser._meta.get_field("email")._unique = True
-
-
-@receiver(post_save, sender=AuthUser)
-def create_superuser_profile(sender, instance, created, **kwargs):
-    if created and instance.is_superuser:
-        Profile.objects.create(user=instance)
 
 
 class Profile(models.Model):
