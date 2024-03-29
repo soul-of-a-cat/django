@@ -29,7 +29,7 @@ class ItemDetailView(DetailView, ModelFormMixin):
     form_class = rating.forms.RatingForm
 
     def __init__(self, **kwargs):
-        super().__init__(kwargs)
+        super().__init__(**kwargs)
         self.object = None
 
     def get_context_data(self, **kwargs):

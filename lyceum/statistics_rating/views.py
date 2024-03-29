@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 import django.db.models
 from django.db.models import Avg, Count, OuterRef, Subquery
 from django.shortcuts import render
@@ -10,17 +11,14 @@ import users.models
 __all__ = []
 
 
-class UserRatingView(generic.View):
+class UserRatingView(LoginRequiredMixin, generic.View):
     def get(self, request):
         items = (
             catalog.models.Item.objects.item_list_ratings().prefetch_related(
                 django.db.models.Prefetch(
                     catalog.models.Item.rating.field._related_name,
-                    queryset=Rating.objects.filter(
-                        user=request.user,
-                    ),
                 )
-            )
+            ).filter(rating__user=request.user)
         )
 
         vals_rating = items.aggregate(
@@ -42,8 +40,10 @@ class UserRatingView(generic.View):
 
             rating_items = {
                 "Самый лучший товар": max_rating_item,
-                "Самый плохой товар": min_rating_item,
             }
+
+            if max_rating_item != min_rating_item:
+                rating_items["Самый плохой товар"] = min_rating_item
 
         return render(
             request,
@@ -56,7 +56,7 @@ class UserRatingView(generic.View):
         )
 
 
-class ItemListRatingsView(generic.View):
+class ItemListRatingsView(LoginRequiredMixin, generic.View):
     def get(self, request):
         items = (
             catalog.models.Item.objects.item_list_ratings()
@@ -68,12 +68,7 @@ class ItemListRatingsView(generic.View):
                     ),
                 ),
             )
-            .filter(
-                id=django.db.models.F(
-                    f"{catalog.models.Item.rating.field._related_name}__"
-                    f"{Rating.item.field.name}"
-                ),
-            )
+            .filter(rating__user=request.user)
             .order_by(
                 f"-{catalog.models.Item.rating.field._related_name}__"
                 f"{Rating.rating.field.name}"
@@ -92,7 +87,10 @@ class ItemRatingView(generic.View):
     def get(self, request):
         last_max_rating_user_subquery = (
             Rating.objects.filter(item=OuterRef("id"))
-            .order_by(f"-{Rating.rating.field.name}")
+            .order_by(
+                f"-{Rating.rating.field.name}",
+                f"-{Rating.updated.field.name}",
+            )
             .values(
                 f"{Rating.user.field.name}__"
                 f"{users.models.User.username.field.name}"
@@ -100,7 +98,10 @@ class ItemRatingView(generic.View):
         )
         last_min_rating_user_subquery = (
             Rating.objects.filter(item=OuterRef("id"))
-            .order_by(Rating.rating.field.name)
+            .order_by(
+                Rating.rating.field.name,
+                f"-{Rating.updated.field.name}",
+            )
             .values(
                 f"{Rating.user.field.name}__"
                 f"{users.models.User.username.field.name}"
