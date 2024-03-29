@@ -14,11 +14,13 @@ __all__ = []
 class UserRatingView(LoginRequiredMixin, generic.View):
     def get(self, request):
         items = (
-            catalog.models.Item.objects.item_list_ratings().prefetch_related(
+            catalog.models.Item.objects.item_list_ratings()
+            .prefetch_related(
                 django.db.models.Prefetch(
                     catalog.models.Item.rating.field._related_name,
                 )
-            ).filter(rating__user=request.user)
+            )
+            .filter(rating__user=request.user)
         )
 
         vals_rating = items.aggregate(
