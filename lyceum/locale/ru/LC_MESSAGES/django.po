@@ -91,7 +91,7 @@ msgstr ""
 msgid "Время создания"
 msgstr "Время создания"
 
-#: .\catalog\models.py:316 .\rating\models.py:43
+#: .\catalog\models.py:316
 msgid "Время обновления"
 msgstr "Время обновления"
 
@@ -225,7 +225,7 @@ msgstr "обратные связи"
 msgid "обратная связь ({self.id})"
 msgstr "обратная связь ({self.id})"
 
-#: .\feedback\models.py:46 .\rating\models.py:22
+#: .\feedback\models.py:46
 #: .\templates\users\user_detail.html:6
 msgid "Пользователь"
 msgstr "Пользователь"
@@ -337,17 +337,13 @@ msgstr "Любовь"
 msgid "пользователь"
 msgstr "пользователь"
 
-#: .\rating\models.py:28 .\templates\catalog\item.html:5
+#: .\templates\catalog\item.html:5
 msgid "Товар"
 msgstr "Товар"
 
 #: .\rating\models.py:34 .\rating\models.py:49
 msgid "оценка"
 msgstr "оценка"
-
-#: .\rating\models.py:35
-msgid "Оценка"
-msgstr "Оценка"
 
 #: .\rating\models.py:50
 msgid "оценки"
