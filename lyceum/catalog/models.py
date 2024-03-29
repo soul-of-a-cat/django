@@ -12,7 +12,10 @@ __all__ = []
 
 class Tag(AbstractModel):
     slug = django.db.models.SlugField(
-        max_length=200, unique=True, verbose_name=_("слаг"), help_text="Slug"
+        max_length=200,
+        unique=True,
+        verbose_name=_("слаг"),
+        help_text="Slug",
     )
 
     class Meta:
