@@ -1,6 +1,6 @@
 # Интернет магазин
 
-[![CI](https://github.com/soul-of-a-cat/django/.github/workflows/ci.yml/badge.svg)](https://github.com/soul-of-a-cat/django/.github/workflows/ci.yml)
+[![CI](https://github.com/soul-of-a-cat/django/actions/workflows/ci.yml/badge.svg)](https://github.com/soul-of-a-cat/django/actions/workflows/ci.yml)
 
 + Для Windows используем ***python (pip)***, для Linux - ***python3 (pip3)***
 + Чтобы перейти к определённому товару, достаточно просто нажать на карточку товара
