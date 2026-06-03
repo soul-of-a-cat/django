@@ -2,6 +2,8 @@
 
 [![pipeline status](https://gitlab.crja72.ru/django/2024/spring/course/students/145442-timiniljuha-course-1112/badges/main/pipeline.svg)](https://gitlab.crja72.ru/django/2024/spring/course/students/145442-timiniljuha-course-1112/-/commits/main)
 
+[![CI](https://github.com/soul-of-a-cat/django/actions/workflows/ci.yml/badge.svg)](https://github.com/soul-of-a-cat/django/actions/workflows/ci.yml)
+
 + Для Windows используем ***python (pip)***, для Linux - ***python3 (pip3)***
 + Чтобы перейти к определённому товару, достаточно просто нажать на карточку товара
 
